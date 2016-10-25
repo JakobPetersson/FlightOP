@@ -12,7 +12,7 @@ class BoardingPass {
 
         this.flights.push(new Flight(consumer, this.flights.length + 1));
 
-        // General mandatory items
+        this.mandatoryItems = this.flights[0].generalMandatoryItems;
         this.generalItems = this.flights[0].generalItems;
 
         this.securitySector = new SecuritySector(consumer);

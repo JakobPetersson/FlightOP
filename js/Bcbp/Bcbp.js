@@ -18,7 +18,7 @@ class Bcbp extends React.Component {
     }
 
     loadInitialData() {
-        let queryData = this.getParameterByName("data");
+        let queryData = Bcbp.getParameterByName("data");
         if (queryData) {
             return queryData;
         } else {
@@ -26,7 +26,7 @@ class Bcbp extends React.Component {
         }
     }
 
-    getParameterByName(name, url) {
+    static getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -54,7 +54,7 @@ class Bcbp extends React.Component {
                         <Barcodes rawData={this.state.boardingPass.rawData} />
                     </Col>
                 </Row>
-                <GeneralItems generalItems={this.state.boardingPass.generalItems} />
+                <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems} conditionalItems={this.state.boardingPass.generalItems} />
                 <Flights flights={this.state.boardingPass.flights} />
                 <SecuritySector securitySector={this.state.boardingPass.securitySector} />
             </Grid>

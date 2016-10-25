@@ -1,6 +1,7 @@
 import DataConsumer from "./DataConsumer";
 import Item from "./Item";
 import ConditionalItem from "./ConditionalItem";
+import GeneralMandatoryItems from "./GeneralMandatoryItems";
 import FlightMandatoryItems from "./FlightMandatoryItems";
 
 class Flight {
@@ -13,7 +14,10 @@ class Flight {
         /*
          * Mandatory fields
          */
-        this._initUniqueMandatoryFields(consumer.getData(23));
+
+        if (this.isFirstFlight) {
+            this.generalMandatoryItems = new GeneralMandatoryItems(consumer.getData(23));
+        }
         this.mandatoryItems = new FlightMandatoryItems(consumer.getData(35));
 
         /*
@@ -64,19 +68,6 @@ class Flight {
             individualSize = individualSize - this.conditionalUniqueSizeDec - 2;
         }
         this.forIndividualAirlineUse = new ConditionalItem('For individual airline use', consumer.getData(individualSize), individualSize)
-    }
-
-    _initUniqueMandatoryFields(rawData) {
-        if (this.isFirstFlight) {
-            if (rawData.length != 23) {
-                console.log(new Error("Flight, wrong data length for mandatory unique items"));
-            }
-            let data = new DataConsumer(rawData);
-            this.generalItems.push(new Item('Format Code', data.getData(1), 1));
-            this.generalItems.push(new Item('Number of Legs Encoded', data.getData(1), 1));
-            this.generalItems.push(new Item('Passenger Name', data.getData(20), 20));
-            this.generalItems.push(new Item('Electronic Ticket Indicator', data.getData(1), 1));
-        }
     }
 
     _initUniqueConditionalFields(rawData) {
