@@ -28,6 +28,8 @@ class Flight extends React.Component {
                     <Item key={mandatory.checkInSequenceNumber.name}        item={mandatory.checkInSequenceNumber} />
                     <Item key={mandatory.passengerStatus.name}              item={mandatory.passengerStatus} />
 
+                    <Item key={mandatory.sizeOfAllConditional.name}         item={mandatory.sizeOfAllConditional} />
+
                     <Item key={this.props.flight.sizeOfConditionalItems.name} item={this.props.flight.sizeOfConditionalItems} />
 
                     <Item key={this.props.flight.airlineNumericCode.name} item={this.props.flight.airlineNumericCode} />

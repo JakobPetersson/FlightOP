@@ -5,7 +5,6 @@ import SecuritySector from "./SecuritySector";
 class BoardingPass {
     constructor(rawData) {
         this.rawData = rawData;
-        this.generalItems = [];
         this.flights = [];
 
         let provider = new DataProvider(rawData);
@@ -13,7 +12,7 @@ class BoardingPass {
         this.flights.push(new Flight(provider, this.flights.length + 1));
 
         this.mandatoryItems = this.flights[0].generalMandatoryItems;
-        this.generalItems = this.flights[0].generalItems;
+        this.conditionalItems = this.flights[0].generalConditionalItems;
 
         this.securitySector = new SecuritySector(provider);
     }

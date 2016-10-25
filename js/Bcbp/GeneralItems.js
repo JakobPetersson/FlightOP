@@ -13,6 +13,7 @@ class GeneralItems extends React.Component {
         );
 
         let mandatory = this.props.mandatoryItems;
+        let conditional = this.props.conditionalItems;
 
         return (
             <Row className="show-grid">
@@ -23,9 +24,18 @@ class GeneralItems extends React.Component {
                         <Item key={mandatory.passengerName.name}                item={mandatory.passengerName} />
                         <Item key={mandatory.electronicTicketIndicator.name}    item={mandatory.electronicTicketIndicator} />
 
-                        {this.props.conditionalItems.map((item) => (
-                            <Item key={item.name} item={item} />
-                        ))}
+                        <Item key={conditional.beginningOfVersionNumber.name}               item={conditional.beginningOfVersionNumber} />
+                        <Item key={conditional.versionNumber.name}                          item={conditional.versionNumber} />
+                        <Item key={conditional.sizeOfConditional.name}                      item={conditional.sizeOfConditional} />
+                        <Item key={conditional.passengerDescription.name}                   item={conditional.passengerDescription} />
+                        <Item key={conditional.sourceOfCheckIn.name}                        item={conditional.sourceOfCheckIn} />
+                        <Item key={conditional.sourceOfBoardingPassIssuance.name}           item={conditional.sourceOfBoardingPassIssuance} />
+                        <Item key={conditional.dateOfIssueOfBoardingPass.name}              item={conditional.dateOfIssueOfBoardingPass} />
+                        <Item key={conditional.documentType.name}                           item={conditional.documentType} />
+                        <Item key={conditional.airlineDesignatorOfBoardingPassIssuer.name}  item={conditional.airlineDesignatorOfBoardingPassIssuer} />
+                        <Item key={conditional.baggageTag.name}                             item={conditional.baggageTag} />
+                        <Item key={conditional.firstNonConsecutiveBaggageTag.name}          item={conditional.firstNonConsecutiveBaggageTag} />
+                        <Item key={conditional.secondNonConsecutiveBaggageTag.name}         item={conditional.secondNonConsecutiveBaggageTag} />
                     </Form>
                 </Panel>
             </Row>

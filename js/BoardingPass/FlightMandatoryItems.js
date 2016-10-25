@@ -2,7 +2,7 @@ import Item from "./Item";
 
 class FlightMandatoryItems {
     constructor(provider) {
-        if (!provider.hasData(35)) {
+        if (!provider.hasData(37)) {
             console.log(new Error("Not enough data for FlightMandatoryItems"));
         }
         this.operatingCarrierPNRCode    = new Item('Operating carrier PNR Code',    provider.getData(7), 7);
@@ -15,6 +15,16 @@ class FlightMandatoryItems {
         this.seatNumber                 = new Item('Seat Number',                   provider.getData(4), 4);
         this.checkInSequenceNumber      = new Item('Check-In Sequence Number',      provider.getData(5), 5);
         this.passengerStatus            = new Item('Passenger Status',              provider.getData(1), 1);
+
+        this.sizeHex = provider.getData(2);
+        this.sizeDec = parseInt(this.sizeHex, 16);
+        this.sizeOfAllConditional       = new Item('Size of variable size field',   this.sizeHex, 2);
+
+        this.hasConditionalItems = this.hasConditionalItems.bind(this);
+    }
+
+    hasConditionalItems() {
+        return (this.sizeDec > 0);
     }
 }
 
