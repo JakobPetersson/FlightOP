@@ -13,6 +13,7 @@ class Flight extends React.Component {
         );
         
         let mandatory = this.props.flight.mandatoryItems;
+        let conditional = this.props.flight.conditionalItems;
 
         return (
             <Panel header={title} bsStyle="primary">
@@ -30,19 +31,20 @@ class Flight extends React.Component {
 
                     <Item key={mandatory.sizeOfAllConditional.name}         item={mandatory.sizeOfAllConditional} />
 
-                    <Item key={this.props.flight.sizeOfConditionalItems.name} item={this.props.flight.sizeOfConditionalItems} />
+                    <Item key={conditional.sizeOfConditional.name}                      item={conditional.sizeOfConditional} />
 
-                    <Item key={this.props.flight.airlineNumericCode.name} item={this.props.flight.airlineNumericCode} />
-                    <Item key={this.props.flight.documentFormOrSerialNumber.name} item={this.props.flight.documentFormOrSerialNumber} />
-                    <Item key={this.props.flight.selecteeIndicator.name} item={this.props.flight.selecteeIndicator} />
-                    <Item key={this.props.flight.internationalDocumentationVerification.name} item={this.props.flight.internationalDocumentationVerification} />
-                    <Item key={this.props.flight.marketingCarrierDesignator.name} item={this.props.flight.marketingCarrierDesignator} />
-                    <Item key={this.props.flight.frequentFlyerAirlineDesignator.name} item={this.props.flight.frequentFlyerAirlineDesignator} />
-                    <Item key={this.props.flight.frequentFlyerNumber.name} item={this.props.flight.frequentFlyerNumber} />
-                    <Item key={this.props.flight.idOrAdIndicator.name} item={this.props.flight.idOrAdIndicator} />
-                    <Item key={this.props.flight.freeBaggageAllowance.name} item={this.props.flight.freeBaggageAllowance} />
-                    <Item key={this.props.flight.fastTrack.name} item={this.props.flight.fastTrack} />
-                    <Item key={this.props.flight.forIndividualAirlineUse.name} item={this.props.flight.forIndividualAirlineUse} />
+                    <Item key={conditional.airlineNumericCode.name}                     item={conditional.airlineNumericCode} />
+                    <Item key={conditional.documentFormOrSerialNumber.name}             item={conditional.documentFormOrSerialNumber} />
+                    <Item key={conditional.selecteeIndicator.name}                      item={conditional.selecteeIndicator} />
+                    <Item key={conditional.internationalDocumentationVerification.name} item={conditional.internationalDocumentationVerification} />
+                    <Item key={conditional.marketingCarrierDesignator.name}             item={conditional.marketingCarrierDesignator} />
+                    <Item key={conditional.frequentFlyerAirlineDesignator.name}         item={conditional.frequentFlyerAirlineDesignator} />
+                    <Item key={conditional.frequentFlyerNumber.name}                    item={conditional.frequentFlyerNumber} />
+                    <Item key={conditional.idOrAdIndicator.name}                        item={conditional.idOrAdIndicator} />
+                    <Item key={conditional.freeBaggageAllowance.name}                   item={conditional.freeBaggageAllowance} />
+                    <Item key={conditional.fastTrack.name}                              item={conditional.fastTrack} />
+
+                    <Item key={conditional.forIndividualAirlineUse.name}                item={conditional.forIndividualAirlineUse} />
                 </Form>
             </Panel>
         )

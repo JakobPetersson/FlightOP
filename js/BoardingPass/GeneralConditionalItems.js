@@ -24,6 +24,12 @@ class GeneralConditionalItems {
         this.baggageTag                             = new ConditionalItem('Baggage Tag Licence Plate Number(s)',                    conditionalData.getData(13), 13);
         this.firstNonConsecutiveBaggageTag          = new ConditionalItem('1st Non-Consecutive Baggage Tag Licence Plate Number',   conditionalData.getData(13), 13);
         this.secondNonConsecutiveBaggageTag         = new ConditionalItem('2nd Non-Consecutive Baggage Tag Licence Plate Number',   conditionalData.getData(13), 13);
+
+        this.totalSize = this.totalSize.bind(this);
+    }
+
+    totalSize() {
+        return (1 + 1 + 2 + this.sizeDec);
     }
 }
 
