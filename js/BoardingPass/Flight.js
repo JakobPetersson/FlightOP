@@ -13,7 +13,6 @@ class Flight {
         this.isFirstFlight = (this.id == 1);
 
         this.generalItems = [];
-        this.flightItems = [];
 
         /*
          * Mandatory fields
