@@ -1,13 +1,9 @@
 import DataConsumer from "./DataConsumer";
 import Item from "./Item";
 import ConditionalItem from "./ConditionalItem";
+import FlightMandatoryItems from "./FlightMandatoryItems";
 
 class Flight {
-    /*
-     * --------------------------------------------------------
-     * Repeated size                                2
-     * ------------------------------------------------
-     */
     constructor(consumer, id) {
         this.id = id;
         this.isFirstFlight = (this.id == 1);
@@ -18,7 +14,7 @@ class Flight {
          * Mandatory fields
          */
         this._initUniqueMandatoryFields(consumer.getData(23));
-        this._initRepeatedMandatoryFields(consumer.getData(35));
+        this.mandatoryItems = new FlightMandatoryItems(consumer.getData(35));
 
         /*
          * Conditional fields
@@ -94,23 +90,6 @@ class Flight {
         this.generalItems.push(new Item('Baggage Tag Licence Plate Number(s)', data.getData(13), 13));
         this.generalItems.push(new Item('1st Non-Consecutive Baggage Tag Licence Plate Number', data.getData(13), 13));
         this.generalItems.push(new Item('2nd Non-Consecutive Baggage Tag Licence Plate Number', data.getData(13), 13));
-    }
-
-    _initRepeatedMandatoryFields(rawData) {
-        if (rawData.length != 35) {
-            console.log(new Error("Flight, wrong data length for mandatory repeated items"));
-        }
-        let data = new DataConsumer(rawData);
-        this.operatingCarrierPNRCode = new Item('Operating carrier PNR Code', data.getData(7), 7);
-        this.fromCityAirportCode = new Item('From City Airport Code', data.getData(3), 3);
-        this.toCityAirportCode = new Item('To City Airport Code', data.getData(3), 3);
-        this.operatingCarrierDesignator = new Item('Operating carrier Designator', data.getData(3), 3);
-        this.flightNumber = new Item('Flight Number', data.getData(5), 5);
-        this.dateOfFlight = new Item('Date of Flight', data.getData(3), 3);
-        this.compartmentCode = new Item('Compartment Code', data.getData(1), 1);
-        this.seatNumber = new Item('Seat Number', data.getData(4), 4);
-        this.checkInSequenceNumber = new Item('Check-In Sequence Number', data.getData(5), 5);
-        this.passengerStatus = new Item('Passenger Status', data.getData(1), 1);
     }
 
     _initRepeatedConditionalFields(rawData) {
