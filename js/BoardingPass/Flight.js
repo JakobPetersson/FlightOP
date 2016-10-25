@@ -1,11 +1,11 @@
-import DataConsumer from "./DataConsumer";
+import DataProvider from "./DataProvider";
 import Item from "./Item";
 import ConditionalItem from "./ConditionalItem";
 import GeneralMandatoryItems from "./GeneralMandatoryItems";
 import FlightMandatoryItems from "./FlightMandatoryItems";
 
 class Flight {
-    constructor(consumer, id) {
+    constructor(provider, id) {
         this.id = id;
         this.isFirstFlight = (this.id == 1);
 
@@ -16,14 +16,14 @@ class Flight {
          */
 
         if (this.isFirstFlight) {
-            this.generalMandatoryItems = new GeneralMandatoryItems(consumer);
+            this.generalMandatoryItems = new GeneralMandatoryItems(provider);
         }
-        this.mandatoryItems = new FlightMandatoryItems(consumer);
+        this.mandatoryItems = new FlightMandatoryItems(provider);
 
         /*
          * Conditional fields
          */
-        this.conditionalSizeHex = consumer.getData(2);
+        this.conditionalSizeHex = provider.getData(2);
         this.generalItems.push(new Item('Size of variable size field', this.conditionalSizeHex, 2));
         this.conditionalSizeDec = parseInt(this.conditionalSizeHex, 16);
 
@@ -36,42 +36,42 @@ class Flight {
             /*
              * Conditional fields unique for first flight on boarding pass
              */
-            this.generalItems.push(new ConditionalItem('Beginning of version number', consumer.getData(1), 1));
-            this.generalItems.push(new ConditionalItem('Version Number', consumer.getData(1), 1));
+            this.generalItems.push(new ConditionalItem('Beginning of version number', provider.getData(1), 1));
+            this.generalItems.push(new ConditionalItem('Version Number', provider.getData(1), 1));
 
-            this.conditionalUniqueSizeHex = consumer.getData(2);
+            this.conditionalUniqueSizeHex = provider.getData(2);
             this.generalItems.push(new ConditionalItem('Size of conditional items', this.conditionalUniqueSizeHex, 2));
             this.conditionalUniqueSizeDec = parseInt(this.conditionalUniqueSizeHex, 16);
 
-            if (!consumer.hasData(this.conditionalUniqueSizeDec)) {
+            if (!provider.hasData(this.conditionalUniqueSizeDec)) {
                 console.log(new Error("Flight, Not enough data for unique conditional items"));
             }
 
-            this._initUniqueConditionalFields(consumer.getData(this.conditionalUniqueSizeDec));
+            this._initUniqueConditionalFields(provider.getData(this.conditionalUniqueSizeDec));
         }
 
         /*
          * Conditional fields for all flights on boarding pass
          */
-        this.conditionalRepeatedSizeHex = consumer.getData(2);
+        this.conditionalRepeatedSizeHex = provider.getData(2);
         this.sizeOfConditionalItems = new ConditionalItem('Size of conditional items', this.conditionalRepeatedSizeHex, 2);
         this.conditionalRepeatedSizeDec = parseInt(this.conditionalRepeatedSizeHex, 16);
 
-        if (consumer.hasData(this.conditionalRepeatedSizeDec)) {
+        if (provider.hasData(this.conditionalRepeatedSizeDec)) {
             console.log(new Error("Not enough data for Flight repeated conditional items"));
         }
 
-        this._initRepeatedConditionalFields(consumer.getData(this.conditionalRepeatedSizeDec));
+        this._initRepeatedConditionalFields(provider.getData(this.conditionalRepeatedSizeDec));
 
         let individualSize = this.conditionalSizeDec - 2 - this.conditionalRepeatedSizeDec - 2;
         if (this.isFirstFlight) {
             individualSize = individualSize - this.conditionalUniqueSizeDec - 2;
         }
-        this.forIndividualAirlineUse = new ConditionalItem('For individual airline use', consumer.getData(individualSize), individualSize)
+        this.forIndividualAirlineUse = new ConditionalItem('For individual airline use', provider.getData(individualSize), individualSize)
     }
 
     _initUniqueConditionalFields(rawData) {
-        let data = new DataConsumer(rawData);
+        let data = new DataProvider(rawData);
         this.generalItems.push(new Item('Passenger Description', data.getData(1), 1));
         this.generalItems.push(new Item('Source of check-in', data.getData(1), 1));
         this.generalItems.push(new Item('Source of Boarding Pass Issuance', data.getData(1), 1));
@@ -84,7 +84,7 @@ class Flight {
     }
 
     _initRepeatedConditionalFields(rawData) {
-        let data = new DataConsumer(rawData);
+        let data = new DataProvider(rawData);
         this.airlineNumericCode = new ConditionalItem('Airline Numeric Code', data.getData(3), 3);
         this.documentFormOrSerialNumber = new ConditionalItem('Document Form/Serial Number', data.getData(10), 10);
         this.selecteeIndicator = new ConditionalItem('Selectee indicator', data.getData(1), 1);

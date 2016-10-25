@@ -1,4 +1,4 @@
-class DataConsumer {
+class DataProvider {
     constructor(string) {
         this.data = string;
 
@@ -14,7 +14,7 @@ class DataConsumer {
 
     hasData(length) {
         if (length > this.data.length) {
-            console.log(new Error("DataConsumer, does not have data (" + length + " of " + this.data.length + ")"));
+            console.log(new Error("DataProvider, does not have data (" + length + " of " + this.data.length + ")"));
         }
         return this.data.length >= length;
     }
@@ -31,4 +31,4 @@ class DataConsumer {
     }
 }
 
-export default DataConsumer;
+export default DataProvider;

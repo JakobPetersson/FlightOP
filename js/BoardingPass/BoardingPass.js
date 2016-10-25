@@ -1,4 +1,4 @@
-import DataConsumer from "./DataConsumer";
+import DataProvider from "./DataProvider";
 import Flight from "./Flight";
 import SecuritySector from "./SecuritySector";
 
@@ -8,14 +8,14 @@ class BoardingPass {
         this.generalItems = [];
         this.flights = [];
 
-        let consumer = new DataConsumer(rawData);
+        let provider = new DataProvider(rawData);
 
-        this.flights.push(new Flight(consumer, this.flights.length + 1));
+        this.flights.push(new Flight(provider, this.flights.length + 1));
 
         this.mandatoryItems = this.flights[0].generalMandatoryItems;
         this.generalItems = this.flights[0].generalItems;
 
-        this.securitySector = new SecuritySector(consumer);
+        this.securitySector = new SecuritySector(provider);
     }
 }
 
