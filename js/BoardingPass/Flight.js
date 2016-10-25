@@ -16,9 +16,9 @@ class Flight {
          */
 
         if (this.isFirstFlight) {
-            this.generalMandatoryItems = new GeneralMandatoryItems(consumer.getData(23));
+            this.generalMandatoryItems = new GeneralMandatoryItems(consumer);
         }
-        this.mandatoryItems = new FlightMandatoryItems(consumer.getData(35));
+        this.mandatoryItems = new FlightMandatoryItems(consumer);
 
         /*
          * Conditional fields
