@@ -1,5 +1,5 @@
-import ConditionalItem from "./ConditionalItem";
-import DataProvider from "./DataProvider";
+import ConditionalItem from "../ConditionalItem";
+import DataProvider from "../DataProvider";
 
 class GeneralConditionalItems {
     constructor(provider) {
