@@ -1,5 +1,5 @@
-import GeneralMandatoryItems from "./GeneralConditionalItems/GeneralMandatoryItems";
-import GeneralConditionalItems from "./GeneralMandatoryItems/GeneralConditionalItems";
+import GeneralMandatoryItems from "./GeneralMandatoryItems/GeneralMandatoryItems";
+import GeneralConditionalItems from "./GeneralConditionaItems/GeneralConditionalItems";
 import FlightMandatoryItems from "./FlightMandatoryItems/FlightMandatoryItems";
 import FlightConditionalItems from "./FlightConditionalItems/FlightConditionalItems";
 
