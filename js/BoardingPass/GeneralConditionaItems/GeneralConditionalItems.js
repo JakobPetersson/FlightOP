@@ -3,6 +3,7 @@ import DataProvider from "../DataProvider";
 import BeginningOfVersionNumber from "./BeginningOfVersionNumber";
 import VersionNumber from "./VersionNumber";
 import PassengerDescription from "./PassengerDescription";
+import SourceOfCheckIn from "./SourceOfCheckIn";
 
 class GeneralConditionalItems {
     constructor(provider) {
@@ -19,7 +20,7 @@ class GeneralConditionalItems {
 
         let conditionalData = new DataProvider(provider.getData(this.sizeDec));
         this.passengerDescription = new PassengerDescription(conditionalData);
-        this.sourceOfCheckIn                        = new ConditionalItem(0, 'Source of check-in',                                     conditionalData.getData(1), 1);
+        this.sourceOfCheckIn = new SourceOfCheckIn(conditionalData);
         this.sourceOfBoardingPassIssuance           = new ConditionalItem(0, 'Source of Boarding Pass Issuance',                       conditionalData.getData(1), 1);
         this.dateOfIssueOfBoardingPass              = new ConditionalItem(0, 'Date of Issue of Boarding Pass',                         conditionalData.getData(4), 4);
         this.documentType                           = new ConditionalItem(0, 'Document Type',                                          conditionalData.getData(1), 4);
