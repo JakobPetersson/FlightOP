@@ -1,4 +1,3 @@
-import Item from "../../Item";
 import OperatingCarrierPNRCode from "./OperatingCarrierPNRCode";
 import FromCityAirportCode from "./FromCityAirportCode";
 import ToCityAirportCode from "./ToCityAirportCode";
@@ -9,6 +8,7 @@ import CompartmentCode from "./CompartmentCode";
 import SeatNumber from "./SeatNumber";
 import CheckInSequenceNumber from "./CheckInSequenceNumber";
 import PassengerStatus from "./PassengerStatus";
+import AllConditionalSize from "./AllConditionalSize";
 
 class FlightMandatoryItems {
     constructor(provider) {
@@ -25,21 +25,13 @@ class FlightMandatoryItems {
         this.seatNumber                 = new SeatNumber(provider);
         this.checkInSequenceNumber      = new CheckInSequenceNumber(provider);
         this.passengerStatus            = new PassengerStatus(provider);
+        this.allConditionalSize         = new AllConditionalSize(provider);
 
-        this.sizeHex = provider.getData(2);
-        this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfAllConditional       = new Item(6, 'Size of variable size field',   this.sizeHex, 2);
-
-        this.sizeOfAllConditionals = this.sizeOfAllConditionals.bind(this);
         this.hasConditionalItems = this.hasConditionalItems.bind(this);
     }
 
-    sizeOfAllConditionals() {
-        return this.sizeDec;
-    }
-
     hasConditionalItems() {
-        return (this.sizeDec > 0);
+        return (this.allConditionalSize.dec() > 0);
     }
 }
 

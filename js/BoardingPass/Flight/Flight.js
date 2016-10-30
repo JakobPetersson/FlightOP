@@ -22,7 +22,7 @@ class Flight {
             this.generalConditionalItems = new GeneralConditionalItems(provider);
         }
 
-        let flightConditionalSize = this.mandatoryItems.sizeOfAllConditionals();
+        let flightConditionalSize = this.mandatoryItems.allConditionalSize.dec();
         if (this.isFirstFlight) {
             flightConditionalSize = flightConditionalSize - this.generalConditionalItems.totalSize();
         }
