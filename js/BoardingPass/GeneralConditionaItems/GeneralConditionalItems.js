@@ -1,4 +1,4 @@
-import ConditionalItem from "../ConditionalItem";
+import Item from "../Item";
 import DataProvider from "../DataProvider";
 import BeginningOfVersionNumber from "./BeginningOfVersionNumber";
 import VersionNumber from "./VersionNumber";
@@ -19,7 +19,7 @@ class GeneralConditionalItems {
 
         this.sizeHex = provider.getData(2);
         this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfConditional                     = new ConditionalItem(10, 'Size of conditional items',      this.sizeHex, 2);
+        this.sizeOfConditional                     = new Item(10, 'Size of conditional items',      this.sizeHex, 2);
 
         if (!provider.hasData(this.sizeDec)) {
             console.log(new Error("Not enough data for GeneralConditionalItems"));
