@@ -18,33 +18,33 @@ class Flight extends React.Component {
         return (
             <Panel header={title} bsStyle="primary">
                 <Form horizontal fill>
-                    <Item key={mandatory.operatingCarrierPNRCode.name}      item={mandatory.operatingCarrierPNRCode} />
-                    <Item key={mandatory.fromCityAirportCode.name}          item={mandatory.fromCityAirportCode} />
-                    <Item key={mandatory.toCityAirportCode.name}            item={mandatory.toCityAirportCode} />
-                    <Item key={mandatory.operatingCarrierDesignator.name}   item={mandatory.operatingCarrierDesignator} />
-                    <Item key={mandatory.flightNumber.name}                 item={mandatory.flightNumber} />
-                    <Item key={mandatory.dateOfFlight.name}                 item={mandatory.dateOfFlight} />
-                    <Item key={mandatory.compartmentCode.name}              item={mandatory.compartmentCode} />
-                    <Item key={mandatory.seatNumber.name}                   item={mandatory.seatNumber} />
-                    <Item key={mandatory.checkInSequenceNumber.name}        item={mandatory.checkInSequenceNumber} />
-                    <Item key={mandatory.passengerStatus.name}              item={mandatory.passengerStatus} />
+                    <Item key={mandatory.operatingCarrierPNRCode.itemNr}      item={mandatory.operatingCarrierPNRCode} />
+                    <Item key={mandatory.fromCityAirportCode.itemNr}          item={mandatory.fromCityAirportCode} />
+                    <Item key={mandatory.toCityAirportCode.itemNr}            item={mandatory.toCityAirportCode} />
+                    <Item key={mandatory.operatingCarrierDesignator.itemNr}   item={mandatory.operatingCarrierDesignator} />
+                    <Item key={mandatory.flightNumber.itemNr}                 item={mandatory.flightNumber} />
+                    <Item key={mandatory.dateOfFlight.itemNr}                 item={mandatory.dateOfFlight} />
+                    <Item key={mandatory.compartmentCode.itemNr}              item={mandatory.compartmentCode} />
+                    <Item key={mandatory.seatNumber.itemNr}                   item={mandatory.seatNumber} />
+                    <Item key={mandatory.checkInSequenceNumber.itemNr}        item={mandatory.checkInSequenceNumber} />
+                    <Item key={mandatory.passengerStatus.itemNr}              item={mandatory.passengerStatus} />
 
-                    <Item key={mandatory.sizeOfAllConditional.name}         item={mandatory.sizeOfAllConditional} />
+                    <Item key={mandatory.sizeOfAllConditional.itemNr}         item={mandatory.sizeOfAllConditional} />
 
-                    <Item key={conditional.sizeOfConditional.name}                      item={conditional.sizeOfConditional} />
+                    <Item key={conditional.sizeOfConditional.itemNr}                      item={conditional.sizeOfConditional} />
 
-                    <Item key={conditional.airlineNumericCode.name}                     item={conditional.airlineNumericCode} />
-                    <Item key={conditional.documentFormOrSerialNumber.name}             item={conditional.documentFormOrSerialNumber} />
-                    <Item key={conditional.selecteeIndicator.name}                      item={conditional.selecteeIndicator} />
-                    <Item key={conditional.internationalDocumentationVerification.name} item={conditional.internationalDocumentationVerification} />
-                    <Item key={conditional.marketingCarrierDesignator.name}             item={conditional.marketingCarrierDesignator} />
-                    <Item key={conditional.frequentFlyerAirlineDesignator.name}         item={conditional.frequentFlyerAirlineDesignator} />
-                    <Item key={conditional.frequentFlyerNumber.name}                    item={conditional.frequentFlyerNumber} />
-                    <Item key={conditional.idOrAdIndicator.name}                        item={conditional.idOrAdIndicator} />
-                    <Item key={conditional.freeBaggageAllowance.name}                   item={conditional.freeBaggageAllowance} />
-                    <Item key={conditional.fastTrack.name}                              item={conditional.fastTrack} />
+                    <Item key={conditional.airlineNumericCode.itemNr}                     item={conditional.airlineNumericCode} />
+                    <Item key={conditional.documentFormOrSerialNumber.itemNr}             item={conditional.documentFormOrSerialNumber} />
+                    <Item key={conditional.selecteeIndicator.itemNr}                      item={conditional.selecteeIndicator} />
+                    <Item key={conditional.internationalDocumentationVerification.itemNr} item={conditional.internationalDocumentationVerification} />
+                    <Item key={conditional.marketingCarrierDesignator.itemNr}             item={conditional.marketingCarrierDesignator} />
+                    <Item key={conditional.frequentFlyerAirlineDesignator.itemNr}         item={conditional.frequentFlyerAirlineDesignator} />
+                    <Item key={conditional.frequentFlyerNumber.itemNr}                    item={conditional.frequentFlyerNumber} />
+                    <Item key={conditional.idOrAdIndicator.itemNr}                        item={conditional.idOrAdIndicator} />
+                    <Item key={conditional.freeBaggageAllowance.itemNr}                   item={conditional.freeBaggageAllowance} />
+                    <Item key={conditional.fastTrack.itemNr}                              item={conditional.fastTrack} />
 
-                    <Item key={conditional.forIndividualAirlineUse.name}                item={conditional.forIndividualAirlineUse} />
+                    <Item key={conditional.forIndividualAirlineUse.itemNr}                item={conditional.forIndividualAirlineUse} />
                 </Form>
             </Panel>
         )

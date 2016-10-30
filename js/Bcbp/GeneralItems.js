@@ -19,23 +19,23 @@ class GeneralItems extends React.Component {
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
-                        <Item key={mandatory.formatCode.name}                   item={mandatory.formatCode} />
-                        <Item key={mandatory.numberOfLegsEncoded.name}          item={mandatory.numberOfLegsEncoded} />
-                        <Item key={mandatory.passengerName.name}                item={mandatory.passengerName} />
-                        <Item key={mandatory.electronicTicketIndicator.name}    item={mandatory.electronicTicketIndicator} />
+                        <Item key={mandatory.formatCode.itemNr}                   item={mandatory.formatCode} />
+                        <Item key={mandatory.numberOfLegsEncoded.itemNr}          item={mandatory.numberOfLegsEncoded} />
+                        <Item key={mandatory.passengerName.itemNr}                item={mandatory.passengerName} />
+                        <Item key={mandatory.electronicTicketIndicator.itemNr}    item={mandatory.electronicTicketIndicator} />
 
-                        <Item key={conditional.beginningOfVersionNumber.name}               item={conditional.beginningOfVersionNumber} />
-                        <Item key={conditional.versionNumber.name}                          item={conditional.versionNumber} />
-                        <Item key={conditional.sizeOfConditional.name}                      item={conditional.sizeOfConditional} />
-                        <Item key={conditional.passengerDescription.name}                   item={conditional.passengerDescription} />
-                        <Item key={conditional.sourceOfCheckIn.name}                        item={conditional.sourceOfCheckIn} />
-                        <Item key={conditional.sourceOfBoardingPassIssuance.name}           item={conditional.sourceOfBoardingPassIssuance} />
-                        <Item key={conditional.dateOfIssueOfBoardingPass.name}              item={conditional.dateOfIssueOfBoardingPass} />
-                        <Item key={conditional.documentType.name}                           item={conditional.documentType} />
-                        <Item key={conditional.airlineDesignatorOfBoardingPassIssuer.name}  item={conditional.airlineDesignatorOfBoardingPassIssuer} />
-                        <Item key={conditional.baggageTag.name}                             item={conditional.baggageTag} />
-                        <Item key={conditional.firstNonConsecutiveBaggageTag.name}          item={conditional.firstNonConsecutiveBaggageTag} />
-                        <Item key={conditional.secondNonConsecutiveBaggageTag.name}         item={conditional.secondNonConsecutiveBaggageTag} />
+                        <Item key={conditional.beginningOfVersionNumber.itemNr}               item={conditional.beginningOfVersionNumber} />
+                        <Item key={conditional.versionNumber.itemNr}                          item={conditional.versionNumber} />
+                        <Item key={conditional.sizeOfConditional.itemNr}                      item={conditional.sizeOfConditional} />
+                        <Item key={conditional.passengerDescription.itemNr}                   item={conditional.passengerDescription} />
+                        <Item key={conditional.sourceOfCheckIn.itemNr}                        item={conditional.sourceOfCheckIn} />
+                        <Item key={conditional.sourceOfBoardingPassIssuance.itemNr}           item={conditional.sourceOfBoardingPassIssuance} />
+                        <Item key={conditional.dateOfIssueOfBoardingPass.itemNr}              item={conditional.dateOfIssueOfBoardingPass} />
+                        <Item key={conditional.documentType.itemNr}                           item={conditional.documentType} />
+                        <Item key={conditional.airlineDesignatorOfBoardingPassIssuer.itemNr}  item={conditional.airlineDesignatorOfBoardingPassIssuer} />
+                        <Item key={conditional.baggageTag.itemNr}                             item={conditional.baggageTag} />
+                        <Item key={conditional.firstNonConsecutiveBaggageTag.itemNr}          item={conditional.firstNonConsecutiveBaggageTag} />
+                        <Item key={conditional.secondNonConsecutiveBaggageTag.itemNr}         item={conditional.secondNonConsecutiveBaggageTag} />
                     </Form>
                 </Panel>
             </Row>

@@ -28,7 +28,7 @@ class FlightMandatoryItems {
 
         this.sizeHex = provider.getData(2);
         this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfAllConditional       = new Item(0, 'Size of variable size field',   this.sizeHex, 2);
+        this.sizeOfAllConditional       = new Item(6, 'Size of variable size field',   this.sizeHex, 2);
 
         this.sizeOfAllConditionals = this.sizeOfAllConditionals.bind(this);
         this.hasConditionalItems = this.hasConditionalItems.bind(this);

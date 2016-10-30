@@ -19,7 +19,7 @@ class GeneralConditionalItems {
 
         this.sizeHex = provider.getData(2);
         this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfConditional                     = new ConditionalItem(0, 'Size of conditional items',      this.sizeHex, 2);
+        this.sizeOfConditional                     = new ConditionalItem(10, 'Size of conditional items',      this.sizeHex, 2);
 
         if (!provider.hasData(this.sizeDec)) {
             console.log(new Error("Not enough data for GeneralConditionalItems"));
