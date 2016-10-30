@@ -1,11 +1,12 @@
 import Item from "../Item";
+import OperatingCarrierPNRCode from "./OperatingCarrierPNRCode";
 
 class FlightMandatoryItems {
     constructor(provider) {
         if (!provider.hasData(37)) {
             console.log(new Error("Not enough data for FlightMandatoryItems"));
         }
-        this.operatingCarrierPNRCode    = new Item(0, 'Operating carrier PNR Code',    provider.getData(7), 7);
+        this.operatingCarrierPNRCode    = new OperatingCarrierPNRCode(provider);
         this.fromCityAirportCode        = new Item(0, 'From City Airport Code',        provider.getData(3), 3);
         this.toCityAirportCode          = new Item(0, 'To City Airport Code',          provider.getData(3), 3);
         this.operatingCarrierDesignator = new Item(0, 'Operating carrier Designator',  provider.getData(3), 3);
