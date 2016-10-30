@@ -5,7 +5,7 @@ import RawInput from "./RawInput";
 import Barcodes from "./barcodes/Barcodes";
 import GeneralItems from "./GeneralItems";
 import Flights from "./Flights";
-import SecuritySector from "./SecuritySector";
+import SecurityItems from "./SecurityItems";
 
 class Bcbp extends React.Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class Bcbp extends React.Component {
                     mandatoryItems={this.state.boardingPass.mandatoryItems}
                     conditionalItems={this.state.boardingPass.conditionalItems} />
                 <Flights flights={this.state.boardingPass.flights} />
-                <SecuritySector securitySector={this.state.boardingPass.securitySector} />
+                <SecurityItems securityItems={this.state.boardingPass.securityItems} />
             </Grid>
         )
     }

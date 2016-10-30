@@ -1,8 +1,8 @@
-import Item from "./Item";
+import Item from "../Item";
 
-class SecuritySector {
+class SecurityItems {
     constructor(provider) {
-        this.isPresent = !!provider.hasData(4);
+        this.isPresent = provider.hasData(4);
         this.securityItems = [];
 
         if (!this.isPresent) {
@@ -25,4 +25,4 @@ class SecuritySector {
 
 }
 
-export default SecuritySector;
+export default SecurityItems;

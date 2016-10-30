@@ -1,6 +1,6 @@
 import DataProvider from "./DataProvider";
 import Flight from "./Flight";
-import SecuritySector from "./SecuritySector";
+import SecurityItems from "./SecurityItems/SecurityItems";
 
 class BoardingPass {
     constructor(rawData) {
@@ -14,7 +14,7 @@ class BoardingPass {
         this.mandatoryItems = this.flights[0].generalMandatoryItems;
         this.conditionalItems = this.flights[0].generalConditionalItems;
 
-        this.securitySector = new SecuritySector(provider);
+        this.securityItems = new SecurityItems(provider);
     }
 }
 
