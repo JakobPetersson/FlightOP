@@ -1,6 +1,6 @@
 import DataProvider from "./DataProvider";
 import Flight from "./Flight/Flight";
-import SecurityItems from "./SecurityItems/SecurityItems";
+import SecurityItems from "./Security/SecurityItems";
 
 class BoardingPass {
     constructor(rawData) {
