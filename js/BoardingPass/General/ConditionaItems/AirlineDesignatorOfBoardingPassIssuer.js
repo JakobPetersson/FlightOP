@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class AirlineDesignatorOfBoardingPassIssuer extends Item {
     constructor(provider) {

@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class DateOfIssueOfBoardingPass extends Item {
     constructor(provider) {

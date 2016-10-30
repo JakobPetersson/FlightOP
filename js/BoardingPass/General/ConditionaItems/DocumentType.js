@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class DocumentType extends Item {
     constructor(provider) {

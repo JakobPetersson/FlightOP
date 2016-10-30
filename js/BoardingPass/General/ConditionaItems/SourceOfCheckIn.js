@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class SourceOfCheckIn extends Item {
     constructor(provider) {

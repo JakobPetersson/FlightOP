@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class ElectronicTicketIndicator extends Item {
     constructor(provider) {

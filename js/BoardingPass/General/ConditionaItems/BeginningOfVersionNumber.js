@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class BeginningOfVersionNumber extends Item {
     constructor(provider) {

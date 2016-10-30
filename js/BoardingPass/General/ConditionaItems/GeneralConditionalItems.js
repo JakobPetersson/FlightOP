@@ -1,5 +1,5 @@
-import Item from "../Item";
-import DataProvider from "../DataProvider";
+import Item from "../../Item";
+import DataProvider from "../../DataProvider";
 import BeginningOfVersionNumber from "./BeginningOfVersionNumber";
 import VersionNumber from "./VersionNumber";
 import PassengerDescription from "./PassengerDescription";
