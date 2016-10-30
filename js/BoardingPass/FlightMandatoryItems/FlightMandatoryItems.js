@@ -7,6 +7,7 @@ import FlightNumber from "./FlightNumber";
 import DateOfFlight from "./DateOfFlight";
 import CompartmentCode from "./CompartmentCode";
 import SeatNumber from "./SeatNumber";
+import CheckInSequenceNumber from "./CheckInSequenceNumber";
 
 class FlightMandatoryItems {
     constructor(provider) {
@@ -21,7 +22,7 @@ class FlightMandatoryItems {
         this.dateOfFlight               = new DateOfFlight(provider);
         this.compartmentCode            = new CompartmentCode(provider);
         this.seatNumber                 = new SeatNumber(provider);
-        this.checkInSequenceNumber      = new Item(0, 'Check-In Sequence Number',      provider.getData(5), 5);
+        this.checkInSequenceNumber      = new CheckInSequenceNumber(provider);
         this.passengerStatus            = new Item(0, 'Passenger Status',              provider.getData(1), 1);
 
         this.sizeHex = provider.getData(2);
