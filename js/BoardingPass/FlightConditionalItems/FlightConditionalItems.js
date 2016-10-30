@@ -2,6 +2,7 @@ import ConditionalItem from "../ConditionalItem";
 import DataProvider from "../DataProvider";
 import AirlineNumericCode from "./AirlineNumericCode";
 import DocumentFormOrSerialNumber from "./DocumentFormOrSerialNumber";
+import SelecteeIndicator from "./SelecteeIndicator";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
@@ -16,7 +17,7 @@ class FlightConditionalItems {
         let conditionalData = new DataProvider(provider.getData(this.sizeDec));
         this.airlineNumericCode                     = new AirlineNumericCode(conditionalData);
         this.documentFormOrSerialNumber             = new DocumentFormOrSerialNumber(conditionalData);
-        this.selecteeIndicator                      = new ConditionalItem(18, 'Selectee indicator',                         conditionalData.getData(1), 1);
+        this.selecteeIndicator                      = new SelecteeIndicator(conditionalData);
         this.internationalDocumentationVerification = new ConditionalItem(108, 'International Documentation Verification',   conditionalData.getData(1), 1);
         this.marketingCarrierDesignator             = new ConditionalItem(19, 'Marketing carrier designator',               conditionalData.getData(3), 3);
         this.frequentFlyerAirlineDesignator         = new ConditionalItem(20, 'Frequent Flyer Airline Designator',          conditionalData.getData(3), 3);
