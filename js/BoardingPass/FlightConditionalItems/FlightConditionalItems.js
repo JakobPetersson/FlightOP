@@ -5,6 +5,7 @@ import DocumentFormOrSerialNumber from "./DocumentFormOrSerialNumber";
 import SelecteeIndicator from "./SelecteeIndicator";
 import InternationalDocumentationVerification from "./InternationalDocumentationVerification";
 import MarketingCarrierDesignator from "./MarketingCarrierDesignator";
+import FrequentFlyerAirlineDesignator from "./FrequentFlyerAirlineDesignator";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
@@ -22,7 +23,7 @@ class FlightConditionalItems {
         this.selecteeIndicator                      = new SelecteeIndicator(conditionalData);
         this.internationalDocumentationVerification = new InternationalDocumentationVerification(conditionalData);
         this.marketingCarrierDesignator             = new MarketingCarrierDesignator(conditionalData);
-        this.frequentFlyerAirlineDesignator         = new ConditionalItem(20, 'Frequent Flyer Airline Designator',          conditionalData.getData(3), 3);
+        this.frequentFlyerAirlineDesignator         = new FrequentFlyerAirlineDesignator(conditionalData);
         this.frequentFlyerNumber                    = new ConditionalItem(236, 'Frequent Flyer Number',                      conditionalData.getData(16), 16);
         this.idOrAdIndicator                        = new ConditionalItem(89, 'ID/AD Indicator',                            conditionalData.getData(1), 1);
         this.freeBaggageAllowance                   = new ConditionalItem(118, 'Free Baggage Allowance',                     conditionalData.getData(3), 3);
