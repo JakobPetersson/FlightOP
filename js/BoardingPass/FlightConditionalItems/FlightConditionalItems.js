@@ -8,6 +8,7 @@ import MarketingCarrierDesignator from "./MarketingCarrierDesignator";
 import FrequentFlyerAirlineDesignator from "./FrequentFlyerAirlineDesignator";
 import FrequentFlyerNumber from "./FrequentFlyerNumber";
 import IdOrAdIndicator from "./IdOrAdIndicator";
+import FreeBaggageAllowance from "./FreeBaggageAllowance";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
@@ -28,7 +29,7 @@ class FlightConditionalItems {
         this.frequentFlyerAirlineDesignator         = new FrequentFlyerAirlineDesignator(conditionalData);
         this.frequentFlyerNumber                    = new FrequentFlyerNumber(conditionalData);
         this.idOrAdIndicator                        = new IdOrAdIndicator(conditionalData);
-        this.freeBaggageAllowance                   = new ConditionalItem(118, 'Free Baggage Allowance',                     conditionalData.getData(3), 3);
+        this.freeBaggageAllowance                   = new FreeBaggageAllowance(conditionalData);
         this.fastTrack                              = new ConditionalItem(254, 'Fast Track',                                 conditionalData.getData(1), 1);
 
         let individualSize = totalSize - 2 - this.sizeDec;
