@@ -6,6 +6,7 @@ import SelecteeIndicator from "./SelecteeIndicator";
 import InternationalDocumentationVerification from "./InternationalDocumentationVerification";
 import MarketingCarrierDesignator from "./MarketingCarrierDesignator";
 import FrequentFlyerAirlineDesignator from "./FrequentFlyerAirlineDesignator";
+import FrequentFlyerNumber from "./FrequentFlyerNumber";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
@@ -24,7 +25,7 @@ class FlightConditionalItems {
         this.internationalDocumentationVerification = new InternationalDocumentationVerification(conditionalData);
         this.marketingCarrierDesignator             = new MarketingCarrierDesignator(conditionalData);
         this.frequentFlyerAirlineDesignator         = new FrequentFlyerAirlineDesignator(conditionalData);
-        this.frequentFlyerNumber                    = new ConditionalItem(236, 'Frequent Flyer Number',                      conditionalData.getData(16), 16);
+        this.frequentFlyerNumber                    = new FrequentFlyerNumber(conditionalData);
         this.idOrAdIndicator                        = new ConditionalItem(89, 'ID/AD Indicator',                            conditionalData.getData(1), 1);
         this.freeBaggageAllowance                   = new ConditionalItem(118, 'Free Baggage Allowance',                     conditionalData.getData(3), 3);
         this.fastTrack                              = new ConditionalItem(254, 'Fast Track',                                 conditionalData.getData(1), 1);
