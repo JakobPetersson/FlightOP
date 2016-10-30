@@ -1,5 +1,6 @@
 class Item {
-    constructor(name, data, length) {
+    constructor(itemNr, name, data, length) {
+        this.itemNr = itemNr;
         this.name = name;
         this.data = data;
         this.length = length;

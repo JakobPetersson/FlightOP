@@ -1,8 +1,8 @@
 import Item from "./Item";
 
 class ConditionalItem extends Item {
-    constructor(name, data, length) {
-        super(name, data, length);
+    constructor(itemNr, name, data, length) {
+        super(itemNr, name, data, length);
 
         this.enabled = this.data.length > 0;
     };
