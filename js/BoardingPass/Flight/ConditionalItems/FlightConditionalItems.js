@@ -16,7 +16,7 @@ class FlightConditionalItems {
     constructor(provider, totalSize) {
         this.flightConditionalSize                  = new FlightConditionalSize(provider);
 
-        if (provider.hasData(this.flightConditionalSize.dec())) {
+        if (!provider.hasData(this.flightConditionalSize.dec())) {
             console.log(new Error("Not enough data for FlightConditionalItems"));
         }
 
