@@ -1,10 +1,13 @@
 import ConditionalItem from "../ConditionalItem";
 import DataProvider from "../DataProvider";
+import BeginningOfVersionNumber from "./BeginningOfVersionNumber";
+import VersionNumber from "./VersionNumber";
+import PassengerDescription from "./PassengerDescription";
 
 class GeneralConditionalItems {
     constructor(provider) {
-        this.beginningOfVersionNumber   = new ConditionalItem(0, 'Beginning of version number',    provider.getData(1), 1);
-        this.versionNumber              = new ConditionalItem(0, 'Version Number',                 provider.getData(1), 1);
+        this.beginningOfVersionNumber = new BeginningOfVersionNumber(provider);
+        this.versionNumber = new VersionNumber(provider);
 
         this.sizeHex = provider.getData(2);
         this.sizeDec = parseInt(this.sizeHex, 16);
@@ -15,7 +18,7 @@ class GeneralConditionalItems {
         }
 
         let conditionalData = new DataProvider(provider.getData(this.sizeDec));
-        this.passengerDescription                   = new ConditionalItem(0, 'Passenger Description',                                  conditionalData.getData(1), 1);
+        this.passengerDescription = new PassengerDescription(conditionalData);
         this.sourceOfCheckIn                        = new ConditionalItem(0, 'Source of check-in',                                     conditionalData.getData(1), 1);
         this.sourceOfBoardingPassIssuance           = new ConditionalItem(0, 'Source of Boarding Pass Issuance',                       conditionalData.getData(1), 1);
         this.dateOfIssueOfBoardingPass              = new ConditionalItem(0, 'Date of Issue of Boarding Pass',                         conditionalData.getData(4), 4);
