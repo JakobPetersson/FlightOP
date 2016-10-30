@@ -1,4 +1,4 @@
-import ConditionalItem from "../ConditionalItem";
+import Item from "../Item";
 import DataProvider from "../DataProvider";
 import AirlineNumericCode from "./AirlineNumericCode";
 import DocumentFormOrSerialNumber from "./DocumentFormOrSerialNumber";
@@ -10,12 +10,13 @@ import FrequentFlyerNumber from "./FrequentFlyerNumber";
 import IdOrAdIndicator from "./IdOrAdIndicator";
 import FreeBaggageAllowance from "./FreeBaggageAllowance";
 import FastTrack from "./FastTrack";
+import ForIndividualAirlineUse from "./ForIndividualAirlineUse";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
         this.sizeHex = provider.getData(2);
         this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfConditional                      = new ConditionalItem(17, 'Size of conditional items',                  this.sizeHex, 2);
+        this.sizeOfConditional                      = new Item(17, 'Size of conditional items',                  this.sizeHex, 2);
 
         if (provider.hasData(this.sizeDec)) {
             console.log(new Error("Not enough data for FlightConditionalItems"));
@@ -37,7 +38,7 @@ class FlightConditionalItems {
         if (individualSize < 0) {
             console.log(new Error("Something wrong with forIndividualAirlineUse size"));
         }
-        this.forIndividualAirlineUse                = new ConditionalItem(4, 'For individual airline use',                 provider.getData(individualSize), individualSize)
+        this.forIndividualAirlineUse                = new ForIndividualAirlineUse(provider, individualSize);
     }
 }
 
