@@ -1,5 +1,6 @@
 import ConditionalItem from "../ConditionalItem";
 import DataProvider from "../DataProvider";
+import AirlineNumericCode from "./AirlineNumericCode";
 
 class FlightConditionalItems {
     constructor(provider, totalSize) {
@@ -12,7 +13,7 @@ class FlightConditionalItems {
         }
 
         let conditionalData = new DataProvider(provider.getData(this.sizeDec));
-        this.airlineNumericCode                     = new ConditionalItem(142, 'Airline Numeric Code',                       conditionalData.getData(3), 3);
+        this.airlineNumericCode                     = new AirlineNumericCode(conditionalData);
         this.documentFormOrSerialNumber             = new ConditionalItem(143, 'Document Form/Serial Number',                conditionalData.getData(10), 10);
         this.selecteeIndicator                      = new ConditionalItem(18, 'Selectee indicator',                         conditionalData.getData(1), 1);
         this.internationalDocumentationVerification = new ConditionalItem(108, 'International Documentation Verification',   conditionalData.getData(1), 1);
