@@ -1,7 +1,7 @@
-import Item from "../../Item";
 import DataProvider from "../../DataProvider";
 import BeginningOfVersionNumber from "./BeginningOfVersionNumber";
 import VersionNumber from "./VersionNumber";
+import GeneralConditionalSize from "./GeneralConditionalSize";
 import PassengerDescription from "./PassengerDescription";
 import SourceOfCheckIn from "./SourceOfCheckIn";
 import SourceOfBoardingPassIssuance from "./SourceOfBoardingPassIssuance";
@@ -17,15 +17,13 @@ class GeneralConditionalItems {
         this.beginningOfVersionNumber              = new BeginningOfVersionNumber(provider);
         this.versionNumber                         = new VersionNumber(provider);
 
-        this.sizeHex = provider.getData(2);
-        this.sizeDec = parseInt(this.sizeHex, 16);
-        this.sizeOfConditional                     = new Item(10, 'Size of conditional items',      this.sizeHex, 2);
+        this.generalConditionalSize                = new GeneralConditionalSize(provider);
 
-        if (!provider.hasData(this.sizeDec)) {
+        if (!provider.hasData(this.generalConditionalSize.dec())) {
             console.log(new Error("Not enough data for GeneralConditionalItems"));
         }
 
-        let conditionalData = new DataProvider(provider.getData(this.sizeDec));
+        let conditionalData = new DataProvider(provider.getData(this.generalConditionalSize.dec()));
         this.passengerDescription                  = new PassengerDescription(conditionalData);
         this.sourceOfCheckIn                       = new SourceOfCheckIn(conditionalData);
         this.sourceOfBoardingPassIssuance          = new SourceOfBoardingPassIssuance(conditionalData);
@@ -40,7 +38,7 @@ class GeneralConditionalItems {
     }
 
     totalSize() {
-        return (1 + 1 + 2 + this.sizeDec);
+        return (1 + 1 + 2 + this.generalConditionalSize.dec());
     }
 }
 
