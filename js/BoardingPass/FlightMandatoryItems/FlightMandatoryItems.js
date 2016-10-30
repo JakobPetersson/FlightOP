@@ -1,6 +1,7 @@
 import Item from "../Item";
 import OperatingCarrierPNRCode from "./OperatingCarrierPNRCode";
 import FromCityAirportCode from "./FromCityAirportCode";
+import ToCityAirportCode from "./ToCityAirportCode";
 
 class FlightMandatoryItems {
     constructor(provider) {
@@ -9,7 +10,7 @@ class FlightMandatoryItems {
         }
         this.operatingCarrierPNRCode    = new OperatingCarrierPNRCode(provider);
         this.fromCityAirportCode        = new FromCityAirportCode(provider);
-        this.toCityAirportCode          = new Item(0, 'To City Airport Code',          provider.getData(3), 3);
+        this.toCityAirportCode          = new ToCityAirportCode(provider);
         this.operatingCarrierDesignator = new Item(0, 'Operating carrier Designator',  provider.getData(3), 3);
         this.flightNumber               = new Item(0, 'Flight Number',                 provider.getData(5), 5);
         this.dateOfFlight               = new Item(0, 'Date of Flight',                provider.getData(3), 3);
