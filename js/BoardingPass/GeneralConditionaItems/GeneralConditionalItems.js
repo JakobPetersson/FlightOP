@@ -8,6 +8,7 @@ import SourceOfBoardingPassIssuance from "./SourceOfBoardingPassIssuance";
 import DateOfIssueOfBoardingPass from "./DateOfIssueOfBoardingPass";
 import DocumentType from "./DocumentType";
 import AirlineDesignatorOfBoardingPassIssuer from "./AirlineDesignatorOfBoardingPassIssuer";
+import BaggageTag from "./BaggageTag";
 
 class GeneralConditionalItems {
     constructor(provider) {
@@ -29,7 +30,7 @@ class GeneralConditionalItems {
         this.dateOfIssueOfBoardingPass = new DateOfIssueOfBoardingPass(conditionalData);
         this.documentType = new DocumentType(conditionalData);
         this.airlineDesignatorOfBoardingPassIssuer = new AirlineDesignatorOfBoardingPassIssuer(conditionalData);
-        this.baggageTag                             = new ConditionalItem(0, 'Baggage Tag Licence Plate Number(s)',                    conditionalData.getData(13), 13);
+        this.baggageTag = new BaggageTag(conditionalData);
         this.firstNonConsecutiveBaggageTag          = new ConditionalItem(0, '1st Non-Consecutive Baggage Tag Licence Plate Number',   conditionalData.getData(13), 13);
         this.secondNonConsecutiveBaggageTag         = new ConditionalItem(0, '2nd Non-Consecutive Baggage Tag Licence Plate Number',   conditionalData.getData(13), 13);
 
