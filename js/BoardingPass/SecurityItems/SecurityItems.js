@@ -1,26 +1,22 @@
 import Item from "../Item";
+import BeginningOfSecurityData from "./BeginningOfSecurityData";
+import TypeOfSecurityData from "./TypeOfSecurityData";
+import SecurityData from "./SecurityData";
 
 class SecurityItems {
     constructor(provider) {
-        this.isPresent = provider.hasData(4);
-        this.securityItems = [];
+        this.beginningOfSecurityData = new BeginningOfSecurityData(provider);
+        this.typeOfSecurityData      = new TypeOfSecurityData(provider);
 
-        if (!this.isPresent) {
-            return;
+        this.sizeHex = provider.getData(2);
+        this.sizeDec = parseInt(this.sizeHex, 16);
+        this.lengthOfSecurityData    = new Item(29, 'Length of Security Data', this.sizeHex, 2);
+
+        if (!provider.hasData(this.sizeDec)) {
+            console.log(new Error("Not enough data for SecurityItems"));
         }
 
-        this.securityItems.push(new Item(25, 'Beginning of Security Data', provider.getData(1), 1));
-        this.securityItems.push(new Item(28, 'Type of Security Data', provider.getData(1), 1));
-
-        this.securityDataSizeHex = provider.getData(2);
-        this.securityItems.push(new Item(29, 'Length of Security Data', this.securityDataSizeHex, 2));
-        this.securityDataSizeDec = parseInt(this.securityDataSizeHex, 16);
-
-        if (!provider.hasData(this.securityDataSizeDec)) {
-            console.log(new Error("Not enough data for security data"));
-        }
-
-        this.securityItems.push(new Item(30, 'Security Data', provider.getData(this.securityDataSizeDec), this.securityDataSizeDec));
+        this.securityData            = new SecurityData(provider, this.sizeDec);
     }
 
 }
