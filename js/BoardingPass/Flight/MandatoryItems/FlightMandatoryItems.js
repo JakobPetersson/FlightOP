@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 import OperatingCarrierPNRCode from "./OperatingCarrierPNRCode";
 import FromCityAirportCode from "./FromCityAirportCode";
 import ToCityAirportCode from "./ToCityAirportCode";

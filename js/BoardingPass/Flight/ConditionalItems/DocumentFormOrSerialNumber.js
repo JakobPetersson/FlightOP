@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class DocumentFormOrSerialNumber extends Item {
     constructor(provider) {

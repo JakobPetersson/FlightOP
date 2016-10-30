@@ -1,5 +1,5 @@
 import DataProvider from "./DataProvider";
-import Flight from "./Flight";
+import Flight from "./Flight/Flight";
 import SecurityItems from "./SecurityItems/SecurityItems";
 
 class BoardingPass {

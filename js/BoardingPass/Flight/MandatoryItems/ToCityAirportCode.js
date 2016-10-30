@@ -1,8 +1,8 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class ToCityAirportCode extends Item {
     constructor(provider) {
-        super(42, 'Operating carrier Designator', provider.getData(3), 3);
+        super(38, 'To City Airport Code', provider.getData(3), 3);
     }
 }
 

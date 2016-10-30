@@ -1,7 +1,7 @@
-import GeneralMandatoryItems from "./GeneralMandatoryItems/GeneralMandatoryItems";
-import GeneralConditionalItems from "./GeneralConditionaItems/GeneralConditionalItems";
-import FlightMandatoryItems from "./FlightMandatoryItems/FlightMandatoryItems";
-import FlightConditionalItems from "./FlightConditionalItems/FlightConditionalItems";
+import GeneralMandatoryItems from "../GeneralMandatoryItems/GeneralMandatoryItems";
+import GeneralConditionalItems from "../GeneralConditionaItems/GeneralConditionalItems";
+import FlightMandatoryItems from "./MandatoryItems/FlightMandatoryItems";
+import FlightConditionalItems from "./ConditionalItems/FlightConditionalItems";
 
 class Flight {
     constructor(provider, id) {

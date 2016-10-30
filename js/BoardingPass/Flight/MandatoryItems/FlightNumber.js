@@ -1,4 +1,4 @@
-import Item from "../Item";
+import Item from "../../Item";
 
 class FlightNumber extends Item {
     constructor(provider) {

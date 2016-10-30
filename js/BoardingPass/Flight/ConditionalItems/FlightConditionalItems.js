@@ -1,5 +1,5 @@
-import Item from "../Item";
-import DataProvider from "../DataProvider";
+import Item from "../../Item";
+import DataProvider from "../../DataProvider";
 import AirlineNumericCode from "./AirlineNumericCode";
 import DocumentFormOrSerialNumber from "./DocumentFormOrSerialNumber";
 import SelecteeIndicator from "./SelecteeIndicator";
