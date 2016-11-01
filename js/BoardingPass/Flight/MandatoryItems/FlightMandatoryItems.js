@@ -28,10 +28,27 @@ class FlightMandatoryItems {
         this.allConditionalSize         = new AllConditionalSize(provider);
 
         this.hasConditionalItems = this.hasConditionalItems.bind(this);
+
+        this.build = this.build.bind(this);
     }
 
     hasConditionalItems() {
         return (this.allConditionalSize.dec() > 0);
+    }
+
+    build() {
+        console.log("FlightMandatoryItems.build()");
+        return this.operatingCarrierPNRCode.build() +
+            this.fromCityAirportCode.build() +
+            this.toCityAirportCode.build() +
+            this.operatingCarrierDesignator.build() +
+            this.flightNumber.build() +
+            this.dateOfFlight.build() +
+            this.compartmentCode.build() +
+            this.seatNumber.build() +
+            this.checkInSequenceNumber.build() +
+            this.passengerStatus.build() +
+            this.allConditionalSize.build();
     }
 }
 

@@ -27,6 +27,16 @@ class Flight {
             flightConditionalSize = flightConditionalSize - this.generalConditionalItems.totalSize();
         }
         this.conditionalItems = new FlightConditionalItems(provider, flightConditionalSize);
+
+        this.build = this.build.bind(this);
+    }
+
+    build() {
+        console.log("Flight.build()");
+        if (this.isFirstFlight) {
+            return this.generalMandatoryItems.build() +
+                this.mandatoryItems.build();
+        }
     }
 }
 
