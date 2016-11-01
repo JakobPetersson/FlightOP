@@ -13,8 +13,17 @@ class BoardingPass {
 
         this.mandatoryItems = this.flights[0].generalMandatoryItems;
         this.conditionalItems = this.flights[0].generalConditionalItems;
-
         this.securityItems = new SecurityItems(provider);
+
+        this.build = this.build.bind(this);
+    }
+
+    build() {
+        console.log("BoardingPass.build()");
+        return new BoardingPass(
+            this.mandatoryItems.build() +
+            this.rawData.substring(23)
+        );
     }
 }
 

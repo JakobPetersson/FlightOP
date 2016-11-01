@@ -14,6 +14,7 @@ class Bcbp extends React.Component {
             boardingPass: new BoardingPass(this.loadInitialData())
         };
         this.setData = this.setData.bind(this);
+        this.dataChange = this.dataChange.bind(this);
         this.loadInitialData();
     }
 
@@ -40,6 +41,11 @@ class Bcbp extends React.Component {
         this.setState({boardingPass: new BoardingPass(newData)});
     }
 
+    dataChange() {
+        this.setState({boardingPass: this.state.boardingPass.build()});
+    }
+
+
     render() {
         return (
             <Grid>
@@ -56,7 +62,9 @@ class Bcbp extends React.Component {
                 </Row>
                 <GeneralItems
                     mandatoryItems={this.state.boardingPass.mandatoryItems}
-                    conditionalItems={this.state.boardingPass.conditionalItems} />
+                    conditionalItems={this.state.boardingPass.conditionalItems}
+                    dataChange={this.dataChange}
+                />
                 <Flights flights={this.state.boardingPass.flights} />
                 <SecurityItems securityItems={this.state.boardingPass.securityItems} />
             </Grid>

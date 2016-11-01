@@ -13,6 +13,16 @@ class GeneralMandatoryItems {
         this.numberOfLegsEncoded        = new NumberOfLegsEncoded(provider);
         this.passengerName              = new PassengerName(provider);
         this.electronicTicketIndicator  = new ElectronicTicketIndicator(provider);
+
+        this.build = this.build.bind(this);
+    }
+
+    build() {
+        console.log("GeneralMandatoryItems.build()");
+        return this.formatCode.build() +
+            this.numberOfLegsEncoded.build() +
+            this.passengerName.build() +
+            this.electronicTicketIndicator.build();
     }
 }
 
