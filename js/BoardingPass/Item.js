@@ -14,7 +14,11 @@ class Item {
     }
 
     build() {
-        return this.data.padEnd(this.length, ' ').substr(0, this.length);
+        if (this.length < 255) {
+            return this.data.padEnd(this.length, ' ').substr(0, this.length);
+        } else {
+            return this.data;
+        }
     }
 
 }
