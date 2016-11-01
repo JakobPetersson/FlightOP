@@ -37,6 +37,30 @@ class FlightConditionalItems {
             console.log(new Error("Something wrong with forIndividualAirlineUse size"));
         }
         this.forIndividualAirlineUse                = new ForIndividualAirlineUse(provider, individualSize);
+
+        this.build = this.build.bind(this);
+    }
+
+    build() {
+        console.log("FlightConditionalItems.build()");
+
+        let optional =
+            this.airlineNumericCode.build() +
+            this.documentFormOrSerialNumber.build() +
+            this.selecteeIndicator.build() +
+            this.internationalDocumentationVerification.build() +
+            this.marketingCarrierDesignator.build() +
+            this.frequentFlyerAirlineDesignator.build() +
+            this.frequentFlyerNumber.build() +
+            this.idOrAdIndicator.build() +
+            this.freeBaggageAllowance.build() +
+            this.fastTrack.build();
+
+        this.flightConditionalSize.setDec(optional.length);
+
+        return this.flightConditionalSize.build() +
+            optional +
+            this.forIndividualAirlineUse.build();
     }
 }
 

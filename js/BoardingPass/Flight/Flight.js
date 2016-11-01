@@ -33,12 +33,20 @@ class Flight {
 
     build() {
         console.log("Flight.build()");
+
+        let optional = this.conditionalItems.build();
         if (this.isFirstFlight) {
-            return this.generalMandatoryItems.build() +
-                this.mandatoryItems.build();
-        } else {
-            // TODO: Support multiple flights
+            optional = this.generalConditionalItems.build() + optional;
         }
+
+        this.mandatoryItems.allConditionalSize.setDec(optional.length);
+
+        let result = this.mandatoryItems.build() + optional;
+        if (this.isFirstFlight) {
+            result = this.generalMandatoryItems.build() + result;
+        }
+
+        return result;
     }
 }
 

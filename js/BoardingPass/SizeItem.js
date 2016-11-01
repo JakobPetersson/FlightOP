@@ -6,6 +6,7 @@ class SizeItem extends Item {
 
         this.dec = this.dec.bind(this);
         this.hex = this.hex.bind(this);
+        this.setDec = this.setDec.bind(this);
     }
 
     dec() {
@@ -14,6 +15,10 @@ class SizeItem extends Item {
 
     hex() {
         return this.data;
+    }
+
+    setDec(newValue) {
+        this.updateData(newValue.toString(16));
     }
 }
 
