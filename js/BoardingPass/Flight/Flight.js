@@ -36,6 +36,8 @@ class Flight {
         if (this.isFirstFlight) {
             return this.generalMandatoryItems.build() +
                 this.mandatoryItems.build();
+        } else {
+            // TODO: Support multiple flights
         }
     }
 }
