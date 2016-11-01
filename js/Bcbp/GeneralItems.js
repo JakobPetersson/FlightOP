@@ -33,28 +33,41 @@ class GeneralItems extends React.Component {
                               dataChange={this.props.dataChange} />
 
                         <Item key={conditional.beginningOfVersionNumber.itemNr}
-                              item={conditional.beginningOfVersionNumber} />
+                              item={conditional.beginningOfVersionNumber}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.versionNumber.itemNr}
-                              item={conditional.versionNumber} />
+                              item={conditional.versionNumber}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.generalConditionalSize.itemNr}
-                              item={conditional.generalConditionalSize} />
-                        <Item key={conditional.passengerDescription.itemNr}item={conditional.passengerDescription} />
+                              item={conditional.generalConditionalSize}
+                              dataChange={this.props.dataChange} />
+                        <Item key={conditional.passengerDescription.itemNr}
+                              item={conditional.passengerDescription}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.sourceOfCheckIn.itemNr}
-                              item={conditional.sourceOfCheckIn} />
+                              item={conditional.sourceOfCheckIn}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.sourceOfBoardingPassIssuance.itemNr}
-                              item={conditional.sourceOfBoardingPassIssuance} />
+                              item={conditional.sourceOfBoardingPassIssuance}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.dateOfIssueOfBoardingPass.itemNr}
-                              item={conditional.dateOfIssueOfBoardingPass} />
+                              item={conditional.dateOfIssueOfBoardingPass}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.documentType.itemNr}
-                              item={conditional.documentType} />
+                              item={conditional.documentType}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.airlineDesignatorOfBoardingPassIssuer.itemNr}
-                              item={conditional.airlineDesignatorOfBoardingPassIssuer} />
+                              item={conditional.airlineDesignatorOfBoardingPassIssuer}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.baggageTag.itemNr}
-                              item={conditional.baggageTag} />
+                              item={conditional.baggageTag}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.firstNonConsecutiveBaggageTag.itemNr}
-                              item={conditional.firstNonConsecutiveBaggageTag} />
+                              item={conditional.firstNonConsecutiveBaggageTag}
+                              dataChange={this.props.dataChange} />
                         <Item key={conditional.secondNonConsecutiveBaggageTag.itemNr}
-                              item={conditional.secondNonConsecutiveBaggageTag} />
+                              item={conditional.secondNonConsecutiveBaggageTag}
+                              dataChange={this.props.dataChange} />
                     </Form>
                 </Panel>
             </Row>

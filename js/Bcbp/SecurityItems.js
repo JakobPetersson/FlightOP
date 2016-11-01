@@ -18,10 +18,18 @@ class SecurityItems extends React.Component {
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
-                        <Item key={items.beginningOfSecurityData.itemNr} item={items.beginningOfSecurityData} />
-                        <Item key={items.typeOfSecurityData.itemNr}      item={items.typeOfSecurityData} />
-                        <Item key={items.lengthOfSecurityData.itemNr}    item={items.lengthOfSecurityData} />
-                        <Item key={items.securityData.itemNr}            item={items.securityData} />
+                        <Item key={items.beginningOfSecurityData.itemNr}
+                              item={items.beginningOfSecurityData}
+                              dataChange={this.props.dataChange} />
+                        <Item key={items.typeOfSecurityData.itemNr}
+                              item={items.typeOfSecurityData}
+                              dataChange={this.props.dataChange} />
+                        <Item key={items.lengthOfSecurityData.itemNr}
+                              item={items.lengthOfSecurityData}
+                              dataChange={this.props.dataChange} />
+                        <Item key={items.securityData.itemNr}
+                              item={items.securityData}
+                              dataChange={this.props.dataChange} />
                     </Form>
                 </Panel>
             </Row>
