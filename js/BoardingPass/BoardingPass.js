@@ -21,7 +21,8 @@ class BoardingPass {
     build() {
         console.log("BoardingPass.build()");
         return new BoardingPass(
-            this.flights[0].build()
+            this.flights[0].build() +
+            this.securityItems.build()
         );
     }
 }

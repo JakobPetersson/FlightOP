@@ -1,6 +1,6 @@
-import Item from "../Item";
 import BeginningOfSecurityData from "./BeginningOfSecurityData";
 import TypeOfSecurityData from "./TypeOfSecurityData";
+import SecurityDataSize from "./SecurityDataSize";
 import SecurityData from "./SecurityData";
 
 class SecurityItems {
@@ -8,15 +8,28 @@ class SecurityItems {
         this.beginningOfSecurityData = new BeginningOfSecurityData(provider);
         this.typeOfSecurityData      = new TypeOfSecurityData(provider);
 
-        this.sizeHex = provider.getData(2);
-        this.sizeDec = parseInt(this.sizeHex, 16);
-        this.lengthOfSecurityData    = new Item(29, 'Length of Security Data', this.sizeHex, 2);
+        this.lengthOfSecurityData    = new SecurityDataSize(provider);
 
-        if (!provider.hasData(this.sizeDec)) {
+        if (!provider.hasData(this.lengthOfSecurityData.dec())) {
             console.log(new Error("Not enough data for SecurityItems"));
         }
 
-        this.securityData            = new SecurityData(provider, this.sizeDec);
+        this.securityData            = new SecurityData(provider, this.lengthOfSecurityData.dec());
+
+        this.build = this.build.bind(this);
+    }
+
+    build() {
+        console.log("SecurityItems.build()");
+
+        let optional = this.securityData.build();
+
+        this.lengthOfSecurityData.setDec(optional.length);
+
+        return this.beginningOfSecurityData.build() +
+            this.typeOfSecurityData.build() +
+            this.lengthOfSecurityData.build() +
+            optional;
     }
 
 }
