@@ -4,6 +4,7 @@ class Item {
         this.name = name;
         this.data = data;
         this.length = length;
+        this.enabled = (data.length > 0);
 
         this.updateData = this.updateData.bind(this);
         this.build = this.build.bind(this);

@@ -40480,11 +40480,11 @@
 	
 	var _GeneralItems2 = _interopRequireDefault(_GeneralItems);
 	
-	var _Flights = __webpack_require__(499);
+	var _Flights = __webpack_require__(501);
 	
 	var _Flights2 = _interopRequireDefault(_Flights);
 	
-	var _SecurityItems = __webpack_require__(501);
+	var _SecurityItems = __webpack_require__(503);
 	
 	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
 	
@@ -40914,6 +40914,7 @@
 	        this.name = name;
 	        this.data = data;
 	        this.length = length;
+	        this.enabled = data.length > 0;
 	
 	        this.updateData = this.updateData.bind(this);
 	        this.build = this.build.bind(this);
@@ -44548,7 +44549,7 @@
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
-	      value: true
+	              value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -44563,6 +44564,10 @@
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
+	var _OptionalItem = __webpack_require__(499);
+	
+	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44572,90 +44577,90 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var GeneralItems = function (_React$Component) {
-	      _inherits(GeneralItems, _React$Component);
+	              _inherits(GeneralItems, _React$Component);
 	
-	      function GeneralItems(props) {
-	            _classCallCheck(this, GeneralItems);
+	              function GeneralItems(props) {
+	                            _classCallCheck(this, GeneralItems);
 	
-	            return _possibleConstructorReturn(this, (GeneralItems.__proto__ || Object.getPrototypeOf(GeneralItems)).call(this, props));
-	      }
+	                            return _possibleConstructorReturn(this, (GeneralItems.__proto__ || Object.getPrototypeOf(GeneralItems)).call(this, props));
+	              }
 	
-	      _createClass(GeneralItems, [{
-	            key: "render",
-	            value: function render() {
-	                  var title = _react2.default.createElement(
-	                        "h3",
-	                        null,
-	                        "General Information"
-	                  );
+	              _createClass(GeneralItems, [{
+	                            key: "render",
+	                            value: function render() {
+	                                          var title = _react2.default.createElement(
+	                                                        "h3",
+	                                                        null,
+	                                                        "General Information"
+	                                          );
 	
-	                  var mandatory = this.props.mandatoryItems;
-	                  var conditional = this.props.conditionalItems;
+	                                          var mandatory = this.props.mandatoryItems;
+	                                          var conditional = this.props.conditionalItems;
 	
-	                  return _react2.default.createElement(
-	                        _reactBootstrap.Row,
-	                        { className: "show-grid" },
-	                        _react2.default.createElement(
-	                              _reactBootstrap.Panel,
-	                              { header: title, bsStyle: "primary" },
-	                              _react2.default.createElement(
-	                                    _reactBootstrap.Form,
-	                                    { horizontal: true, fill: true },
-	                                    _react2.default.createElement(_Item2.default, { key: mandatory.formatCode.itemNr,
-	                                          item: mandatory.formatCode,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: mandatory.numberOfLegsEncoded.itemNr,
-	                                          item: mandatory.numberOfLegsEncoded,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: mandatory.passengerName.itemNr,
-	                                          item: mandatory.passengerName,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: mandatory.electronicTicketIndicator.itemNr,
-	                                          item: mandatory.electronicTicketIndicator,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.beginningOfVersionNumber.itemNr,
-	                                          item: conditional.beginningOfVersionNumber,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.versionNumber.itemNr,
-	                                          item: conditional.versionNumber,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.generalConditionalSize.itemNr,
-	                                          item: conditional.generalConditionalSize,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.passengerDescription.itemNr,
-	                                          item: conditional.passengerDescription,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.sourceOfCheckIn.itemNr,
-	                                          item: conditional.sourceOfCheckIn,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.sourceOfBoardingPassIssuance.itemNr,
-	                                          item: conditional.sourceOfBoardingPassIssuance,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.dateOfIssueOfBoardingPass.itemNr,
-	                                          item: conditional.dateOfIssueOfBoardingPass,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.documentType.itemNr,
-	                                          item: conditional.documentType,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.airlineDesignatorOfBoardingPassIssuer.itemNr,
-	                                          item: conditional.airlineDesignatorOfBoardingPassIssuer,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.baggageTag.itemNr,
-	                                          item: conditional.baggageTag,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.firstNonConsecutiveBaggageTag.itemNr,
-	                                          item: conditional.firstNonConsecutiveBaggageTag,
-	                                          dataChange: this.props.dataChange }),
-	                                    _react2.default.createElement(_Item2.default, { key: conditional.secondNonConsecutiveBaggageTag.itemNr,
-	                                          item: conditional.secondNonConsecutiveBaggageTag,
-	                                          dataChange: this.props.dataChange })
-	                              )
-	                        )
-	                  );
-	            }
-	      }]);
+	                                          return _react2.default.createElement(
+	                                                        _reactBootstrap.Row,
+	                                                        { className: "show-grid" },
+	                                                        _react2.default.createElement(
+	                                                                      _reactBootstrap.Panel,
+	                                                                      { header: title, bsStyle: "primary" },
+	                                                                      _react2.default.createElement(
+	                                                                                    _reactBootstrap.Form,
+	                                                                                    { horizontal: true, fill: true },
+	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.formatCode.itemNr,
+	                                                                                                  item: mandatory.formatCode,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.numberOfLegsEncoded.itemNr,
+	                                                                                                  item: mandatory.numberOfLegsEncoded,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.passengerName.itemNr,
+	                                                                                                  item: mandatory.passengerName,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.electronicTicketIndicator.itemNr,
+	                                                                                                  item: mandatory.electronicTicketIndicator,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.beginningOfVersionNumber.itemNr,
+	                                                                                                  item: conditional.beginningOfVersionNumber,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.versionNumber.itemNr,
+	                                                                                                  item: conditional.versionNumber,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.generalConditionalSize.itemNr,
+	                                                                                                  item: conditional.generalConditionalSize,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.passengerDescription.itemNr,
+	                                                                                                  item: conditional.passengerDescription,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.sourceOfCheckIn.itemNr,
+	                                                                                                  item: conditional.sourceOfCheckIn,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.sourceOfBoardingPassIssuance.itemNr,
+	                                                                                                  item: conditional.sourceOfBoardingPassIssuance,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.dateOfIssueOfBoardingPass.itemNr,
+	                                                                                                  item: conditional.dateOfIssueOfBoardingPass,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.documentType.itemNr,
+	                                                                                                  item: conditional.documentType,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.airlineDesignatorOfBoardingPassIssuer.itemNr,
+	                                                                                                  item: conditional.airlineDesignatorOfBoardingPassIssuer,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.baggageTag.itemNr,
+	                                                                                                  item: conditional.baggageTag,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.firstNonConsecutiveBaggageTag.itemNr,
+	                                                                                                  item: conditional.firstNonConsecutiveBaggageTag,
+	                                                                                                  dataChange: this.props.dataChange }),
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.secondNonConsecutiveBaggageTag.itemNr,
+	                                                                                                  item: conditional.secondNonConsecutiveBaggageTag,
+	                                                                                                  dataChange: this.props.dataChange })
+	                                                                      )
+	                                                        )
+	                                          );
+	                            }
+	              }]);
 	
-	      return GeneralItems;
+	              return GeneralItems;
 	}(_react2.default.Component);
 	
 	exports.default = GeneralItems;
@@ -44855,7 +44860,160 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Flight = __webpack_require__(500);
+	var _OptionalItemTextField = __webpack_require__(500);
+	
+	var _OptionalItemTextField2 = _interopRequireDefault(_OptionalItemTextField);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var OptionalItem = function (_React$Component) {
+	    _inherits(OptionalItem, _React$Component);
+	
+	    function OptionalItem(props) {
+	        _classCallCheck(this, OptionalItem);
+	
+	        var _this = _possibleConstructorReturn(this, (OptionalItem.__proto__ || Object.getPrototypeOf(OptionalItem)).call(this, props));
+	
+	        _this.state = { item: _this.props.item };
+	        _this.dataChange = _this.dataChange.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(OptionalItem, [{
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.item !== this.state.item) {
+	                this.setState({ item: nextProps.item });
+	            }
+	        }
+	    }, {
+	        key: "dataChange",
+	        value: function dataChange(newData) {
+	            this.state.item.updateData(newData);
+	            this.props.dataChange();
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _reactBootstrap.ListGroupItem,
+	                null,
+	                _react2.default.createElement(
+	                    _reactBootstrap.FormGroup,
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { componentClass: _reactBootstrap.ControlLabel, sm: 4 },
+	                        this.state.item.name
+	                    ),
+	                    _react2.default.createElement(
+	                        _reactBootstrap.Col,
+	                        { sm: 8 },
+	                        _react2.default.createElement(_OptionalItemTextField2.default, { value: this.state.item.data,
+	                            maxLength: this.state.item.length,
+	                            dataChange: this.dataChange,
+	                            enabled: this.state.item.enabled
+	                        })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return OptionalItem;
+	}(_react2.default.Component);
+	
+	exports.default = OptionalItem;
+
+/***/ },
+/* 500 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactBootstrap = __webpack_require__(173);
+	
+	var _ItemTextField = __webpack_require__(498);
+	
+	var _ItemTextField2 = _interopRequireDefault(_ItemTextField);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var OptionalItemTextField = function (_React$Component) {
+	    _inherits(OptionalItemTextField, _React$Component);
+	
+	    function OptionalItemTextField(props) {
+	        _classCallCheck(this, OptionalItemTextField);
+	
+	        return _possibleConstructorReturn(this, (OptionalItemTextField.__proto__ || Object.getPrototypeOf(OptionalItemTextField)).call(this, props));
+	    }
+	
+	    _createClass(OptionalItemTextField, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _reactBootstrap.InputGroup,
+	                null,
+	                _react2.default.createElement(
+	                    _reactBootstrap.InputGroup.Addon,
+	                    null,
+	                    _react2.default.createElement("input", { type: "checkbox",
+	                        checked: this.props.enabled })
+	                ),
+	                _react2.default.createElement(_ItemTextField2.default, { value: this.props.value,
+	                    maxLength: this.props.maxLength,
+	                    dataChange: this.props.dataChange
+	                })
+	            );
+	        }
+	    }]);
+	
+	    return OptionalItemTextField;
+	}(_react2.default.Component);
+	
+	exports.default = OptionalItemTextField;
+
+/***/ },
+/* 501 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactBootstrap = __webpack_require__(173);
+	
+	var _Flight = __webpack_require__(502);
 	
 	var _Flight2 = _interopRequireDefault(_Flight);
 	
@@ -44898,7 +45056,7 @@
 	exports.default = Flights;
 
 /***/ },
-/* 500 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44918,6 +45076,10 @@
 	var _Item = __webpack_require__(497);
 	
 	var _Item2 = _interopRequireDefault(_Item);
+	
+	var _OptionalItem = __webpack_require__(499);
+	
+	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44991,37 +45153,37 @@
 	                              _react2.default.createElement(_Item2.default, { key: conditional.flightConditionalSize.itemNr,
 	                                    item: conditional.flightConditionalSize,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.airlineNumericCode.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.airlineNumericCode.itemNr,
 	                                    item: conditional.airlineNumericCode,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.documentFormOrSerialNumber.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.documentFormOrSerialNumber.itemNr,
 	                                    item: conditional.documentFormOrSerialNumber,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.selecteeIndicator.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.selecteeIndicator.itemNr,
 	                                    item: conditional.selecteeIndicator,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.internationalDocumentationVerification.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.internationalDocumentationVerification.itemNr,
 	                                    item: conditional.internationalDocumentationVerification,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.marketingCarrierDesignator.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.marketingCarrierDesignator.itemNr,
 	                                    item: conditional.marketingCarrierDesignator,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.frequentFlyerAirlineDesignator.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.frequentFlyerAirlineDesignator.itemNr,
 	                                    item: conditional.frequentFlyerAirlineDesignator,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.frequentFlyerNumber.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.frequentFlyerNumber.itemNr,
 	                                    item: conditional.frequentFlyerNumber,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.idOrAdIndicator.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.idOrAdIndicator.itemNr,
 	                                    item: conditional.idOrAdIndicator,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.freeBaggageAllowance.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.freeBaggageAllowance.itemNr,
 	                                    item: conditional.freeBaggageAllowance,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.fastTrack.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.fastTrack.itemNr,
 	                                    item: conditional.fastTrack,
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.forIndividualAirlineUse.itemNr,
+	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.forIndividualAirlineUse.itemNr,
 	                                    item: conditional.forIndividualAirlineUse,
 	                                    dataChange: this.props.dataChange })
 	                        )
@@ -45035,7 +45197,7 @@
 	exports.default = Flight;
 
 /***/ },
-/* 501 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
