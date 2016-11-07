@@ -22,7 +22,7 @@ class Item extends React.Component {
 
     render() {
 
-        const validationState = this.state.item.hasError()? 'error' : undefined;
+        const validationState = this.state.item.errorDescription() ? 'error' : undefined;
 
         return (
             <ListGroupItem>
