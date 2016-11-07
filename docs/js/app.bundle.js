@@ -40568,7 +40568,7 @@
 	                _react2.default.createElement(_Flights2.default, { flights: this.state.boardingPass.flights,
 	                    dataChange: this.dataChange }),
 	                _react2.default.createElement(_SecurityItems2.default, { securityItems: this.state.boardingPass.securityItems,
-	                    dataChange: this.dataChange })
+	                    bcbpChange: this.dataChange })
 	            );
 	        }
 	    }], [{
@@ -41328,7 +41328,7 @@
 	    }, {
 	        key: "setDec",
 	        value: function setDec(newValue) {
-	            this.updateData(newValue.toString(16));
+	            this.updateData(newValue.toString(16).padStart(2, '0').toUpperCase());
 	        }
 	    }]);
 	
@@ -42744,6 +42744,8 @@
 	    function SecurityItems(provider) {
 	        _classCallCheck(this, SecurityItems);
 	
+	        this._enabled = provider.hasData(1);
+	
 	        this.beginningOfSecurityData = new _BeginningOfSecurityData2.default(provider);
 	        this.typeOfSecurityData = new _TypeOfSecurityData2.default(provider);
 	
@@ -42755,16 +42757,30 @@
 	
 	        this.securityData = new _SecurityData2.default(provider, this.lengthOfSecurityData.dec());
 	
+	        this.isEnabled = this.isEnabled.bind(this);
+	        this.setEnabled = this.setEnabled.bind(this);
+	
 	        this.build = this.build.bind(this);
 	    }
 	
 	    _createClass(SecurityItems, [{
+	        key: "isEnabled",
+	        value: function isEnabled() {
+	            return this._enabled;
+	        }
+	    }, {
+	        key: "setEnabled",
+	        value: function setEnabled(enabled) {
+	            this._enabled = enabled;
+	        }
+	    }, {
 	        key: "build",
 	        value: function build() {
-	            console.log("SecurityItems.build()");
+	            if (!this._enabled) {
+	                return '';
+	            }
 	
 	            var optional = this.securityData.build();
-	
 	            this.lengthOfSecurityData.setDec(optional.length);
 	
 	            return this.beginningOfSecurityData.build() + this.typeOfSecurityData.build() + this.lengthOfSecurityData.build() + optional;
@@ -45232,19 +45248,38 @@
 	    function SecurityItems(props) {
 	        _classCallCheck(this, SecurityItems);
 	
-	        return _possibleConstructorReturn(this, (SecurityItems.__proto__ || Object.getPrototypeOf(SecurityItems)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (SecurityItems.__proto__ || Object.getPrototypeOf(SecurityItems)).call(this, props));
+	
+	        _this.state = { securityItems: _this.props.securityItems };
+	        _this.enableCheckboxChanged = _this.enableCheckboxChanged.bind(_this);
+	        return _this;
 	    }
 	
 	    _createClass(SecurityItems, [{
+	        key: "componentWillReceiveProps",
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.securityItems !== this.state.securityItems) {
+	                this.setState({ securityItems: nextProps.securityItems });
+	            }
+	        }
+	    }, {
+	        key: "enableCheckboxChanged",
+	        value: function enableCheckboxChanged(ev) {
+	            this.state.securityItems.setEnabled(ev.target.checked);
+	            this.props.bcbpChange();
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            var title = _react2.default.createElement(
-	                "h3",
-	                null,
+	                _reactBootstrap.Checkbox,
+	                {
+	                    checked: this.state.securityItems.isEnabled(),
+	                    onChange: this.enableCheckboxChanged },
 	                "Security Sector"
 	            );
 	
-	            var items = this.props.securityItems;
+	            var items = this.state.securityItems;
 	
 	            return _react2.default.createElement(
 	                _reactBootstrap.Row,
@@ -45254,19 +45289,19 @@
 	                    { header: title, bsStyle: "primary" },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Form,
-	                        { horizontal: true, fill: true },
+	                        { horizontal: true, fill: true, hidden: !this.state.securityItems.isEnabled() },
 	                        _react2.default.createElement(_Item2.default, { key: items.beginningOfSecurityData.itemNr,
 	                            item: items.beginningOfSecurityData,
-	                            dataChange: this.props.dataChange }),
+	                            dataChange: this.props.bcbpChange }),
 	                        _react2.default.createElement(_Item2.default, { key: items.typeOfSecurityData.itemNr,
 	                            item: items.typeOfSecurityData,
-	                            dataChange: this.props.dataChange }),
+	                            dataChange: this.props.bcbpChange }),
 	                        _react2.default.createElement(_Item2.default, { key: items.lengthOfSecurityData.itemNr,
 	                            item: items.lengthOfSecurityData,
-	                            dataChange: this.props.dataChange }),
+	                            dataChange: this.props.bcbpChange }),
 	                        _react2.default.createElement(_Item2.default, { key: items.securityData.itemNr,
 	                            item: items.securityData,
-	                            dataChange: this.props.dataChange })
+	                            dataChange: this.props.bcbpChange })
 	                    )
 	                )
 	            );
