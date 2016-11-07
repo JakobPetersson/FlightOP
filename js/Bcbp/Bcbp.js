@@ -66,7 +66,7 @@ class Bcbp extends React.Component {
                 <Flights flights={this.state.boardingPass.flights}
                          dataChange={this.dataChange}/>
                 <SecurityItems securityItems={this.state.boardingPass.securityItems}
-                               dataChange={this.dataChange}/>
+                               bcbpChange={this.dataChange}/>
             </Grid>
         )
     }

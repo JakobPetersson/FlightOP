@@ -1,35 +1,52 @@
 import React from "react";
-import {Row, Panel, Form} from "react-bootstrap";
+import {Row, Panel, Form, Checkbox} from "react-bootstrap";
 import Item from "./Item";
 
 class SecurityItems extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {securityItems: this.props.securityItems};
+        this.enableCheckboxChanged = this.enableCheckboxChanged.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.securityItems !== this.state.securityItems) {
+            this.setState({securityItems: nextProps.securityItems});
+        }
+    }
+
+    enableCheckboxChanged(ev) {
+        this.state.securityItems.setEnabled(ev.target.checked);
+        this.props.bcbpChange();
     }
 
     render() {
         const title = (
-            <h3>Security Sector</h3>
+            <Checkbox
+                checked={this.state.securityItems.isEnabled()}
+                onChange={this.enableCheckboxChanged}>
+                Security Sector
+            </Checkbox>
         );
 
-        let items = this.props.securityItems;
+        const items = this.state.securityItems;
 
         return (
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
-                    <Form horizontal fill>
+                    <Form horizontal fill hidden={!this.state.securityItems.isEnabled()}>
                         <Item key={items.beginningOfSecurityData.itemNr}
                               item={items.beginningOfSecurityData}
-                              dataChange={this.props.dataChange} />
+                              dataChange={this.props.bcbpChange}/>
                         <Item key={items.typeOfSecurityData.itemNr}
                               item={items.typeOfSecurityData}
-                              dataChange={this.props.dataChange} />
+                              dataChange={this.props.bcbpChange}/>
                         <Item key={items.lengthOfSecurityData.itemNr}
                               item={items.lengthOfSecurityData}
-                              dataChange={this.props.dataChange} />
+                              dataChange={this.props.bcbpChange}/>
                         <Item key={items.securityData.itemNr}
                               item={items.securityData}
-                              dataChange={this.props.dataChange} />
+                              dataChange={this.props.bcbpChange}/>
                     </Form>
                 </Panel>
             </Row>

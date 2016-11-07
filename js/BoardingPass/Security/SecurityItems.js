@@ -5,6 +5,8 @@ import SecurityData from "./SecurityData";
 
 class SecurityItems {
     constructor(provider) {
+        this._enabled = provider.hasData(1);
+
         this.beginningOfSecurityData = new BeginningOfSecurityData(provider);
         this.typeOfSecurityData      = new TypeOfSecurityData(provider);
 
@@ -16,14 +18,26 @@ class SecurityItems {
 
         this.securityData            = new SecurityData(provider, this.lengthOfSecurityData.dec());
 
+        this.isEnabled = this.isEnabled.bind(this);
+        this.setEnabled = this.setEnabled.bind(this);
+
         this.build = this.build.bind(this);
     }
 
+    isEnabled() {
+        return this._enabled;
+    }
+
+    setEnabled(enabled) {
+        this._enabled = enabled;
+    }
+
     build() {
-        console.log("SecurityItems.build()");
+        if (!this._enabled) {
+            return '';
+        }
 
         let optional = this.securityData.build();
-
         this.lengthOfSecurityData.setDec(optional.length);
 
         return this.beginningOfSecurityData.build() +
