@@ -1,5 +1,5 @@
 import React from "react";
-import {ListGroupItem, FormGroup, ControlLabel, Col} from "react-bootstrap";
+import {ListGroupItem, FormGroup, ControlLabel, Col, FormControl} from "react-bootstrap";
 import ItemTextField from "./ItemTextField";
 
 class Item extends React.Component {
@@ -21,15 +21,19 @@ class Item extends React.Component {
     }
 
     render() {
+
+        const validationState = this.state.item.hasError()? 'error' : undefined;
+
         return (
             <ListGroupItem>
-                <FormGroup>
+                <FormGroup validationState={validationState}>
                     <Col componentClass={ControlLabel} sm={4}>{this.state.item.name}</Col>
                     <Col sm={8}>
                         <ItemTextField value={this.state.item.data}
                                        maxLength={this.state.item.length}
                                        dataChange={this.dataChange}
                         />
+                        <FormControl.Feedback />
                     </Col>
                 </FormGroup>
             </ListGroupItem>
