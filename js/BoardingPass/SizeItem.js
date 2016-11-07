@@ -18,7 +18,7 @@ class SizeItem extends Item {
     }
 
     setDec(newValue) {
-        this.updateData(newValue.toString(16));
+        this.updateData(newValue.toString(16).padStart(2, '0').toUpperCase());
     }
 }
 
