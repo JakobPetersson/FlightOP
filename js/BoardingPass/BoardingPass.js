@@ -11,11 +11,22 @@ class BoardingPass {
 
         this.flights.push(new Flight(provider, this.flights.length + 1));
 
-        this.mandatoryItems = this.flights[0].generalMandatoryItems;
-        this.conditionalItems = this.flights[0].generalConditionalItems;
+        this._mandatoryItems = this.flights[0].generalMandatoryItems;
+        this._conditionalItems = this.flights[0].generalConditionalItems;
         this.securityItems = new SecurityItems(provider);
 
+        this.mandatoryItems = this.mandatoryItems.bind(this);
+        this.conditionalItems = this.conditionalItems.bind(this);
+
         this.build = this.build.bind(this);
+    }
+
+    mandatoryItems() {
+        return this._mandatoryItems;
+    }
+
+    conditionalItems() {
+        return this._conditionalItems;
     }
 
     build() {

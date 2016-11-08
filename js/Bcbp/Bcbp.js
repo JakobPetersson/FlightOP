@@ -60,8 +60,8 @@ class Bcbp extends React.Component {
                         <Barcodes rawData={this.state.boardingPass.rawData} />
                     </Col>
                 </Row>
-                <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems}
-                              conditionalItems={this.state.boardingPass.conditionalItems}
+                <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems()}
+                              conditionalItems={this.state.boardingPass.conditionalItems()}
                               dataChange={this.dataChange} />
                 <Flights flights={this.state.boardingPass.flights}
                          dataChange={this.dataChange}/>
