@@ -11,8 +11,8 @@ class BoardingPass {
 
         this._flights.push(new Flight(provider, this._flights.length + 1));
 
-        this._mandatoryItems = this._flights[0].generalMandatoryItems;
-        this._conditionalItems = this._flights[0].generalConditionalItems;
+        this._mandatoryItems = this._flights[0].generalMandatoryItems();
+        this._conditionalItems = this._flights[0].generalConditionalItems();
         this._securityItems = new SecurityItems(provider);
 
         this.mandatoryItems = this.mandatoryItems.bind(this);

@@ -10,11 +10,11 @@ class Flight extends React.Component {
 
     render() {
         const title = (
-            <h3>Flight {this.props.flight.id}</h3>
+            <h3>Flight {this.props.flight.id()}</h3>
         );
 
-        let mandatory = this.props.flight.mandatoryItems;
-        let conditional = this.props.flight.conditionalItems;
+        let mandatory = this.props.flight.mandatoryItems();
+        let conditional = this.props.flight.conditionalItems();
 
         return (
             <Panel header={title} bsStyle="primary">

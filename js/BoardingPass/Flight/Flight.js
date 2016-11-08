@@ -5,45 +5,76 @@ import FlightConditionalItems from "./ConditionalItems/FlightConditionalItems";
 
 class Flight {
     constructor(provider, id) {
-        this.id = id;
-        this.isFirstFlight = (this.id == 1);
+        this._id = id;
+        this._isFirstFlight = (this._id == 1);
 
-        if (this.isFirstFlight) {
-            this.generalMandatoryItems = new GeneralMandatoryItems(provider);
+        this._mandatoryItems = undefined;
+        this._conditionalItems = undefined;
+
+        this._generalMandatoryItems = undefined;
+        this._generalConditionalItems = undefined;
+
+
+        if (this._isFirstFlight) {
+            this._generalMandatoryItems = new GeneralMandatoryItems(provider);
         }
 
-        this.mandatoryItems = new FlightMandatoryItems(provider);
+        this._mandatoryItems = new FlightMandatoryItems(provider);
 
-        if (!this.mandatoryItems.hasConditionalItems()) {
+        if (!this._mandatoryItems.hasConditionalItems()) {
             return;
         }
 
-        if (this.isFirstFlight) {
-            this.generalConditionalItems = new GeneralConditionalItems(provider);
+
+        if (this._isFirstFlight) {
+            this._generalConditionalItems = new GeneralConditionalItems(provider);
         }
 
-        let flightConditionalSize = this.mandatoryItems.allConditionalSize.dec();
-        if (this.isFirstFlight) {
-            flightConditionalSize = flightConditionalSize - this.generalConditionalItems.totalSize();
+        let flightConditionalSize = this._mandatoryItems.allConditionalSize.dec();
+        if (this._isFirstFlight) {
+            flightConditionalSize = flightConditionalSize - this._generalConditionalItems.totalSize();
         }
-        this.conditionalItems = new FlightConditionalItems(provider, flightConditionalSize);
+        this._conditionalItems = new FlightConditionalItems(provider, flightConditionalSize);
 
+        this.id = this.id.bind(this);
+        this.generalMandatoryItems = this.generalMandatoryItems.bind(this);
+        this.generalConditionalItems = this.generalConditionalItems.bind(this);
+        this.mandatoryItems = this.mandatoryItems.bind(this);
+        this.conditionalItems = this.conditionalItems.bind(this);
         this.build = this.build.bind(this);
     }
 
-    build() {
-        console.log("Flight.build()");
+    id() {
+        return this._id;
+    }
 
-        let optional = this.conditionalItems.build();
-        if (this.isFirstFlight) {
-            optional = this.generalConditionalItems.build() + optional;
+    generalMandatoryItems() {
+        return this._generalMandatoryItems;
+    }
+
+    generalConditionalItems() {
+        return this._generalConditionalItems;
+    }
+
+    mandatoryItems() {
+        return this._mandatoryItems;
+    }
+
+    conditionalItems() {
+        return this._conditionalItems;
+    }
+
+    build() {
+        let optional = this._conditionalItems.build();
+        if (this._isFirstFlight) {
+            optional = this._generalConditionalItems.build() + optional;
         }
 
-        this.mandatoryItems.allConditionalSize.setDec(optional.length);
+        this._mandatoryItems.allConditionalSize.setDec(optional.length);
 
-        let result = this.mandatoryItems.build() + optional;
-        if (this.isFirstFlight) {
-            result = this.generalMandatoryItems.build() + result;
+        let result = this._mandatoryItems.build() + optional;
+        if (this._isFirstFlight) {
+            result = this._generalMandatoryItems.build() + result;
         }
 
         return result;
