@@ -40464,27 +40464,27 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _BoardingPass = __webpack_require__(427);
+	var _BoardingPassBuilder = __webpack_require__(427);
 	
-	var _BoardingPass2 = _interopRequireDefault(_BoardingPass);
+	var _BoardingPassBuilder2 = _interopRequireDefault(_BoardingPassBuilder);
 	
-	var _RawInput = __webpack_require__(481);
+	var _RawInput = __webpack_require__(488);
 	
 	var _RawInput2 = _interopRequireDefault(_RawInput);
 	
-	var _Barcodes = __webpack_require__(482);
+	var _Barcodes = __webpack_require__(489);
 	
 	var _Barcodes2 = _interopRequireDefault(_Barcodes);
 	
-	var _GeneralItems = __webpack_require__(497);
+	var _GeneralItems = __webpack_require__(504);
 	
 	var _GeneralItems2 = _interopRequireDefault(_GeneralItems);
 	
-	var _Flights = __webpack_require__(502);
+	var _Flights = __webpack_require__(509);
 	
 	var _Flights2 = _interopRequireDefault(_Flights);
 	
-	var _SecurityItems = __webpack_require__(504);
+	var _SecurityItems = __webpack_require__(511);
 	
 	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
 	
@@ -40505,7 +40505,7 @@
 	        var _this = _possibleConstructorReturn(this, (Bcbp.__proto__ || Object.getPrototypeOf(Bcbp)).call(this, props));
 	
 	        _this.state = {
-	            boardingPass: new _BoardingPass2.default(_this.loadInitialData())
+	            boardingPass: _BoardingPassBuilder2.default.build(_this.loadInitialData())
 	        };
 	        _this.setData = _this.setData.bind(_this);
 	        _this.dataChange = _this.dataChange.bind(_this);
@@ -40526,7 +40526,7 @@
 	    }, {
 	        key: "setData",
 	        value: function setData(newData) {
-	            this.setState({ boardingPass: new _BoardingPass2.default(newData) });
+	            this.setState({ boardingPass: _BoardingPassBuilder2.default.build(newData) });
 	        }
 	    }, {
 	        key: "dataChange",
@@ -40554,20 +40554,20 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { xs: 12, md: 6 },
-	                        _react2.default.createElement(_RawInput2.default, { rawData: this.state.boardingPass.rawData, setData: this.setData })
+	                        _react2.default.createElement(_RawInput2.default, { rawData: this.state.boardingPass.rawData(), setData: this.setData })
 	                    ),
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { xs: 12, md: 6 },
-	                        _react2.default.createElement(_Barcodes2.default, { rawData: this.state.boardingPass.rawData })
+	                        _react2.default.createElement(_Barcodes2.default, { rawData: this.state.boardingPass.rawData() })
 	                    )
 	                ),
-	                _react2.default.createElement(_GeneralItems2.default, { mandatoryItems: this.state.boardingPass.mandatoryItems,
-	                    conditionalItems: this.state.boardingPass.conditionalItems,
+	                _react2.default.createElement(_GeneralItems2.default, { mandatoryItems: this.state.boardingPass.mandatoryItems(),
+	                    conditionalItems: this.state.boardingPass.conditionalItems(),
 	                    dataChange: this.dataChange }),
-	                _react2.default.createElement(_Flights2.default, { flights: this.state.boardingPass.flights,
+	                _react2.default.createElement(_Flights2.default, { flights: this.state.boardingPass.flights(),
 	                    dataChange: this.dataChange }),
-	                _react2.default.createElement(_SecurityItems2.default, { securityItems: this.state.boardingPass.securityItems,
+	                _react2.default.createElement(_SecurityItems2.default, { securityItems: this.state.boardingPass.securityItems(),
 	                    bcbpChange: this.dataChange })
 	            );
 	        }
@@ -40605,48 +40605,48 @@
 	
 	var _DataProvider2 = _interopRequireDefault(_DataProvider);
 	
-	var _Flight = __webpack_require__(429);
+	var _FlightBuilder = __webpack_require__(429);
 	
-	var _Flight2 = _interopRequireDefault(_Flight);
+	var _FlightBuilder2 = _interopRequireDefault(_FlightBuilder);
 	
-	var _SecurityItems = __webpack_require__(476);
+	var _SecurityItemsBuilder = __webpack_require__(481);
 	
-	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
+	var _SecurityItemsBuilder2 = _interopRequireDefault(_SecurityItemsBuilder);
+	
+	var _BoardingPass = __webpack_require__(487);
+	
+	var _BoardingPass2 = _interopRequireDefault(_BoardingPass);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var BoardingPass = function () {
-	    function BoardingPass(rawData) {
-	        _classCallCheck(this, BoardingPass);
-	
-	        this.rawData = rawData;
-	        this.flights = [];
-	
-	        var provider = new _DataProvider2.default(rawData);
-	
-	        this.flights.push(new _Flight2.default(provider, this.flights.length + 1));
-	
-	        this.mandatoryItems = this.flights[0].generalMandatoryItems;
-	        this.conditionalItems = this.flights[0].generalConditionalItems;
-	        this.securityItems = new _SecurityItems2.default(provider);
-	
-	        this.build = this.build.bind(this);
+	var BoardingPassBuilder = function () {
+	    function BoardingPassBuilder() {
+	        _classCallCheck(this, BoardingPassBuilder);
 	    }
 	
-	    _createClass(BoardingPass, [{
+	    _createClass(BoardingPassBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            console.log("BoardingPass.build()");
-	            return new BoardingPass(this.flights[0].build() + this.securityItems.build());
+	        value: function build(rawData) {
+	            var flights = [];
+	
+	            var provider = new _DataProvider2.default(rawData);
+	
+	            flights.push(_FlightBuilder2.default.build(provider, flights.length + 1));
+	
+	            var mandatoryItems = flights[0].generalMandatoryItems();
+	            var conditionalItems = flights[0].generalConditionalItems();
+	            var securityItems = _SecurityItemsBuilder2.default.build(provider);
+	
+	            return new _BoardingPass2.default(rawData, mandatoryItems, conditionalItems, flights, securityItems);
 	        }
 	    }]);
 	
-	    return BoardingPass;
+	    return BoardingPassBuilder;
 	}();
 	
-	exports.default = BoardingPass;
+	exports.default = BoardingPassBuilder;
 
 /***/ },
 /* 428 */
@@ -40719,81 +40719,70 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _GeneralMandatoryItems = __webpack_require__(430);
+	var _GeneralMandatoryItemsBuilder = __webpack_require__(430);
 	
-	var _GeneralMandatoryItems2 = _interopRequireDefault(_GeneralMandatoryItems);
+	var _GeneralMandatoryItemsBuilder2 = _interopRequireDefault(_GeneralMandatoryItemsBuilder);
 	
-	var _GeneralConditionalItems = __webpack_require__(436);
+	var _GeneralConditionalItemsBuilder = __webpack_require__(437);
 	
-	var _GeneralConditionalItems2 = _interopRequireDefault(_GeneralConditionalItems);
+	var _GeneralConditionalItemsBuilder2 = _interopRequireDefault(_GeneralConditionalItemsBuilder);
 	
-	var _FlightMandatoryItems = __webpack_require__(450);
+	var _FlightMandatoryItemsBuilder = __webpack_require__(452);
 	
-	var _FlightMandatoryItems2 = _interopRequireDefault(_FlightMandatoryItems);
+	var _FlightMandatoryItemsBuilder2 = _interopRequireDefault(_FlightMandatoryItemsBuilder);
 	
-	var _FlightConditionalItems = __webpack_require__(462);
+	var _FlightConditionalItemsBuilder = __webpack_require__(465);
 	
-	var _FlightConditionalItems2 = _interopRequireDefault(_FlightConditionalItems);
+	var _FlightConditionalItemsBuilder2 = _interopRequireDefault(_FlightConditionalItemsBuilder);
+	
+	var _Flight = __webpack_require__(480);
+	
+	var _Flight2 = _interopRequireDefault(_Flight);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Flight = function () {
-	    function Flight(provider, id) {
-	        _classCallCheck(this, Flight);
-	
-	        this.id = id;
-	        this.isFirstFlight = this.id == 1;
-	
-	        if (this.isFirstFlight) {
-	            this.generalMandatoryItems = new _GeneralMandatoryItems2.default(provider);
-	        }
-	
-	        this.mandatoryItems = new _FlightMandatoryItems2.default(provider);
-	
-	        if (!this.mandatoryItems.hasConditionalItems()) {
-	            return;
-	        }
-	
-	        if (this.isFirstFlight) {
-	            this.generalConditionalItems = new _GeneralConditionalItems2.default(provider);
-	        }
-	
-	        var flightConditionalSize = this.mandatoryItems.allConditionalSize.dec();
-	        if (this.isFirstFlight) {
-	            flightConditionalSize = flightConditionalSize - this.generalConditionalItems.totalSize();
-	        }
-	        this.conditionalItems = new _FlightConditionalItems2.default(provider, flightConditionalSize);
-	
-	        this.build = this.build.bind(this);
+	var FlightBuilder = function () {
+	    function FlightBuilder() {
+	        _classCallCheck(this, FlightBuilder);
 	    }
 	
-	    _createClass(Flight, [{
+	    _createClass(FlightBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            console.log("Flight.build()");
+	        value: function build(provider, id) {
+	            var isFirstFlight = id === 1;
 	
-	            var optional = this.conditionalItems.build();
-	            if (this.isFirstFlight) {
-	                optional = this.generalConditionalItems.build() + optional;
+	            var conditionalItems = undefined;
+	            var generalMandatoryItems = undefined;
+	            var generalConditionalItems = undefined;
+	
+	            if (isFirstFlight) {
+	                generalMandatoryItems = _GeneralMandatoryItemsBuilder2.default.build(provider);
 	            }
 	
-	            this.mandatoryItems.allConditionalSize.setDec(optional.length);
+	            var mandatoryItems = _FlightMandatoryItemsBuilder2.default.build(provider);
 	
-	            var result = this.mandatoryItems.build() + optional;
-	            if (this.isFirstFlight) {
-	                result = this.generalMandatoryItems.build() + result;
+	            if (mandatoryItems.hasConditionalItems()) {
+	                if (isFirstFlight) {
+	                    generalConditionalItems = _GeneralConditionalItemsBuilder2.default.build(provider);
+	                }
+	
+	                var flightConditionalSize = mandatoryItems.allConditionalSize().dec();
+	                if (isFirstFlight) {
+	                    flightConditionalSize = flightConditionalSize - generalConditionalItems.totalSize();
+	                }
+	                conditionalItems = _FlightConditionalItemsBuilder2.default.build(provider, flightConditionalSize);
 	            }
 	
-	            return result;
+	            return new _Flight2.default(id, mandatoryItems, conditionalItems, generalMandatoryItems, generalConditionalItems);
 	        }
 	    }]);
 	
-	    return Flight;
+	    return FlightBuilder;
 	}();
 	
-	exports.default = Flight;
+	exports.default = FlightBuilder;
 
 /***/ },
 /* 430 */
@@ -40823,38 +40812,39 @@
 	
 	var _ElectronicTicketIndicator2 = _interopRequireDefault(_ElectronicTicketIndicator);
 	
+	var _GeneralMandatoryItems = __webpack_require__(436);
+	
+	var _GeneralMandatoryItems2 = _interopRequireDefault(_GeneralMandatoryItems);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var GeneralMandatoryItems = function () {
-	    function GeneralMandatoryItems(provider) {
-	        _classCallCheck(this, GeneralMandatoryItems);
-	
-	        if (!provider.hasData(23)) {
-	            console.log(new Error("Not enough data for GeneralMandatoryItems"));
-	        }
-	
-	        this.formatCode = new _FormatCode2.default(provider);
-	        this.numberOfLegsEncoded = new _NumberOfLegsEncoded2.default(provider);
-	        this.passengerName = new _PassengerName2.default(provider);
-	        this.electronicTicketIndicator = new _ElectronicTicketIndicator2.default(provider);
-	
-	        this.build = this.build.bind(this);
+	var GeneralMandatoryItemsBuilder = function () {
+	    function GeneralMandatoryItemsBuilder() {
+	        _classCallCheck(this, GeneralMandatoryItemsBuilder);
 	    }
 	
-	    _createClass(GeneralMandatoryItems, [{
+	    _createClass(GeneralMandatoryItemsBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            console.log("GeneralMandatoryItems.build()");
-	            return this.formatCode.build() + this.numberOfLegsEncoded.build() + this.passengerName.build() + this.electronicTicketIndicator.build();
+	        value: function build(provider) {
+	            if (!provider.hasData(23)) {
+	                console.log(new Error("Not enough data for GeneralMandatoryItems"));
+	            }
+	
+	            var formatCode = new _FormatCode2.default(provider.getData(1));
+	            var numberOfLegsEncoded = new _NumberOfLegsEncoded2.default(provider.getData(1));
+	            var passengerName = new _PassengerName2.default(provider.getData(20));
+	            var electronicTicketIndicator = new _ElectronicTicketIndicator2.default(provider.getData(1));
+	
+	            return new _GeneralMandatoryItems2.default(formatCode, numberOfLegsEncoded, passengerName, electronicTicketIndicator);
 	        }
 	    }]);
 	
-	    return GeneralMandatoryItems;
+	    return GeneralMandatoryItemsBuilder;
 	}();
 	
-	exports.default = GeneralMandatoryItems;
+	exports.default = GeneralMandatoryItemsBuilder;
 
 /***/ },
 /* 431 */
@@ -40881,10 +40871,10 @@
 	var FormatCode = function (_Item) {
 	    _inherits(FormatCode, _Item);
 	
-	    function FormatCode(provider) {
+	    function FormatCode(data) {
 	        _classCallCheck(this, FormatCode);
 	
-	        return _possibleConstructorReturn(this, (FormatCode.__proto__ || Object.getPrototypeOf(FormatCode)).call(this, 1, 'Format Code', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (FormatCode.__proto__ || Object.getPrototypeOf(FormatCode)).call(this, 1, 'Format Code', data, 1));
 	    }
 	
 	    return FormatCode;
@@ -40987,10 +40977,10 @@
 	var NumberOfLegsEncoded = function (_Item) {
 	    _inherits(NumberOfLegsEncoded, _Item);
 	
-	    function NumberOfLegsEncoded(provider) {
+	    function NumberOfLegsEncoded(data) {
 	        _classCallCheck(this, NumberOfLegsEncoded);
 	
-	        return _possibleConstructorReturn(this, (NumberOfLegsEncoded.__proto__ || Object.getPrototypeOf(NumberOfLegsEncoded)).call(this, 5, 'Number of Legs Encoded', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (NumberOfLegsEncoded.__proto__ || Object.getPrototypeOf(NumberOfLegsEncoded)).call(this, 5, 'Number of Legs Encoded', data, 1));
 	    }
 	
 	    return NumberOfLegsEncoded;
@@ -41023,10 +41013,10 @@
 	var PassengerName = function (_Item) {
 	    _inherits(PassengerName, _Item);
 	
-	    function PassengerName(provider) {
+	    function PassengerName(data) {
 	        _classCallCheck(this, PassengerName);
 	
-	        return _possibleConstructorReturn(this, (PassengerName.__proto__ || Object.getPrototypeOf(PassengerName)).call(this, 11, 'Passenger Name', provider.getData(20), 20));
+	        return _possibleConstructorReturn(this, (PassengerName.__proto__ || Object.getPrototypeOf(PassengerName)).call(this, 11, 'Passenger Name', data, 20));
 	    }
 	
 	    return PassengerName;
@@ -41059,10 +41049,10 @@
 	var ElectronicTicketIndicator = function (_Item) {
 	    _inherits(ElectronicTicketIndicator, _Item);
 	
-	    function ElectronicTicketIndicator(provider) {
+	    function ElectronicTicketIndicator(data) {
 	        _classCallCheck(this, ElectronicTicketIndicator);
 	
-	        return _possibleConstructorReturn(this, (ElectronicTicketIndicator.__proto__ || Object.getPrototypeOf(ElectronicTicketIndicator)).call(this, 253, 'Electronic Ticket Indicator', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (ElectronicTicketIndicator.__proto__ || Object.getPrototypeOf(ElectronicTicketIndicator)).call(this, 253, 'Electronic Ticket Indicator', data, 1));
 	    }
 	
 	    return ElectronicTicketIndicator;
@@ -41072,6 +41062,68 @@
 
 /***/ },
 /* 436 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var GeneralMandatoryItems = function () {
+	    function GeneralMandatoryItems(formatCode, numberOfLegsEncoded, passengerName, electronicTicketIndicator) {
+	        _classCallCheck(this, GeneralMandatoryItems);
+	
+	        this._formatCode = formatCode;
+	        this._numberOfLegsEncoded = numberOfLegsEncoded;
+	        this._passengerName = passengerName;
+	        this._electronicTicketIndicator = electronicTicketIndicator;
+	
+	        this.formatCode = this.formatCode.bind(this);
+	        this.numberOfLegsEncoded = this.numberOfLegsEncoded.bind(this);
+	        this.passengerName = this.passengerName.bind(this);
+	        this.electronicTicketIndicator = this.electronicTicketIndicator.bind(this);
+	    }
+	
+	    _createClass(GeneralMandatoryItems, [{
+	        key: "formatCode",
+	        value: function formatCode() {
+	            return this._formatCode;
+	        }
+	    }, {
+	        key: "numberOfLegsEncoded",
+	        value: function numberOfLegsEncoded() {
+	            return this._numberOfLegsEncoded;
+	        }
+	    }, {
+	        key: "passengerName",
+	        value: function passengerName() {
+	            return this._passengerName;
+	        }
+	    }, {
+	        key: "electronicTicketIndicator",
+	        value: function electronicTicketIndicator() {
+	            return this._electronicTicketIndicator;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            console.log("GeneralMandatoryItems.build()");
+	            return this._formatCode.build() + this._numberOfLegsEncoded.build() + this._passengerName.build() + this._electronicTicketIndicator.build();
+	        }
+	    }]);
+	
+	    return GeneralMandatoryItems;
+	}();
+	
+	exports.default = GeneralMandatoryItems;
+
+/***/ },
+/* 437 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41086,145 +41138,98 @@
 	
 	var _DataProvider2 = _interopRequireDefault(_DataProvider);
 	
-	var _BeginningOfVersionNumber = __webpack_require__(437);
+	var _BeginningOfVersionNumber = __webpack_require__(438);
 	
 	var _BeginningOfVersionNumber2 = _interopRequireDefault(_BeginningOfVersionNumber);
 	
-	var _VersionNumber = __webpack_require__(438);
+	var _VersionNumber = __webpack_require__(439);
 	
 	var _VersionNumber2 = _interopRequireDefault(_VersionNumber);
 	
-	var _GeneralConditionalSize = __webpack_require__(439);
+	var _GeneralConditionalSize = __webpack_require__(440);
 	
 	var _GeneralConditionalSize2 = _interopRequireDefault(_GeneralConditionalSize);
 	
-	var _PassengerDescription = __webpack_require__(441);
+	var _PassengerDescription = __webpack_require__(442);
 	
 	var _PassengerDescription2 = _interopRequireDefault(_PassengerDescription);
 	
-	var _SourceOfCheckIn = __webpack_require__(442);
+	var _SourceOfCheckIn = __webpack_require__(443);
 	
 	var _SourceOfCheckIn2 = _interopRequireDefault(_SourceOfCheckIn);
 	
-	var _SourceOfBoardingPassIssuance = __webpack_require__(443);
+	var _SourceOfBoardingPassIssuance = __webpack_require__(444);
 	
 	var _SourceOfBoardingPassIssuance2 = _interopRequireDefault(_SourceOfBoardingPassIssuance);
 	
-	var _DateOfIssueOfBoardingPass = __webpack_require__(444);
+	var _DateOfIssueOfBoardingPass = __webpack_require__(445);
 	
 	var _DateOfIssueOfBoardingPass2 = _interopRequireDefault(_DateOfIssueOfBoardingPass);
 	
-	var _DocumentType = __webpack_require__(445);
+	var _DocumentType = __webpack_require__(446);
 	
 	var _DocumentType2 = _interopRequireDefault(_DocumentType);
 	
-	var _AirlineDesignatorOfBoardingPassIssuer = __webpack_require__(446);
+	var _AirlineDesignatorOfBoardingPassIssuer = __webpack_require__(447);
 	
 	var _AirlineDesignatorOfBoardingPassIssuer2 = _interopRequireDefault(_AirlineDesignatorOfBoardingPassIssuer);
 	
-	var _BaggageTag = __webpack_require__(447);
+	var _BaggageTag = __webpack_require__(448);
 	
 	var _BaggageTag2 = _interopRequireDefault(_BaggageTag);
 	
-	var _FirstNonConsecutiveBaggageTag = __webpack_require__(448);
+	var _FirstNonConsecutiveBaggageTag = __webpack_require__(449);
 	
 	var _FirstNonConsecutiveBaggageTag2 = _interopRequireDefault(_FirstNonConsecutiveBaggageTag);
 	
-	var _SecondNonConsecutiveBaggageTag = __webpack_require__(449);
+	var _SecondNonConsecutiveBaggageTag = __webpack_require__(450);
 	
 	var _SecondNonConsecutiveBaggageTag2 = _interopRequireDefault(_SecondNonConsecutiveBaggageTag);
 	
+	var _GeneralConditionalItems = __webpack_require__(451);
+	
+	var _GeneralConditionalItems2 = _interopRequireDefault(_GeneralConditionalItems);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var GeneralConditionalItems = function () {
-	    function GeneralConditionalItems(provider) {
-	        _classCallCheck(this, GeneralConditionalItems);
-	
-	        this.beginningOfVersionNumber = new _BeginningOfVersionNumber2.default(provider);
-	        this.versionNumber = new _VersionNumber2.default(provider);
-	
-	        this.generalConditionalSize = new _GeneralConditionalSize2.default(provider);
-	
-	        if (!provider.hasData(this.generalConditionalSize.dec())) {
-	            console.log(new Error("Not enough data for GeneralConditionalItems"));
-	        }
-	
-	        var conditionalData = new _DataProvider2.default(provider.getData(this.generalConditionalSize.dec()));
-	        this.passengerDescription = new _PassengerDescription2.default(conditionalData);
-	        this.sourceOfCheckIn = new _SourceOfCheckIn2.default(conditionalData);
-	        this.sourceOfBoardingPassIssuance = new _SourceOfBoardingPassIssuance2.default(conditionalData);
-	        this.dateOfIssueOfBoardingPass = new _DateOfIssueOfBoardingPass2.default(conditionalData);
-	        this.documentType = new _DocumentType2.default(conditionalData);
-	        this.airlineDesignatorOfBoardingPassIssuer = new _AirlineDesignatorOfBoardingPassIssuer2.default(conditionalData);
-	        this.baggageTag = new _BaggageTag2.default(conditionalData);
-	        this.firstNonConsecutiveBaggageTag = new _FirstNonConsecutiveBaggageTag2.default(conditionalData);
-	        this.secondNonConsecutiveBaggageTag = new _SecondNonConsecutiveBaggageTag2.default(conditionalData);
-	
-	        this.totalSize = this.totalSize.bind(this);
-	
-	        this.build = this.build.bind(this);
+	var GeneralConditionalItemsBuilder = function () {
+	    function GeneralConditionalItemsBuilder() {
+	        _classCallCheck(this, GeneralConditionalItemsBuilder);
 	    }
 	
-	    _createClass(GeneralConditionalItems, [{
-	        key: "totalSize",
-	        value: function totalSize() {
-	            return 1 + 1 + 2 + this.generalConditionalSize.dec();
-	        }
-	    }, {
+	    _createClass(GeneralConditionalItemsBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            console.log("GeneralConditionalItems.build()");
+	        value: function build(provider) {
+	            var beginningOfVersionNumber = new _BeginningOfVersionNumber2.default(provider.getData(1));
+	            var versionNumber = new _VersionNumber2.default(provider.getData(1));
 	
-	            var optional = this.passengerDescription.build() + this.sourceOfCheckIn.build() + this.sourceOfBoardingPassIssuance.build() + this.dateOfIssueOfBoardingPass.build() + this.documentType.build() + this.airlineDesignatorOfBoardingPassIssuer.build() + this.baggageTag.build() + this.firstNonConsecutiveBaggageTag.build() + this.secondNonConsecutiveBaggageTag.build();
+	            var generalConditionalSize = new _GeneralConditionalSize2.default(provider.getData(2));
 	
-	            this.generalConditionalSize.setDec(optional.length);
+	            if (!provider.hasData(generalConditionalSize.dec())) {
+	                console.log(new Error("Not enough data for GeneralConditionalItems"));
+	            }
 	
-	            return this.beginningOfVersionNumber.build() + this.versionNumber.build() + this.generalConditionalSize.build() + optional;
+	            var conditionalData = new _DataProvider2.default(provider.getData(generalConditionalSize.dec()));
+	            var passengerDescription = new _PassengerDescription2.default(conditionalData.getData(1));
+	            var sourceOfCheckIn = new _SourceOfCheckIn2.default(conditionalData.getData(1));
+	            var sourceOfBoardingPassIssuance = new _SourceOfBoardingPassIssuance2.default(conditionalData.getData(1));
+	            var dateOfIssueOfBoardingPass = new _DateOfIssueOfBoardingPass2.default(conditionalData.getData(4));
+	            var documentType = new _DocumentType2.default(conditionalData.getData(1));
+	            var airlineDesignatorOfBoardingPassIssuer = new _AirlineDesignatorOfBoardingPassIssuer2.default(conditionalData.getData(3));
+	            var baggageTag = new _BaggageTag2.default(conditionalData.getData(13));
+	            var firstNonConsecutiveBaggageTag = new _FirstNonConsecutiveBaggageTag2.default(conditionalData.getData(13));
+	            var secondNonConsecutiveBaggageTag = new _SecondNonConsecutiveBaggageTag2.default(conditionalData.getData(13));
+	
+	            return new _GeneralConditionalItems2.default(beginningOfVersionNumber, versionNumber, generalConditionalSize, passengerDescription, sourceOfCheckIn, sourceOfBoardingPassIssuance, dateOfIssueOfBoardingPass, documentType, airlineDesignatorOfBoardingPassIssuer, baggageTag, firstNonConsecutiveBaggageTag, secondNonConsecutiveBaggageTag);
 	        }
 	    }]);
 	
-	    return GeneralConditionalItems;
+	    return GeneralConditionalItemsBuilder;
 	}();
 	
-	exports.default = GeneralConditionalItems;
-
-/***/ },
-/* 437 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _Item2 = __webpack_require__(432);
-	
-	var _Item3 = _interopRequireDefault(_Item2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var BeginningOfVersionNumber = function (_Item) {
-	    _inherits(BeginningOfVersionNumber, _Item);
-	
-	    function BeginningOfVersionNumber(provider) {
-	        _classCallCheck(this, BeginningOfVersionNumber);
-	
-	        return _possibleConstructorReturn(this, (BeginningOfVersionNumber.__proto__ || Object.getPrototypeOf(BeginningOfVersionNumber)).call(this, 8, 'Beginning of version number', provider.getData(1), 1));
-	    }
-	
-	    return BeginningOfVersionNumber;
-	}(_Item3.default);
-	
-	exports.default = BeginningOfVersionNumber;
+	exports.default = GeneralConditionalItemsBuilder;
 
 /***/ },
 /* 438 */
@@ -41248,19 +41253,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var VersionNumber = function (_Item) {
-	    _inherits(VersionNumber, _Item);
+	var BeginningOfVersionNumber = function (_Item) {
+	    _inherits(BeginningOfVersionNumber, _Item);
 	
-	    function VersionNumber(provider) {
-	        _classCallCheck(this, VersionNumber);
+	    function BeginningOfVersionNumber(data) {
+	        _classCallCheck(this, BeginningOfVersionNumber);
 	
-	        return _possibleConstructorReturn(this, (VersionNumber.__proto__ || Object.getPrototypeOf(VersionNumber)).call(this, 9, 'Version Number', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (BeginningOfVersionNumber.__proto__ || Object.getPrototypeOf(BeginningOfVersionNumber)).call(this, 8, 'Beginning of version number', data, 1));
 	    }
 	
-	    return VersionNumber;
+	    return BeginningOfVersionNumber;
 	}(_Item3.default);
 	
-	exports.default = VersionNumber;
+	exports.default = BeginningOfVersionNumber;
 
 /***/ },
 /* 439 */
@@ -41272,7 +41277,43 @@
 	    value: true
 	});
 	
-	var _SizeItem2 = __webpack_require__(440);
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VersionNumber = function (_Item) {
+	    _inherits(VersionNumber, _Item);
+	
+	    function VersionNumber(data) {
+	        _classCallCheck(this, VersionNumber);
+	
+	        return _possibleConstructorReturn(this, (VersionNumber.__proto__ || Object.getPrototypeOf(VersionNumber)).call(this, 9, 'Version Number', data, 1));
+	    }
+	
+	    return VersionNumber;
+	}(_Item3.default);
+	
+	exports.default = VersionNumber;
+
+/***/ },
+/* 440 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _SizeItem2 = __webpack_require__(441);
 	
 	var _SizeItem3 = _interopRequireDefault(_SizeItem2);
 	
@@ -41287,10 +41328,10 @@
 	var GeneralConditionalSize = function (_SizeItem) {
 	    _inherits(GeneralConditionalSize, _SizeItem);
 	
-	    function GeneralConditionalSize(provider) {
+	    function GeneralConditionalSize(data) {
 	        _classCallCheck(this, GeneralConditionalSize);
 	
-	        return _possibleConstructorReturn(this, (GeneralConditionalSize.__proto__ || Object.getPrototypeOf(GeneralConditionalSize)).call(this, 10, 'Size of conditional items', provider.getData(2)));
+	        return _possibleConstructorReturn(this, (GeneralConditionalSize.__proto__ || Object.getPrototypeOf(GeneralConditionalSize)).call(this, 10, 'Size of conditional items', data));
 	    }
 	
 	    return GeneralConditionalSize;
@@ -41299,7 +41340,7 @@
 	exports.default = GeneralConditionalSize;
 
 /***/ },
-/* 440 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41359,7 +41400,7 @@
 	exports.default = SizeItem;
 
 /***/ },
-/* 441 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -41383,52 +41424,16 @@
 	var PassengerDescription = function (_Item) {
 	    _inherits(PassengerDescription, _Item);
 	
-	    function PassengerDescription(provider) {
+	    function PassengerDescription(data) {
 	        _classCallCheck(this, PassengerDescription);
 	
-	        return _possibleConstructorReturn(this, (PassengerDescription.__proto__ || Object.getPrototypeOf(PassengerDescription)).call(this, 15, 'Passenger Description', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (PassengerDescription.__proto__ || Object.getPrototypeOf(PassengerDescription)).call(this, 15, 'Passenger Description', data, 1));
 	    }
 	
 	    return PassengerDescription;
 	}(_Item3.default);
 	
 	exports.default = PassengerDescription;
-
-/***/ },
-/* 442 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _Item2 = __webpack_require__(432);
-	
-	var _Item3 = _interopRequireDefault(_Item2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var SourceOfCheckIn = function (_Item) {
-	    _inherits(SourceOfCheckIn, _Item);
-	
-	    function SourceOfCheckIn(provider) {
-	        _classCallCheck(this, SourceOfCheckIn);
-	
-	        return _possibleConstructorReturn(this, (SourceOfCheckIn.__proto__ || Object.getPrototypeOf(SourceOfCheckIn)).call(this, 12, 'Source of check-in', provider.getData(1), 1));
-	    }
-	
-	    return SourceOfCheckIn;
-	}(_Item3.default);
-	
-	exports.default = SourceOfCheckIn;
 
 /***/ },
 /* 443 */
@@ -41452,19 +41457,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SourceOfBoardingPassIssuance = function (_Item) {
-	    _inherits(SourceOfBoardingPassIssuance, _Item);
+	var SourceOfCheckIn = function (_Item) {
+	    _inherits(SourceOfCheckIn, _Item);
 	
-	    function SourceOfBoardingPassIssuance(provider) {
-	        _classCallCheck(this, SourceOfBoardingPassIssuance);
+	    function SourceOfCheckIn(data) {
+	        _classCallCheck(this, SourceOfCheckIn);
 	
-	        return _possibleConstructorReturn(this, (SourceOfBoardingPassIssuance.__proto__ || Object.getPrototypeOf(SourceOfBoardingPassIssuance)).call(this, 14, 'Source of Boarding Pass Issuance', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (SourceOfCheckIn.__proto__ || Object.getPrototypeOf(SourceOfCheckIn)).call(this, 12, 'Source of check-in', data, 1));
 	    }
 	
-	    return SourceOfBoardingPassIssuance;
+	    return SourceOfCheckIn;
 	}(_Item3.default);
 	
-	exports.default = SourceOfBoardingPassIssuance;
+	exports.default = SourceOfCheckIn;
 
 /***/ },
 /* 444 */
@@ -41488,19 +41493,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DateOfIssueOfBoardingPass = function (_Item) {
-	    _inherits(DateOfIssueOfBoardingPass, _Item);
+	var SourceOfBoardingPassIssuance = function (_Item) {
+	    _inherits(SourceOfBoardingPassIssuance, _Item);
 	
-	    function DateOfIssueOfBoardingPass(provider) {
-	        _classCallCheck(this, DateOfIssueOfBoardingPass);
+	    function SourceOfBoardingPassIssuance(data) {
+	        _classCallCheck(this, SourceOfBoardingPassIssuance);
 	
-	        return _possibleConstructorReturn(this, (DateOfIssueOfBoardingPass.__proto__ || Object.getPrototypeOf(DateOfIssueOfBoardingPass)).call(this, 22, 'Date of Issue of Boarding Pass', provider.getData(4), 4));
+	        return _possibleConstructorReturn(this, (SourceOfBoardingPassIssuance.__proto__ || Object.getPrototypeOf(SourceOfBoardingPassIssuance)).call(this, 14, 'Source of Boarding Pass Issuance', data, 1));
 	    }
 	
-	    return DateOfIssueOfBoardingPass;
+	    return SourceOfBoardingPassIssuance;
 	}(_Item3.default);
 	
-	exports.default = DateOfIssueOfBoardingPass;
+	exports.default = SourceOfBoardingPassIssuance;
 
 /***/ },
 /* 445 */
@@ -41524,19 +41529,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DocumentType = function (_Item) {
-	    _inherits(DocumentType, _Item);
+	var DateOfIssueOfBoardingPass = function (_Item) {
+	    _inherits(DateOfIssueOfBoardingPass, _Item);
 	
-	    function DocumentType(provider) {
-	        _classCallCheck(this, DocumentType);
+	    function DateOfIssueOfBoardingPass(data) {
+	        _classCallCheck(this, DateOfIssueOfBoardingPass);
 	
-	        return _possibleConstructorReturn(this, (DocumentType.__proto__ || Object.getPrototypeOf(DocumentType)).call(this, 16, 'Document Type', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (DateOfIssueOfBoardingPass.__proto__ || Object.getPrototypeOf(DateOfIssueOfBoardingPass)).call(this, 22, 'Date of Issue of Boarding Pass', data, 4));
 	    }
 	
-	    return DocumentType;
+	    return DateOfIssueOfBoardingPass;
 	}(_Item3.default);
 	
-	exports.default = DocumentType;
+	exports.default = DateOfIssueOfBoardingPass;
 
 /***/ },
 /* 446 */
@@ -41560,19 +41565,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var AirlineDesignatorOfBoardingPassIssuer = function (_Item) {
-	    _inherits(AirlineDesignatorOfBoardingPassIssuer, _Item);
+	var DocumentType = function (_Item) {
+	    _inherits(DocumentType, _Item);
 	
-	    function AirlineDesignatorOfBoardingPassIssuer(provider) {
-	        _classCallCheck(this, AirlineDesignatorOfBoardingPassIssuer);
+	    function DocumentType(data) {
+	        _classCallCheck(this, DocumentType);
 	
-	        return _possibleConstructorReturn(this, (AirlineDesignatorOfBoardingPassIssuer.__proto__ || Object.getPrototypeOf(AirlineDesignatorOfBoardingPassIssuer)).call(this, 21, 'Airline Designator of boarding pass issuer', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (DocumentType.__proto__ || Object.getPrototypeOf(DocumentType)).call(this, 16, 'Document Type', data, 1));
 	    }
 	
-	    return AirlineDesignatorOfBoardingPassIssuer;
+	    return DocumentType;
 	}(_Item3.default);
 	
-	exports.default = AirlineDesignatorOfBoardingPassIssuer;
+	exports.default = DocumentType;
 
 /***/ },
 /* 447 */
@@ -41596,19 +41601,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var BaggageTag = function (_Item) {
-	    _inherits(BaggageTag, _Item);
+	var AirlineDesignatorOfBoardingPassIssuer = function (_Item) {
+	    _inherits(AirlineDesignatorOfBoardingPassIssuer, _Item);
 	
-	    function BaggageTag(provider) {
-	        _classCallCheck(this, BaggageTag);
+	    function AirlineDesignatorOfBoardingPassIssuer(data) {
+	        _classCallCheck(this, AirlineDesignatorOfBoardingPassIssuer);
 	
-	        return _possibleConstructorReturn(this, (BaggageTag.__proto__ || Object.getPrototypeOf(BaggageTag)).call(this, 23, 'Baggage Tag Licence Plate Number(s)', provider.getData(13), 13));
+	        return _possibleConstructorReturn(this, (AirlineDesignatorOfBoardingPassIssuer.__proto__ || Object.getPrototypeOf(AirlineDesignatorOfBoardingPassIssuer)).call(this, 21, 'Airline Designator of boarding pass issuer', data, 3));
 	    }
 	
-	    return BaggageTag;
+	    return AirlineDesignatorOfBoardingPassIssuer;
 	}(_Item3.default);
 	
-	exports.default = BaggageTag;
+	exports.default = AirlineDesignatorOfBoardingPassIssuer;
 
 /***/ },
 /* 448 */
@@ -41632,19 +41637,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FirstNonConsecutiveBaggageTag = function (_Item) {
-	    _inherits(FirstNonConsecutiveBaggageTag, _Item);
+	var BaggageTag = function (_Item) {
+	    _inherits(BaggageTag, _Item);
 	
-	    function FirstNonConsecutiveBaggageTag(provider) {
-	        _classCallCheck(this, FirstNonConsecutiveBaggageTag);
+	    function BaggageTag(data) {
+	        _classCallCheck(this, BaggageTag);
 	
-	        return _possibleConstructorReturn(this, (FirstNonConsecutiveBaggageTag.__proto__ || Object.getPrototypeOf(FirstNonConsecutiveBaggageTag)).call(this, 31, '1st Non-Consecutive Baggage Tag Licence Plate Number', provider.getData(13), 13));
+	        return _possibleConstructorReturn(this, (BaggageTag.__proto__ || Object.getPrototypeOf(BaggageTag)).call(this, 23, 'Baggage Tag Licence Plate Number(s)', data, 13));
 	    }
 	
-	    return FirstNonConsecutiveBaggageTag;
+	    return BaggageTag;
 	}(_Item3.default);
 	
-	exports.default = FirstNonConsecutiveBaggageTag;
+	exports.default = BaggageTag;
 
 /***/ },
 /* 449 */
@@ -41668,19 +41673,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SecondNonConsecutiveBaggageTag = function (_Item) {
-	    _inherits(SecondNonConsecutiveBaggageTag, _Item);
+	var FirstNonConsecutiveBaggageTag = function (_Item) {
+	    _inherits(FirstNonConsecutiveBaggageTag, _Item);
 	
-	    function SecondNonConsecutiveBaggageTag(provider) {
-	        _classCallCheck(this, SecondNonConsecutiveBaggageTag);
+	    function FirstNonConsecutiveBaggageTag(data) {
+	        _classCallCheck(this, FirstNonConsecutiveBaggageTag);
 	
-	        return _possibleConstructorReturn(this, (SecondNonConsecutiveBaggageTag.__proto__ || Object.getPrototypeOf(SecondNonConsecutiveBaggageTag)).call(this, 32, '2nd Non-Consecutive Baggage Tag Licence Plate Number', provider.getData(13), 13));
+	        return _possibleConstructorReturn(this, (FirstNonConsecutiveBaggageTag.__proto__ || Object.getPrototypeOf(FirstNonConsecutiveBaggageTag)).call(this, 31, '1st Non-Consecutive Baggage Tag Licence Plate Number', data, 13));
 	    }
 	
-	    return SecondNonConsecutiveBaggageTag;
+	    return FirstNonConsecutiveBaggageTag;
 	}(_Item3.default);
 	
-	exports.default = SecondNonConsecutiveBaggageTag;
+	exports.default = FirstNonConsecutiveBaggageTag;
 
 /***/ },
 /* 450 */
@@ -41692,108 +41697,6 @@
 	    value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _OperatingCarrierPNRCode = __webpack_require__(451);
-	
-	var _OperatingCarrierPNRCode2 = _interopRequireDefault(_OperatingCarrierPNRCode);
-	
-	var _FromCityAirportCode = __webpack_require__(452);
-	
-	var _FromCityAirportCode2 = _interopRequireDefault(_FromCityAirportCode);
-	
-	var _ToCityAirportCode = __webpack_require__(453);
-	
-	var _ToCityAirportCode2 = _interopRequireDefault(_ToCityAirportCode);
-	
-	var _OperatingCarrierDesignator = __webpack_require__(454);
-	
-	var _OperatingCarrierDesignator2 = _interopRequireDefault(_OperatingCarrierDesignator);
-	
-	var _FlightNumber = __webpack_require__(455);
-	
-	var _FlightNumber2 = _interopRequireDefault(_FlightNumber);
-	
-	var _DateOfFlight = __webpack_require__(456);
-	
-	var _DateOfFlight2 = _interopRequireDefault(_DateOfFlight);
-	
-	var _CompartmentCode = __webpack_require__(457);
-	
-	var _CompartmentCode2 = _interopRequireDefault(_CompartmentCode);
-	
-	var _SeatNumber = __webpack_require__(458);
-	
-	var _SeatNumber2 = _interopRequireDefault(_SeatNumber);
-	
-	var _CheckInSequenceNumber = __webpack_require__(459);
-	
-	var _CheckInSequenceNumber2 = _interopRequireDefault(_CheckInSequenceNumber);
-	
-	var _PassengerStatus = __webpack_require__(460);
-	
-	var _PassengerStatus2 = _interopRequireDefault(_PassengerStatus);
-	
-	var _AllConditionalSize = __webpack_require__(461);
-	
-	var _AllConditionalSize2 = _interopRequireDefault(_AllConditionalSize);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var FlightMandatoryItems = function () {
-	    function FlightMandatoryItems(provider) {
-	        _classCallCheck(this, FlightMandatoryItems);
-	
-	        if (!provider.hasData(37)) {
-	            console.log(new Error("Not enough data for FlightMandatoryItems"));
-	        }
-	        this.operatingCarrierPNRCode = new _OperatingCarrierPNRCode2.default(provider);
-	        this.fromCityAirportCode = new _FromCityAirportCode2.default(provider);
-	        this.toCityAirportCode = new _ToCityAirportCode2.default(provider);
-	        this.operatingCarrierDesignator = new _OperatingCarrierDesignator2.default(provider);
-	        this.flightNumber = new _FlightNumber2.default(provider);
-	        this.dateOfFlight = new _DateOfFlight2.default(provider);
-	        this.compartmentCode = new _CompartmentCode2.default(provider);
-	        this.seatNumber = new _SeatNumber2.default(provider);
-	        this.checkInSequenceNumber = new _CheckInSequenceNumber2.default(provider);
-	        this.passengerStatus = new _PassengerStatus2.default(provider);
-	        this.allConditionalSize = new _AllConditionalSize2.default(provider);
-	
-	        this.hasConditionalItems = this.hasConditionalItems.bind(this);
-	
-	        this.build = this.build.bind(this);
-	    }
-	
-	    _createClass(FlightMandatoryItems, [{
-	        key: "hasConditionalItems",
-	        value: function hasConditionalItems() {
-	            return this.allConditionalSize.dec() > 0;
-	        }
-	    }, {
-	        key: "build",
-	        value: function build() {
-	            console.log("FlightMandatoryItems.build()");
-	            return this.operatingCarrierPNRCode.build() + this.fromCityAirportCode.build() + this.toCityAirportCode.build() + this.operatingCarrierDesignator.build() + this.flightNumber.build() + this.dateOfFlight.build() + this.compartmentCode.build() + this.seatNumber.build() + this.checkInSequenceNumber.build() + this.passengerStatus.build() + this.allConditionalSize.build();
-	        }
-	    }]);
-	
-	    return FlightMandatoryItems;
-	}();
-	
-	exports.default = FlightMandatoryItems;
-
-/***/ },
-/* 451 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
 	var _Item2 = __webpack_require__(432);
 	
 	var _Item3 = _interopRequireDefault(_Item2);
@@ -41806,19 +41709,150 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var OperatingCarrierPNRCode = function (_Item) {
-	    _inherits(OperatingCarrierPNRCode, _Item);
+	var SecondNonConsecutiveBaggageTag = function (_Item) {
+	    _inherits(SecondNonConsecutiveBaggageTag, _Item);
 	
-	    function OperatingCarrierPNRCode(provider) {
-	        _classCallCheck(this, OperatingCarrierPNRCode);
+	    function SecondNonConsecutiveBaggageTag(data) {
+	        _classCallCheck(this, SecondNonConsecutiveBaggageTag);
 	
-	        return _possibleConstructorReturn(this, (OperatingCarrierPNRCode.__proto__ || Object.getPrototypeOf(OperatingCarrierPNRCode)).call(this, 7, 'Operating carrier PNR Code', provider.getData(7), 7));
+	        return _possibleConstructorReturn(this, (SecondNonConsecutiveBaggageTag.__proto__ || Object.getPrototypeOf(SecondNonConsecutiveBaggageTag)).call(this, 32, '2nd Non-Consecutive Baggage Tag Licence Plate Number', data, 13));
 	    }
 	
-	    return OperatingCarrierPNRCode;
+	    return SecondNonConsecutiveBaggageTag;
 	}(_Item3.default);
 	
-	exports.default = OperatingCarrierPNRCode;
+	exports.default = SecondNonConsecutiveBaggageTag;
+
+/***/ },
+/* 451 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var GeneralConditionalItems = function () {
+	    function GeneralConditionalItems(beginningOfVersionNumber, versionNumber, generalConditionalSize, passengerDescription, sourceOfCheckIn, sourceOfBoardingPassIssuance, dateOfIssueOfBoardingPass, documentType, airlineDesignatorOfBoardingPassIssuer, baggageTag, firstNonConsecutiveBaggageTag, secondNonConsecutiveBaggageTag) {
+	        _classCallCheck(this, GeneralConditionalItems);
+	
+	        this._beginningOfVersionNumber = beginningOfVersionNumber;
+	        this._versionNumber = versionNumber;
+	        this._generalConditionalSize = generalConditionalSize;
+	        this._passengerDescription = passengerDescription;
+	        this._sourceOfCheckIn = sourceOfCheckIn;
+	        this._sourceOfBoardingPassIssuance = sourceOfBoardingPassIssuance;
+	        this._dateOfIssueOfBoardingPass = dateOfIssueOfBoardingPass;
+	        this._documentType = documentType;
+	        this._airlineDesignatorOfBoardingPassIssuer = airlineDesignatorOfBoardingPassIssuer;
+	        this._baggageTag = baggageTag;
+	        this._firstNonConsecutiveBaggageTag = firstNonConsecutiveBaggageTag;
+	        this._secondNonConsecutiveBaggageTag = secondNonConsecutiveBaggageTag;
+	
+	        this.beginningOfVersionNumber = this.beginningOfVersionNumber.bind(this);
+	        this.versionNumber = this.versionNumber.bind(this);
+	        this.generalConditionalSize = this.generalConditionalSize.bind(this);
+	        this.passengerDescription = this.passengerDescription.bind(this);
+	        this.sourceOfCheckIn = this.sourceOfCheckIn.bind(this);
+	        this.sourceOfBoardingPassIssuance = this.sourceOfBoardingPassIssuance.bind(this);
+	        this.dateOfIssueOfBoardingPass = this.dateOfIssueOfBoardingPass.bind(this);
+	        this.documentType = this.documentType.bind(this);
+	        this.airlineDesignatorOfBoardingPassIssuer = this.airlineDesignatorOfBoardingPassIssuer.bind(this);
+	        this.baggageTag = this.baggageTag.bind(this);
+	        this.firstNonConsecutiveBaggageTag = this.firstNonConsecutiveBaggageTag.bind(this);
+	        this.secondNonConsecutiveBaggageTag = this.secondNonConsecutiveBaggageTag.bind(this);
+	
+	        this.totalSize = this.totalSize.bind(this);
+	        this.build = this.build.bind(this);
+	    }
+	
+	    _createClass(GeneralConditionalItems, [{
+	        key: "beginningOfVersionNumber",
+	        value: function beginningOfVersionNumber() {
+	            return this._beginningOfVersionNumber;
+	        }
+	    }, {
+	        key: "versionNumber",
+	        value: function versionNumber() {
+	            return this._versionNumber;
+	        }
+	    }, {
+	        key: "generalConditionalSize",
+	        value: function generalConditionalSize() {
+	            return this._generalConditionalSize;
+	        }
+	    }, {
+	        key: "passengerDescription",
+	        value: function passengerDescription() {
+	            return this._passengerDescription;
+	        }
+	    }, {
+	        key: "sourceOfCheckIn",
+	        value: function sourceOfCheckIn() {
+	            return this._sourceOfCheckIn;
+	        }
+	    }, {
+	        key: "sourceOfBoardingPassIssuance",
+	        value: function sourceOfBoardingPassIssuance() {
+	            return this._sourceOfBoardingPassIssuance;
+	        }
+	    }, {
+	        key: "dateOfIssueOfBoardingPass",
+	        value: function dateOfIssueOfBoardingPass() {
+	            return this._dateOfIssueOfBoardingPass;
+	        }
+	    }, {
+	        key: "documentType",
+	        value: function documentType() {
+	            return this._documentType;
+	        }
+	    }, {
+	        key: "airlineDesignatorOfBoardingPassIssuer",
+	        value: function airlineDesignatorOfBoardingPassIssuer() {
+	            return this._airlineDesignatorOfBoardingPassIssuer;
+	        }
+	    }, {
+	        key: "baggageTag",
+	        value: function baggageTag() {
+	            return this._baggageTag;
+	        }
+	    }, {
+	        key: "firstNonConsecutiveBaggageTag",
+	        value: function firstNonConsecutiveBaggageTag() {
+	            return this._firstNonConsecutiveBaggageTag;
+	        }
+	    }, {
+	        key: "secondNonConsecutiveBaggageTag",
+	        value: function secondNonConsecutiveBaggageTag() {
+	            return this._secondNonConsecutiveBaggageTag;
+	        }
+	    }, {
+	        key: "totalSize",
+	        value: function totalSize() {
+	            return 1 + 1 + 2 + this._generalConditionalSize.dec();
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            console.log("GeneralConditionalItems.build()");
+	
+	            var optional = this._passengerDescription.build() + this._sourceOfCheckIn.build() + this._sourceOfBoardingPassIssuance.build() + this._dateOfIssueOfBoardingPass.build() + this._documentType.build() + this._airlineDesignatorOfBoardingPassIssuer.build() + this._baggageTag.build() + this._firstNonConsecutiveBaggageTag.build() + this._secondNonConsecutiveBaggageTag.build();
+	
+	            this._generalConditionalSize.setDec(optional.length);
+	
+	            return this._beginningOfVersionNumber.build() + this._versionNumber.build() + this._generalConditionalSize.build() + optional;
+	        }
+	    }]);
+	
+	    return GeneralConditionalItems;
+	}();
+	
+	exports.default = GeneralConditionalItems;
 
 /***/ },
 /* 452 */
@@ -41830,31 +41864,92 @@
 	    value: true
 	});
 	
-	var _Item2 = __webpack_require__(432);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _Item3 = _interopRequireDefault(_Item2);
+	var _OperatingCarrierPNRCode = __webpack_require__(453);
+	
+	var _OperatingCarrierPNRCode2 = _interopRequireDefault(_OperatingCarrierPNRCode);
+	
+	var _FromCityAirportCode = __webpack_require__(454);
+	
+	var _FromCityAirportCode2 = _interopRequireDefault(_FromCityAirportCode);
+	
+	var _ToCityAirportCode = __webpack_require__(455);
+	
+	var _ToCityAirportCode2 = _interopRequireDefault(_ToCityAirportCode);
+	
+	var _OperatingCarrierDesignator = __webpack_require__(456);
+	
+	var _OperatingCarrierDesignator2 = _interopRequireDefault(_OperatingCarrierDesignator);
+	
+	var _FlightNumber = __webpack_require__(457);
+	
+	var _FlightNumber2 = _interopRequireDefault(_FlightNumber);
+	
+	var _DateOfFlight = __webpack_require__(458);
+	
+	var _DateOfFlight2 = _interopRequireDefault(_DateOfFlight);
+	
+	var _CompartmentCode = __webpack_require__(459);
+	
+	var _CompartmentCode2 = _interopRequireDefault(_CompartmentCode);
+	
+	var _SeatNumber = __webpack_require__(460);
+	
+	var _SeatNumber2 = _interopRequireDefault(_SeatNumber);
+	
+	var _CheckInSequenceNumber = __webpack_require__(461);
+	
+	var _CheckInSequenceNumber2 = _interopRequireDefault(_CheckInSequenceNumber);
+	
+	var _PassengerStatus = __webpack_require__(462);
+	
+	var _PassengerStatus2 = _interopRequireDefault(_PassengerStatus);
+	
+	var _AllConditionalSize = __webpack_require__(463);
+	
+	var _AllConditionalSize2 = _interopRequireDefault(_AllConditionalSize);
+	
+	var _FlightMandatoryItems = __webpack_require__(464);
+	
+	var _FlightMandatoryItems2 = _interopRequireDefault(_FlightMandatoryItems);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var FromCityAirportCode = function (_Item) {
-	    _inherits(FromCityAirportCode, _Item);
-	
-	    function FromCityAirportCode(provider) {
-	        _classCallCheck(this, FromCityAirportCode);
-	
-	        return _possibleConstructorReturn(this, (FromCityAirportCode.__proto__ || Object.getPrototypeOf(FromCityAirportCode)).call(this, 26, 'From City Airport Code', provider.getData(3), 3));
+	var FlightMandatoryItemsBuilder = function () {
+	    function FlightMandatoryItemsBuilder() {
+	        _classCallCheck(this, FlightMandatoryItemsBuilder);
 	    }
 	
-	    return FromCityAirportCode;
-	}(_Item3.default);
+	    _createClass(FlightMandatoryItemsBuilder, null, [{
+	        key: "build",
+	        value: function build(provider) {
+	            if (!provider.hasData(37)) {
+	                console.log(new Error("Not enough data for FlightMandatoryItems"));
+	            }
 	
-	exports.default = FromCityAirportCode;
+	            var operatingCarrierPNRCode = new _OperatingCarrierPNRCode2.default(provider.getData(7));
+	            var fromCityAirportCode = new _FromCityAirportCode2.default(provider.getData(3));
+	            var toCityAirportCode = new _ToCityAirportCode2.default(provider.getData(3));
+	            var operatingCarrierDesignator = new _OperatingCarrierDesignator2.default(provider.getData(3));
+	            var flightNumber = new _FlightNumber2.default(provider.getData(5));
+	            var dateOfFlight = new _DateOfFlight2.default(provider.getData(3));
+	            var compartmentCode = new _CompartmentCode2.default(provider.getData(1));
+	            var seatNumber = new _SeatNumber2.default(provider.getData(4));
+	            var checkInSequenceNumber = new _CheckInSequenceNumber2.default(provider.getData(5));
+	            var passengerStatus = new _PassengerStatus2.default(provider.getData(1));
+	            var allConditionalSize = new _AllConditionalSize2.default(provider.getData(2));
+	
+	            return new _FlightMandatoryItems2.default(operatingCarrierPNRCode, fromCityAirportCode, toCityAirportCode, operatingCarrierDesignator, flightNumber, dateOfFlight, compartmentCode, seatNumber, checkInSequenceNumber, passengerStatus, allConditionalSize);
+	        }
+	    }]);
+	
+	    return FlightMandatoryItemsBuilder;
+	}();
+	
+	exports.default = FlightMandatoryItemsBuilder;
 
 /***/ },
 /* 453 */
@@ -41878,19 +41973,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ToCityAirportCode = function (_Item) {
-	    _inherits(ToCityAirportCode, _Item);
+	var OperatingCarrierPNRCode = function (_Item) {
+	    _inherits(OperatingCarrierPNRCode, _Item);
 	
-	    function ToCityAirportCode(provider) {
-	        _classCallCheck(this, ToCityAirportCode);
+	    function OperatingCarrierPNRCode(data) {
+	        _classCallCheck(this, OperatingCarrierPNRCode);
 	
-	        return _possibleConstructorReturn(this, (ToCityAirportCode.__proto__ || Object.getPrototypeOf(ToCityAirportCode)).call(this, 38, 'To City Airport Code', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (OperatingCarrierPNRCode.__proto__ || Object.getPrototypeOf(OperatingCarrierPNRCode)).call(this, 7, 'Operating carrier PNR Code', data, 7));
 	    }
 	
-	    return ToCityAirportCode;
+	    return OperatingCarrierPNRCode;
 	}(_Item3.default);
 	
-	exports.default = ToCityAirportCode;
+	exports.default = OperatingCarrierPNRCode;
 
 /***/ },
 /* 454 */
@@ -41914,19 +42009,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ToCityAirportCode = function (_Item) {
-	    _inherits(ToCityAirportCode, _Item);
+	var FromCityAirportCode = function (_Item) {
+	    _inherits(FromCityAirportCode, _Item);
 	
-	    function ToCityAirportCode(provider) {
-	        _classCallCheck(this, ToCityAirportCode);
+	    function FromCityAirportCode(data) {
+	        _classCallCheck(this, FromCityAirportCode);
 	
-	        return _possibleConstructorReturn(this, (ToCityAirportCode.__proto__ || Object.getPrototypeOf(ToCityAirportCode)).call(this, 42, 'Operating carrier Designator', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (FromCityAirportCode.__proto__ || Object.getPrototypeOf(FromCityAirportCode)).call(this, 26, 'From City Airport Code', data, 3));
 	    }
 	
-	    return ToCityAirportCode;
+	    return FromCityAirportCode;
 	}(_Item3.default);
 	
-	exports.default = ToCityAirportCode;
+	exports.default = FromCityAirportCode;
 
 /***/ },
 /* 455 */
@@ -41950,19 +42045,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FlightNumber = function (_Item) {
-	    _inherits(FlightNumber, _Item);
+	var ToCityAirportCode = function (_Item) {
+	    _inherits(ToCityAirportCode, _Item);
 	
-	    function FlightNumber(provider) {
-	        _classCallCheck(this, FlightNumber);
+	    function ToCityAirportCode(data) {
+	        _classCallCheck(this, ToCityAirportCode);
 	
-	        return _possibleConstructorReturn(this, (FlightNumber.__proto__ || Object.getPrototypeOf(FlightNumber)).call(this, 43, 'Flight Number', provider.getData(5), 5));
+	        return _possibleConstructorReturn(this, (ToCityAirportCode.__proto__ || Object.getPrototypeOf(ToCityAirportCode)).call(this, 38, 'To City Airport Code', data, 3));
 	    }
 	
-	    return FlightNumber;
+	    return ToCityAirportCode;
 	}(_Item3.default);
 	
-	exports.default = FlightNumber;
+	exports.default = ToCityAirportCode;
 
 /***/ },
 /* 456 */
@@ -41986,19 +42081,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var DateOfFlight = function (_Item) {
-	    _inherits(DateOfFlight, _Item);
+	var ToCityAirportCode = function (_Item) {
+	    _inherits(ToCityAirportCode, _Item);
 	
-	    function DateOfFlight(provider) {
-	        _classCallCheck(this, DateOfFlight);
+	    function ToCityAirportCode(data) {
+	        _classCallCheck(this, ToCityAirportCode);
 	
-	        return _possibleConstructorReturn(this, (DateOfFlight.__proto__ || Object.getPrototypeOf(DateOfFlight)).call(this, 46, 'Date of Flight', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (ToCityAirportCode.__proto__ || Object.getPrototypeOf(ToCityAirportCode)).call(this, 42, 'Operating carrier Designator', data, 3));
 	    }
 	
-	    return DateOfFlight;
+	    return ToCityAirportCode;
 	}(_Item3.default);
 	
-	exports.default = DateOfFlight;
+	exports.default = ToCityAirportCode;
 
 /***/ },
 /* 457 */
@@ -42022,19 +42117,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var CompartmentCode = function (_Item) {
-	    _inherits(CompartmentCode, _Item);
+	var FlightNumber = function (_Item) {
+	    _inherits(FlightNumber, _Item);
 	
-	    function CompartmentCode(provider) {
-	        _classCallCheck(this, CompartmentCode);
+	    function FlightNumber(data) {
+	        _classCallCheck(this, FlightNumber);
 	
-	        return _possibleConstructorReturn(this, (CompartmentCode.__proto__ || Object.getPrototypeOf(CompartmentCode)).call(this, 71, 'Compartment Code', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (FlightNumber.__proto__ || Object.getPrototypeOf(FlightNumber)).call(this, 43, 'Flight Number', data, 5));
 	    }
 	
-	    return CompartmentCode;
+	    return FlightNumber;
 	}(_Item3.default);
 	
-	exports.default = CompartmentCode;
+	exports.default = FlightNumber;
 
 /***/ },
 /* 458 */
@@ -42058,19 +42153,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SeatNumber = function (_Item) {
-	    _inherits(SeatNumber, _Item);
+	var DateOfFlight = function (_Item) {
+	    _inherits(DateOfFlight, _Item);
 	
-	    function SeatNumber(provider) {
-	        _classCallCheck(this, SeatNumber);
+	    function DateOfFlight(data) {
+	        _classCallCheck(this, DateOfFlight);
 	
-	        return _possibleConstructorReturn(this, (SeatNumber.__proto__ || Object.getPrototypeOf(SeatNumber)).call(this, 104, 'Seat Number', provider.getData(4), 4));
+	        return _possibleConstructorReturn(this, (DateOfFlight.__proto__ || Object.getPrototypeOf(DateOfFlight)).call(this, 46, 'Date of Flight', data, 3));
 	    }
 	
-	    return SeatNumber;
+	    return DateOfFlight;
 	}(_Item3.default);
 	
-	exports.default = SeatNumber;
+	exports.default = DateOfFlight;
 
 /***/ },
 /* 459 */
@@ -42094,19 +42189,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var CheckInSequenceNumber = function (_Item) {
-	    _inherits(CheckInSequenceNumber, _Item);
+	var CompartmentCode = function (_Item) {
+	    _inherits(CompartmentCode, _Item);
 	
-	    function CheckInSequenceNumber(provider) {
-	        _classCallCheck(this, CheckInSequenceNumber);
+	    function CompartmentCode(data) {
+	        _classCallCheck(this, CompartmentCode);
 	
-	        return _possibleConstructorReturn(this, (CheckInSequenceNumber.__proto__ || Object.getPrototypeOf(CheckInSequenceNumber)).call(this, 107, 'Check-In Sequence Number', provider.getData(5), 5));
+	        return _possibleConstructorReturn(this, (CompartmentCode.__proto__ || Object.getPrototypeOf(CompartmentCode)).call(this, 71, 'Compartment Code', data, 1));
 	    }
 	
-	    return CheckInSequenceNumber;
+	    return CompartmentCode;
 	}(_Item3.default);
 	
-	exports.default = CheckInSequenceNumber;
+	exports.default = CompartmentCode;
 
 /***/ },
 /* 460 */
@@ -42130,19 +42225,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var PassengerStatus = function (_Item) {
-	    _inherits(PassengerStatus, _Item);
+	var SeatNumber = function (_Item) {
+	    _inherits(SeatNumber, _Item);
 	
-	    function PassengerStatus(provider) {
-	        _classCallCheck(this, PassengerStatus);
+	    function SeatNumber(data) {
+	        _classCallCheck(this, SeatNumber);
 	
-	        return _possibleConstructorReturn(this, (PassengerStatus.__proto__ || Object.getPrototypeOf(PassengerStatus)).call(this, 113, 'Passenger Status', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (SeatNumber.__proto__ || Object.getPrototypeOf(SeatNumber)).call(this, 104, 'Seat Number', data, 4));
 	    }
 	
-	    return PassengerStatus;
+	    return SeatNumber;
 	}(_Item3.default);
 	
-	exports.default = PassengerStatus;
+	exports.default = SeatNumber;
 
 /***/ },
 /* 461 */
@@ -42154,7 +42249,79 @@
 	    value: true
 	});
 	
-	var _SizeItem2 = __webpack_require__(440);
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CheckInSequenceNumber = function (_Item) {
+	    _inherits(CheckInSequenceNumber, _Item);
+	
+	    function CheckInSequenceNumber(data) {
+	        _classCallCheck(this, CheckInSequenceNumber);
+	
+	        return _possibleConstructorReturn(this, (CheckInSequenceNumber.__proto__ || Object.getPrototypeOf(CheckInSequenceNumber)).call(this, 107, 'Check-In Sequence Number', data, 5));
+	    }
+	
+	    return CheckInSequenceNumber;
+	}(_Item3.default);
+	
+	exports.default = CheckInSequenceNumber;
+
+/***/ },
+/* 462 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PassengerStatus = function (_Item) {
+	    _inherits(PassengerStatus, _Item);
+	
+	    function PassengerStatus(data) {
+	        _classCallCheck(this, PassengerStatus);
+	
+	        return _possibleConstructorReturn(this, (PassengerStatus.__proto__ || Object.getPrototypeOf(PassengerStatus)).call(this, 113, 'Passenger Status', data, 1));
+	    }
+	
+	    return PassengerStatus;
+	}(_Item3.default);
+	
+	exports.default = PassengerStatus;
+
+/***/ },
+/* 463 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _SizeItem2 = __webpack_require__(441);
 	
 	var _SizeItem3 = _interopRequireDefault(_SizeItem2);
 	
@@ -42169,10 +42336,10 @@
 	var AllConditionalSize = function (_SizeItem) {
 	    _inherits(AllConditionalSize, _SizeItem);
 	
-	    function AllConditionalSize(provider) {
+	    function AllConditionalSize(data) {
 	        _classCallCheck(this, AllConditionalSize);
 	
-	        return _possibleConstructorReturn(this, (AllConditionalSize.__proto__ || Object.getPrototypeOf(AllConditionalSize)).call(this, 6, 'Size of variable size field', provider.getData(2)));
+	        return _possibleConstructorReturn(this, (AllConditionalSize.__proto__ || Object.getPrototypeOf(AllConditionalSize)).call(this, 6, 'Size of variable size field', data));
 	    }
 	
 	    return AllConditionalSize;
@@ -42181,7 +42348,126 @@
 	exports.default = AllConditionalSize;
 
 /***/ },
-/* 462 */
+/* 464 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var FlightMandatoryItems = function () {
+	    function FlightMandatoryItems(operatingCarrierPNRCode, fromCityAirportCode, toCityAirportCode, operatingCarrierDesignator, flightNumber, dateOfFlight, compartmentCode, seatNumber, checkInSequenceNumber, passengerStatus, allConditionalSize) {
+	        _classCallCheck(this, FlightMandatoryItems);
+	
+	        this._operatingCarrierPNRCode = operatingCarrierPNRCode;
+	        this._fromCityAirportCode = fromCityAirportCode;
+	        this._toCityAirportCode = toCityAirportCode;
+	        this._operatingCarrierDesignator = operatingCarrierDesignator;
+	        this._flightNumber = flightNumber;
+	        this._dateOfFlight = dateOfFlight;
+	        this._compartmentCode = compartmentCode;
+	        this._seatNumber = seatNumber;
+	        this._checkInSequenceNumber = checkInSequenceNumber;
+	        this._passengerStatus = passengerStatus;
+	        this._allConditionalSize = allConditionalSize;
+	
+	        this.operatingCarrierPNRCode = this.operatingCarrierPNRCode.bind(this);
+	        this.fromCityAirportCode = this.fromCityAirportCode.bind(this);
+	        this.toCityAirportCode = this.toCityAirportCode.bind(this);
+	        this.operatingCarrierDesignator = this.operatingCarrierDesignator.bind(this);
+	        this.flightNumber = this.flightNumber.bind(this);
+	        this.dateOfFlight = this.dateOfFlight.bind(this);
+	        this.compartmentCode = this.compartmentCode.bind(this);
+	        this.seatNumber = this.seatNumber.bind(this);
+	        this.checkInSequenceNumber = this.checkInSequenceNumber.bind(this);
+	        this.passengerStatus = this.passengerStatus.bind(this);
+	        this.allConditionalSize = this.allConditionalSize.bind(this);
+	
+	        this.hasConditionalItems = this.hasConditionalItems.bind(this);
+	        this.build = this.build.bind(this);
+	    }
+	
+	    _createClass(FlightMandatoryItems, [{
+	        key: "operatingCarrierPNRCode",
+	        value: function operatingCarrierPNRCode() {
+	            return this._operatingCarrierPNRCode;
+	        }
+	    }, {
+	        key: "fromCityAirportCode",
+	        value: function fromCityAirportCode() {
+	            return this._fromCityAirportCode;
+	        }
+	    }, {
+	        key: "toCityAirportCode",
+	        value: function toCityAirportCode() {
+	            return this._toCityAirportCode;
+	        }
+	    }, {
+	        key: "operatingCarrierDesignator",
+	        value: function operatingCarrierDesignator() {
+	            return this._operatingCarrierDesignator;
+	        }
+	    }, {
+	        key: "flightNumber",
+	        value: function flightNumber() {
+	            return this._flightNumber;
+	        }
+	    }, {
+	        key: "dateOfFlight",
+	        value: function dateOfFlight() {
+	            return this._dateOfFlight;
+	        }
+	    }, {
+	        key: "compartmentCode",
+	        value: function compartmentCode() {
+	            return this._compartmentCode;
+	        }
+	    }, {
+	        key: "seatNumber",
+	        value: function seatNumber() {
+	            return this._seatNumber;
+	        }
+	    }, {
+	        key: "checkInSequenceNumber",
+	        value: function checkInSequenceNumber() {
+	            return this._checkInSequenceNumber;
+	        }
+	    }, {
+	        key: "passengerStatus",
+	        value: function passengerStatus() {
+	            return this._passengerStatus;
+	        }
+	    }, {
+	        key: "allConditionalSize",
+	        value: function allConditionalSize() {
+	            return this._allConditionalSize;
+	        }
+	    }, {
+	        key: "hasConditionalItems",
+	        value: function hasConditionalItems() {
+	            return this._allConditionalSize.dec() > 0;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            console.log("FlightMandatoryItems.build()");
+	            return this._operatingCarrierPNRCode.build() + this._fromCityAirportCode.build() + this._toCityAirportCode.build() + this._operatingCarrierDesignator.build() + this._flightNumber.build() + this._dateOfFlight.build() + this._compartmentCode.build() + this._seatNumber.build() + this._checkInSequenceNumber.build() + this._passengerStatus.build() + this._allConditionalSize.build();
+	        }
+	    }]);
+	
+	    return FlightMandatoryItems;
+	}();
+	
+	exports.default = FlightMandatoryItems;
+
+/***/ },
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42196,109 +42482,105 @@
 	
 	var _DataProvider2 = _interopRequireDefault(_DataProvider);
 	
-	var _FlightConditionalSize = __webpack_require__(463);
+	var _FlightConditionalSize = __webpack_require__(466);
 	
 	var _FlightConditionalSize2 = _interopRequireDefault(_FlightConditionalSize);
 	
-	var _AirlineNumericCode = __webpack_require__(464);
+	var _AirlineNumericCode = __webpack_require__(467);
 	
 	var _AirlineNumericCode2 = _interopRequireDefault(_AirlineNumericCode);
 	
-	var _DocumentFormOrSerialNumber = __webpack_require__(465);
+	var _DocumentFormOrSerialNumber = __webpack_require__(468);
 	
 	var _DocumentFormOrSerialNumber2 = _interopRequireDefault(_DocumentFormOrSerialNumber);
 	
-	var _SelecteeIndicator = __webpack_require__(466);
+	var _SelecteeIndicator = __webpack_require__(469);
 	
 	var _SelecteeIndicator2 = _interopRequireDefault(_SelecteeIndicator);
 	
-	var _InternationalDocumentationVerification = __webpack_require__(467);
+	var _InternationalDocumentationVerification = __webpack_require__(470);
 	
 	var _InternationalDocumentationVerification2 = _interopRequireDefault(_InternationalDocumentationVerification);
 	
-	var _MarketingCarrierDesignator = __webpack_require__(468);
+	var _MarketingCarrierDesignator = __webpack_require__(471);
 	
 	var _MarketingCarrierDesignator2 = _interopRequireDefault(_MarketingCarrierDesignator);
 	
-	var _FrequentFlyerAirlineDesignator = __webpack_require__(469);
+	var _FrequentFlyerAirlineDesignator = __webpack_require__(472);
 	
 	var _FrequentFlyerAirlineDesignator2 = _interopRequireDefault(_FrequentFlyerAirlineDesignator);
 	
-	var _FrequentFlyerNumber = __webpack_require__(470);
+	var _FrequentFlyerNumber = __webpack_require__(473);
 	
 	var _FrequentFlyerNumber2 = _interopRequireDefault(_FrequentFlyerNumber);
 	
-	var _IdOrAdIndicator = __webpack_require__(471);
+	var _IdOrAdIndicator = __webpack_require__(474);
 	
 	var _IdOrAdIndicator2 = _interopRequireDefault(_IdOrAdIndicator);
 	
-	var _FreeBaggageAllowance = __webpack_require__(472);
+	var _FreeBaggageAllowance = __webpack_require__(475);
 	
 	var _FreeBaggageAllowance2 = _interopRequireDefault(_FreeBaggageAllowance);
 	
-	var _FastTrack = __webpack_require__(473);
+	var _FastTrack = __webpack_require__(476);
 	
 	var _FastTrack2 = _interopRequireDefault(_FastTrack);
 	
-	var _ForIndividualAirlineUse = __webpack_require__(474);
+	var _ForIndividualAirlineUse = __webpack_require__(477);
 	
 	var _ForIndividualAirlineUse2 = _interopRequireDefault(_ForIndividualAirlineUse);
+	
+	var _FlightConditionalItems = __webpack_require__(479);
+	
+	var _FlightConditionalItems2 = _interopRequireDefault(_FlightConditionalItems);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var FlightConditionalItems = function () {
-	    function FlightConditionalItems(provider, totalSize) {
-	        _classCallCheck(this, FlightConditionalItems);
-	
-	        this.flightConditionalSize = new _FlightConditionalSize2.default(provider);
-	
-	        if (!provider.hasData(this.flightConditionalSize.dec())) {
-	            console.log(new Error("Not enough data for FlightConditionalItems"));
-	        }
-	
-	        var conditionalData = new _DataProvider2.default(provider.getData(this.flightConditionalSize.dec()));
-	        this.airlineNumericCode = new _AirlineNumericCode2.default(conditionalData);
-	        this.documentFormOrSerialNumber = new _DocumentFormOrSerialNumber2.default(conditionalData);
-	        this.selecteeIndicator = new _SelecteeIndicator2.default(conditionalData);
-	        this.internationalDocumentationVerification = new _InternationalDocumentationVerification2.default(conditionalData);
-	        this.marketingCarrierDesignator = new _MarketingCarrierDesignator2.default(conditionalData);
-	        this.frequentFlyerAirlineDesignator = new _FrequentFlyerAirlineDesignator2.default(conditionalData);
-	        this.frequentFlyerNumber = new _FrequentFlyerNumber2.default(conditionalData);
-	        this.idOrAdIndicator = new _IdOrAdIndicator2.default(conditionalData);
-	        this.freeBaggageAllowance = new _FreeBaggageAllowance2.default(conditionalData);
-	        this.fastTrack = new _FastTrack2.default(conditionalData);
-	
-	        var individualSize = totalSize - 2 - this.flightConditionalSize.dec();
-	        if (individualSize < 0) {
-	            console.log(new Error("Something wrong with forIndividualAirlineUse size"));
-	        }
-	        this.forIndividualAirlineUse = new _ForIndividualAirlineUse2.default(provider, individualSize);
-	
-	        this.build = this.build.bind(this);
+	var FlightConditionalItemsBuilder = function () {
+	    function FlightConditionalItemsBuilder() {
+	        _classCallCheck(this, FlightConditionalItemsBuilder);
 	    }
 	
-	    _createClass(FlightConditionalItems, [{
+	    _createClass(FlightConditionalItemsBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            console.log("FlightConditionalItems.build()");
+	        value: function build(provider, totalSize) {
+	            var flightConditionalSize = new _FlightConditionalSize2.default(provider.getData(2));
 	
-	            var optional = this.airlineNumericCode.build() + this.documentFormOrSerialNumber.build() + this.selecteeIndicator.build() + this.internationalDocumentationVerification.build() + this.marketingCarrierDesignator.build() + this.frequentFlyerAirlineDesignator.build() + this.frequentFlyerNumber.build() + this.idOrAdIndicator.build() + this.freeBaggageAllowance.build() + this.fastTrack.build();
+	            if (!provider.hasData(flightConditionalSize.dec())) {
+	                console.log(new Error("Not enough data for FlightConditionalItems"));
+	            }
 	
-	            this.flightConditionalSize.setDec(optional.length);
+	            var conditionalData = new _DataProvider2.default(provider.getData(flightConditionalSize.dec()));
+	            var airlineNumericCode = new _AirlineNumericCode2.default(conditionalData.getData(3));
+	            var documentFormOrSerialNumber = new _DocumentFormOrSerialNumber2.default(conditionalData.getData(10));
+	            var selecteeIndicator = new _SelecteeIndicator2.default(conditionalData.getData(1));
+	            var internationalDocumentationVerification = new _InternationalDocumentationVerification2.default(conditionalData.getData(1));
+	            var marketingCarrierDesignator = new _MarketingCarrierDesignator2.default(conditionalData.getData(3));
+	            var frequentFlyerAirlineDesignator = new _FrequentFlyerAirlineDesignator2.default(conditionalData.getData(3));
+	            var frequentFlyerNumber = new _FrequentFlyerNumber2.default(conditionalData.getData(16));
+	            var idOrAdIndicator = new _IdOrAdIndicator2.default(conditionalData.getData(1));
+	            var freeBaggageAllowance = new _FreeBaggageAllowance2.default(conditionalData.getData(3));
+	            var fastTrack = new _FastTrack2.default(conditionalData.getData(1));
 	
-	            return this.flightConditionalSize.build() + optional + this.forIndividualAirlineUse.build();
+	            var individualSize = totalSize - 2 - flightConditionalSize.dec();
+	            if (individualSize < 0) {
+	                console.log(new Error("Something wrong with forIndividualAirlineUse size"));
+	            }
+	            var forIndividualAirlineUse = new _ForIndividualAirlineUse2.default(provider.getData(individualSize), individualSize);
+	
+	            return new _FlightConditionalItems2.default(flightConditionalSize, airlineNumericCode, documentFormOrSerialNumber, selecteeIndicator, internationalDocumentationVerification, marketingCarrierDesignator, frequentFlyerAirlineDesignator, frequentFlyerNumber, idOrAdIndicator, freeBaggageAllowance, fastTrack, forIndividualAirlineUse);
 	        }
 	    }]);
 	
-	    return FlightConditionalItems;
+	    return FlightConditionalItemsBuilder;
 	}();
 	
-	exports.default = FlightConditionalItems;
+	exports.default = FlightConditionalItemsBuilder;
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42307,7 +42589,7 @@
 	    value: true
 	});
 	
-	var _SizeItem2 = __webpack_require__(440);
+	var _SizeItem2 = __webpack_require__(441);
 	
 	var _SizeItem3 = _interopRequireDefault(_SizeItem2);
 	
@@ -42322,124 +42604,16 @@
 	var FlightConditionalSize = function (_SizeItem) {
 	    _inherits(FlightConditionalSize, _SizeItem);
 	
-	    function FlightConditionalSize(provider) {
+	    function FlightConditionalSize(data) {
 	        _classCallCheck(this, FlightConditionalSize);
 	
-	        return _possibleConstructorReturn(this, (FlightConditionalSize.__proto__ || Object.getPrototypeOf(FlightConditionalSize)).call(this, 17, 'Size of conditional items', provider.getData(2)));
+	        return _possibleConstructorReturn(this, (FlightConditionalSize.__proto__ || Object.getPrototypeOf(FlightConditionalSize)).call(this, 17, 'Size of conditional items', data));
 	    }
 	
 	    return FlightConditionalSize;
 	}(_SizeItem3.default);
 	
 	exports.default = FlightConditionalSize;
-
-/***/ },
-/* 464 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _Item2 = __webpack_require__(432);
-	
-	var _Item3 = _interopRequireDefault(_Item2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AirlineNumericCode = function (_Item) {
-	    _inherits(AirlineNumericCode, _Item);
-	
-	    function AirlineNumericCode(provider) {
-	        _classCallCheck(this, AirlineNumericCode);
-	
-	        return _possibleConstructorReturn(this, (AirlineNumericCode.__proto__ || Object.getPrototypeOf(AirlineNumericCode)).call(this, 142, 'Airline Numeric Code', provider.getData(3), 3));
-	    }
-	
-	    return AirlineNumericCode;
-	}(_Item3.default);
-	
-	exports.default = AirlineNumericCode;
-
-/***/ },
-/* 465 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _Item2 = __webpack_require__(432);
-	
-	var _Item3 = _interopRequireDefault(_Item2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var DocumentFormOrSerialNumber = function (_Item) {
-	    _inherits(DocumentFormOrSerialNumber, _Item);
-	
-	    function DocumentFormOrSerialNumber(provider) {
-	        _classCallCheck(this, DocumentFormOrSerialNumber);
-	
-	        return _possibleConstructorReturn(this, (DocumentFormOrSerialNumber.__proto__ || Object.getPrototypeOf(DocumentFormOrSerialNumber)).call(this, 143, 'Document Form/Serial Number', provider.getData(10), 10));
-	    }
-	
-	    return DocumentFormOrSerialNumber;
-	}(_Item3.default);
-	
-	exports.default = DocumentFormOrSerialNumber;
-
-/***/ },
-/* 466 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _Item2 = __webpack_require__(432);
-	
-	var _Item3 = _interopRequireDefault(_Item2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var SelecteeIndicator = function (_Item) {
-	    _inherits(SelecteeIndicator, _Item);
-	
-	    function SelecteeIndicator(provider) {
-	        _classCallCheck(this, SelecteeIndicator);
-	
-	        return _possibleConstructorReturn(this, (SelecteeIndicator.__proto__ || Object.getPrototypeOf(SelecteeIndicator)).call(this, 18, 'Selectee indicator', provider.getData(1), 1));
-	    }
-	
-	    return SelecteeIndicator;
-	}(_Item3.default);
-	
-	exports.default = SelecteeIndicator;
 
 /***/ },
 /* 467 */
@@ -42463,19 +42637,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var InternationalDocumentationVerification = function (_Item) {
-	    _inherits(InternationalDocumentationVerification, _Item);
+	var AirlineNumericCode = function (_Item) {
+	    _inherits(AirlineNumericCode, _Item);
 	
-	    function InternationalDocumentationVerification(provider) {
-	        _classCallCheck(this, InternationalDocumentationVerification);
+	    function AirlineNumericCode(data) {
+	        _classCallCheck(this, AirlineNumericCode);
 	
-	        return _possibleConstructorReturn(this, (InternationalDocumentationVerification.__proto__ || Object.getPrototypeOf(InternationalDocumentationVerification)).call(this, 108, 'International Documentation Verification', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (AirlineNumericCode.__proto__ || Object.getPrototypeOf(AirlineNumericCode)).call(this, 142, 'Airline Numeric Code', data, 3));
 	    }
 	
-	    return InternationalDocumentationVerification;
+	    return AirlineNumericCode;
 	}(_Item3.default);
 	
-	exports.default = InternationalDocumentationVerification;
+	exports.default = AirlineNumericCode;
 
 /***/ },
 /* 468 */
@@ -42499,19 +42673,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var MarketingCarrierDesignator = function (_Item) {
-	    _inherits(MarketingCarrierDesignator, _Item);
+	var DocumentFormOrSerialNumber = function (_Item) {
+	    _inherits(DocumentFormOrSerialNumber, _Item);
 	
-	    function MarketingCarrierDesignator(provider) {
-	        _classCallCheck(this, MarketingCarrierDesignator);
+	    function DocumentFormOrSerialNumber(data) {
+	        _classCallCheck(this, DocumentFormOrSerialNumber);
 	
-	        return _possibleConstructorReturn(this, (MarketingCarrierDesignator.__proto__ || Object.getPrototypeOf(MarketingCarrierDesignator)).call(this, 19, 'Marketing carrier designator', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (DocumentFormOrSerialNumber.__proto__ || Object.getPrototypeOf(DocumentFormOrSerialNumber)).call(this, 143, 'Document Form/Serial Number', data, 10));
 	    }
 	
-	    return MarketingCarrierDesignator;
+	    return DocumentFormOrSerialNumber;
 	}(_Item3.default);
 	
-	exports.default = MarketingCarrierDesignator;
+	exports.default = DocumentFormOrSerialNumber;
 
 /***/ },
 /* 469 */
@@ -42535,19 +42709,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FrequentFlyerAirlineDesignator = function (_Item) {
-	    _inherits(FrequentFlyerAirlineDesignator, _Item);
+	var SelecteeIndicator = function (_Item) {
+	    _inherits(SelecteeIndicator, _Item);
 	
-	    function FrequentFlyerAirlineDesignator(provider) {
-	        _classCallCheck(this, FrequentFlyerAirlineDesignator);
+	    function SelecteeIndicator(data) {
+	        _classCallCheck(this, SelecteeIndicator);
 	
-	        return _possibleConstructorReturn(this, (FrequentFlyerAirlineDesignator.__proto__ || Object.getPrototypeOf(FrequentFlyerAirlineDesignator)).call(this, 20, 'Frequent Flyer Airline Designator', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (SelecteeIndicator.__proto__ || Object.getPrototypeOf(SelecteeIndicator)).call(this, 18, 'Selectee indicator', data, 1));
 	    }
 	
-	    return FrequentFlyerAirlineDesignator;
+	    return SelecteeIndicator;
 	}(_Item3.default);
 	
-	exports.default = FrequentFlyerAirlineDesignator;
+	exports.default = SelecteeIndicator;
 
 /***/ },
 /* 470 */
@@ -42571,19 +42745,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FrequentFlyerNumber = function (_Item) {
-	    _inherits(FrequentFlyerNumber, _Item);
+	var InternationalDocumentationVerification = function (_Item) {
+	    _inherits(InternationalDocumentationVerification, _Item);
 	
-	    function FrequentFlyerNumber(provider) {
-	        _classCallCheck(this, FrequentFlyerNumber);
+	    function InternationalDocumentationVerification(data) {
+	        _classCallCheck(this, InternationalDocumentationVerification);
 	
-	        return _possibleConstructorReturn(this, (FrequentFlyerNumber.__proto__ || Object.getPrototypeOf(FrequentFlyerNumber)).call(this, 236, 'Frequent Flyer Number', provider.getData(16), 16));
+	        return _possibleConstructorReturn(this, (InternationalDocumentationVerification.__proto__ || Object.getPrototypeOf(InternationalDocumentationVerification)).call(this, 108, 'International Documentation Verification', data, 1));
 	    }
 	
-	    return FrequentFlyerNumber;
+	    return InternationalDocumentationVerification;
 	}(_Item3.default);
 	
-	exports.default = FrequentFlyerNumber;
+	exports.default = InternationalDocumentationVerification;
 
 /***/ },
 /* 471 */
@@ -42607,19 +42781,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var IdOrAdIndicator = function (_Item) {
-	    _inherits(IdOrAdIndicator, _Item);
+	var MarketingCarrierDesignator = function (_Item) {
+	    _inherits(MarketingCarrierDesignator, _Item);
 	
-	    function IdOrAdIndicator(provider) {
-	        _classCallCheck(this, IdOrAdIndicator);
+	    function MarketingCarrierDesignator(data) {
+	        _classCallCheck(this, MarketingCarrierDesignator);
 	
-	        return _possibleConstructorReturn(this, (IdOrAdIndicator.__proto__ || Object.getPrototypeOf(IdOrAdIndicator)).call(this, 89, 'ID/AD Indicator', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (MarketingCarrierDesignator.__proto__ || Object.getPrototypeOf(MarketingCarrierDesignator)).call(this, 19, 'Marketing carrier designator', data, 3));
 	    }
 	
-	    return IdOrAdIndicator;
+	    return MarketingCarrierDesignator;
 	}(_Item3.default);
 	
-	exports.default = IdOrAdIndicator;
+	exports.default = MarketingCarrierDesignator;
 
 /***/ },
 /* 472 */
@@ -42643,19 +42817,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FreeBaggageAllowance = function (_Item) {
-	    _inherits(FreeBaggageAllowance, _Item);
+	var FrequentFlyerAirlineDesignator = function (_Item) {
+	    _inherits(FrequentFlyerAirlineDesignator, _Item);
 	
-	    function FreeBaggageAllowance(provider) {
-	        _classCallCheck(this, FreeBaggageAllowance);
+	    function FrequentFlyerAirlineDesignator(data) {
+	        _classCallCheck(this, FrequentFlyerAirlineDesignator);
 	
-	        return _possibleConstructorReturn(this, (FreeBaggageAllowance.__proto__ || Object.getPrototypeOf(FreeBaggageAllowance)).call(this, 118, 'Free Baggage Allowance', provider.getData(3), 3));
+	        return _possibleConstructorReturn(this, (FrequentFlyerAirlineDesignator.__proto__ || Object.getPrototypeOf(FrequentFlyerAirlineDesignator)).call(this, 20, 'Frequent Flyer Airline Designator', data, 3));
 	    }
 	
-	    return FreeBaggageAllowance;
+	    return FrequentFlyerAirlineDesignator;
 	}(_Item3.default);
 	
-	exports.default = FreeBaggageAllowance;
+	exports.default = FrequentFlyerAirlineDesignator;
 
 /***/ },
 /* 473 */
@@ -42679,19 +42853,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FastTrack = function (_Item) {
-	    _inherits(FastTrack, _Item);
+	var FrequentFlyerNumber = function (_Item) {
+	    _inherits(FrequentFlyerNumber, _Item);
 	
-	    function FastTrack(provider) {
-	        _classCallCheck(this, FastTrack);
+	    function FrequentFlyerNumber(data) {
+	        _classCallCheck(this, FrequentFlyerNumber);
 	
-	        return _possibleConstructorReturn(this, (FastTrack.__proto__ || Object.getPrototypeOf(FastTrack)).call(this, 254, 'Fast Track', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (FrequentFlyerNumber.__proto__ || Object.getPrototypeOf(FrequentFlyerNumber)).call(this, 236, 'Frequent Flyer Number', data, 16));
 	    }
 	
-	    return FastTrack;
+	    return FrequentFlyerNumber;
 	}(_Item3.default);
 	
-	exports.default = FastTrack;
+	exports.default = FrequentFlyerNumber;
 
 /***/ },
 /* 474 */
@@ -42703,7 +42877,115 @@
 	    value: true
 	});
 	
-	var _VariableLengthItem2 = __webpack_require__(475);
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var IdOrAdIndicator = function (_Item) {
+	    _inherits(IdOrAdIndicator, _Item);
+	
+	    function IdOrAdIndicator(data) {
+	        _classCallCheck(this, IdOrAdIndicator);
+	
+	        return _possibleConstructorReturn(this, (IdOrAdIndicator.__proto__ || Object.getPrototypeOf(IdOrAdIndicator)).call(this, 89, 'ID/AD Indicator', data, 1));
+	    }
+	
+	    return IdOrAdIndicator;
+	}(_Item3.default);
+	
+	exports.default = IdOrAdIndicator;
+
+/***/ },
+/* 475 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FreeBaggageAllowance = function (_Item) {
+	    _inherits(FreeBaggageAllowance, _Item);
+	
+	    function FreeBaggageAllowance(data) {
+	        _classCallCheck(this, FreeBaggageAllowance);
+	
+	        return _possibleConstructorReturn(this, (FreeBaggageAllowance.__proto__ || Object.getPrototypeOf(FreeBaggageAllowance)).call(this, 118, 'Free Baggage Allowance', data, 3));
+	    }
+	
+	    return FreeBaggageAllowance;
+	}(_Item3.default);
+	
+	exports.default = FreeBaggageAllowance;
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FastTrack = function (_Item) {
+	    _inherits(FastTrack, _Item);
+	
+	    function FastTrack(data) {
+	        _classCallCheck(this, FastTrack);
+	
+	        return _possibleConstructorReturn(this, (FastTrack.__proto__ || Object.getPrototypeOf(FastTrack)).call(this, 254, 'Fast Track', data, 1));
+	    }
+	
+	    return FastTrack;
+	}(_Item3.default);
+	
+	exports.default = FastTrack;
+
+/***/ },
+/* 477 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _VariableLengthItem2 = __webpack_require__(478);
 	
 	var _VariableLengthItem3 = _interopRequireDefault(_VariableLengthItem2);
 	
@@ -42718,10 +43000,10 @@
 	var ForIndividualAirlineUse = function (_VariableLengthItem) {
 	    _inherits(ForIndividualAirlineUse, _VariableLengthItem);
 	
-	    function ForIndividualAirlineUse(provider, size) {
+	    function ForIndividualAirlineUse(data, size) {
 	        _classCallCheck(this, ForIndividualAirlineUse);
 	
-	        return _possibleConstructorReturn(this, (ForIndividualAirlineUse.__proto__ || Object.getPrototypeOf(ForIndividualAirlineUse)).call(this, 4, 'For individual airline use', provider.getData(size), size));
+	        return _possibleConstructorReturn(this, (ForIndividualAirlineUse.__proto__ || Object.getPrototypeOf(ForIndividualAirlineUse)).call(this, 4, 'For individual airline use', data, size));
 	    }
 	
 	    return ForIndividualAirlineUse;
@@ -42730,7 +43012,7 @@
 	exports.default = ForIndividualAirlineUse;
 
 /***/ },
-/* 475 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42784,7 +43066,211 @@
 	exports.default = VariableLengthItem;
 
 /***/ },
-/* 476 */
+/* 479 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var FlightConditionalItems = function () {
+	    function FlightConditionalItems(flightConditionalSize, airlineNumericCode, documentFormOrSerialNumber, selecteeIndicator, internationalDocumentationVerification, marketingCarrierDesignator, frequentFlyerAirlineDesignator, frequentFlyerNumber, idOrAdIndicator, freeBaggageAllowance, fastTrack, forIndividualAirlineUse) {
+	        _classCallCheck(this, FlightConditionalItems);
+	
+	        this._flightConditionalSize = flightConditionalSize;
+	        this._airlineNumericCode = airlineNumericCode;
+	        this._documentFormOrSerialNumber = documentFormOrSerialNumber;
+	        this._selecteeIndicator = selecteeIndicator;
+	        this._internationalDocumentationVerification = internationalDocumentationVerification;
+	        this._marketingCarrierDesignator = marketingCarrierDesignator;
+	        this._frequentFlyerAirlineDesignator = frequentFlyerAirlineDesignator;
+	        this._frequentFlyerNumber = frequentFlyerNumber;
+	        this._idOrAdIndicator = idOrAdIndicator;
+	        this._freeBaggageAllowance = freeBaggageAllowance;
+	        this._fastTrack = fastTrack;
+	        this._forIndividualAirlineUse = forIndividualAirlineUse;
+	
+	        this.flightConditionalSize = this.flightConditionalSize.bind(this);
+	        this.airlineNumericCode = this.airlineNumericCode.bind(this);
+	        this.documentFormOrSerialNumber = this.documentFormOrSerialNumber.bind(this);
+	        this.selecteeIndicator = this.selecteeIndicator.bind(this);
+	        this.internationalDocumentationVerification = this.internationalDocumentationVerification.bind(this);
+	        this.marketingCarrierDesignator = this.marketingCarrierDesignator.bind(this);
+	        this.frequentFlyerAirlineDesignator = this.frequentFlyerAirlineDesignator.bind(this);
+	        this.frequentFlyerNumber = this.frequentFlyerNumber.bind(this);
+	        this.idOrAdIndicator = this.idOrAdIndicator.bind(this);
+	        this.freeBaggageAllowance = this.freeBaggageAllowance.bind(this);
+	        this.fastTrack = this.fastTrack.bind(this);
+	        this.forIndividualAirlineUse = this.forIndividualAirlineUse.bind(this);
+	
+	        this.build = this.build.bind(this);
+	    }
+	
+	    _createClass(FlightConditionalItems, [{
+	        key: "flightConditionalSize",
+	        value: function flightConditionalSize() {
+	            return this._flightConditionalSize;
+	        }
+	    }, {
+	        key: "airlineNumericCode",
+	        value: function airlineNumericCode() {
+	            return this._airlineNumericCode;
+	        }
+	    }, {
+	        key: "documentFormOrSerialNumber",
+	        value: function documentFormOrSerialNumber() {
+	            return this._documentFormOrSerialNumber;
+	        }
+	    }, {
+	        key: "selecteeIndicator",
+	        value: function selecteeIndicator() {
+	            return this._selecteeIndicator;
+	        }
+	    }, {
+	        key: "internationalDocumentationVerification",
+	        value: function internationalDocumentationVerification() {
+	            return this._internationalDocumentationVerification;
+	        }
+	    }, {
+	        key: "marketingCarrierDesignator",
+	        value: function marketingCarrierDesignator() {
+	            return this._marketingCarrierDesignator;
+	        }
+	    }, {
+	        key: "frequentFlyerAirlineDesignator",
+	        value: function frequentFlyerAirlineDesignator() {
+	            return this._frequentFlyerAirlineDesignator;
+	        }
+	    }, {
+	        key: "frequentFlyerNumber",
+	        value: function frequentFlyerNumber() {
+	            return this._frequentFlyerNumber;
+	        }
+	    }, {
+	        key: "idOrAdIndicator",
+	        value: function idOrAdIndicator() {
+	            return this._idOrAdIndicator;
+	        }
+	    }, {
+	        key: "freeBaggageAllowance",
+	        value: function freeBaggageAllowance() {
+	            return this._freeBaggageAllowance;
+	        }
+	    }, {
+	        key: "fastTrack",
+	        value: function fastTrack() {
+	            return this._fastTrack;
+	        }
+	    }, {
+	        key: "forIndividualAirlineUse",
+	        value: function forIndividualAirlineUse() {
+	            return this._forIndividualAirlineUse;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            console.log("FlightConditionalItems.build()");
+	
+	            var optional = this._airlineNumericCode.build() + this._documentFormOrSerialNumber.build() + this._selecteeIndicator.build() + this._internationalDocumentationVerification.build() + this._marketingCarrierDesignator.build() + this._frequentFlyerAirlineDesignator.build() + this._frequentFlyerNumber.build() + this._idOrAdIndicator.build() + this._freeBaggageAllowance.build() + this._fastTrack.build();
+	
+	            this._flightConditionalSize.setDec(optional.length);
+	
+	            return this._flightConditionalSize.build() + optional + this._forIndividualAirlineUse.build();
+	        }
+	    }]);
+	
+	    return FlightConditionalItems;
+	}();
+	
+	exports.default = FlightConditionalItems;
+
+/***/ },
+/* 480 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Flight = function () {
+	    function Flight(id, mandatoryItems, conditionalItems, generalMandatoryItems, generalConditionalItems) {
+	        _classCallCheck(this, Flight);
+	
+	        this._id = id;
+	        this._mandatoryItems = mandatoryItems;
+	        this._conditionalItems = conditionalItems;
+	        this._generalMandatoryItems = generalMandatoryItems;
+	        this._generalConditionalItems = generalConditionalItems;
+	
+	        this.mandatoryItems = this.mandatoryItems.bind(this);
+	        this.conditionalItems = this.conditionalItems.bind(this);
+	        this.generalMandatoryItems = this.generalMandatoryItems.bind(this);
+	        this.generalConditionalItems = this.generalConditionalItems.bind(this);
+	    }
+	
+	    _createClass(Flight, [{
+	        key: "id",
+	        value: function id() {
+	            return this._id;
+	        }
+	    }, {
+	        key: "mandatoryItems",
+	        value: function mandatoryItems() {
+	            return this._mandatoryItems;
+	        }
+	    }, {
+	        key: "conditionalItems",
+	        value: function conditionalItems() {
+	            return this._conditionalItems;
+	        }
+	    }, {
+	        key: "generalMandatoryItems",
+	        value: function generalMandatoryItems() {
+	            return this._generalMandatoryItems;
+	        }
+	    }, {
+	        key: "generalConditionalItems",
+	        value: function generalConditionalItems() {
+	            return this._generalConditionalItems;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            var optional = this._conditionalItems.build();
+	            if (this._generalConditionalItems) {
+	                optional = this._generalConditionalItems.build() + optional;
+	            }
+	
+	            this._mandatoryItems.allConditionalSize().setDec(optional.length);
+	
+	            var result = this._mandatoryItems.build() + optional;
+	            if (this._generalMandatoryItems) {
+	                result = this._generalMandatoryItems.build() + result;
+	            }
+	
+	            return result;
+	        }
+	    }]);
+	
+	    return Flight;
+	}();
+	
+	exports.default = Flight;
+
+/***/ },
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42795,80 +43281,59 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _BeginningOfSecurityData = __webpack_require__(477);
+	var _BeginningOfSecurityData = __webpack_require__(482);
 	
 	var _BeginningOfSecurityData2 = _interopRequireDefault(_BeginningOfSecurityData);
 	
-	var _TypeOfSecurityData = __webpack_require__(478);
+	var _TypeOfSecurityData = __webpack_require__(483);
 	
 	var _TypeOfSecurityData2 = _interopRequireDefault(_TypeOfSecurityData);
 	
-	var _SecurityDataSize = __webpack_require__(479);
+	var _SecurityDataSize = __webpack_require__(484);
 	
 	var _SecurityDataSize2 = _interopRequireDefault(_SecurityDataSize);
 	
-	var _SecurityData = __webpack_require__(480);
+	var _SecurityData = __webpack_require__(485);
 	
 	var _SecurityData2 = _interopRequireDefault(_SecurityData);
+	
+	var _SecurityItems = __webpack_require__(486);
+	
+	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var SecurityItems = function () {
-	    function SecurityItems(provider) {
-	        _classCallCheck(this, SecurityItems);
-	
-	        this._enabled = provider.hasData(1);
-	
-	        this.beginningOfSecurityData = new _BeginningOfSecurityData2.default(provider);
-	        this.typeOfSecurityData = new _TypeOfSecurityData2.default(provider);
-	
-	        this.lengthOfSecurityData = new _SecurityDataSize2.default(provider);
-	
-	        if (!provider.hasData(this.lengthOfSecurityData.dec())) {
-	            console.log(new Error("Not enough data for SecurityItems"));
-	        }
-	
-	        this.securityData = new _SecurityData2.default(provider, this.lengthOfSecurityData.dec());
-	
-	        this.isEnabled = this.isEnabled.bind(this);
-	        this.setEnabled = this.setEnabled.bind(this);
-	
-	        this.build = this.build.bind(this);
+	var SecurityItemsBuilder = function () {
+	    function SecurityItemsBuilder() {
+	        _classCallCheck(this, SecurityItemsBuilder);
 	    }
 	
-	    _createClass(SecurityItems, [{
-	        key: "isEnabled",
-	        value: function isEnabled() {
-	            return this._enabled;
-	        }
-	    }, {
-	        key: "setEnabled",
-	        value: function setEnabled(enabled) {
-	            this._enabled = enabled;
-	        }
-	    }, {
+	    _createClass(SecurityItemsBuilder, null, [{
 	        key: "build",
-	        value: function build() {
-	            if (!this._enabled) {
-	                return '';
+	        value: function build(provider) {
+	            var beginningOfSecurityData = new _BeginningOfSecurityData2.default(provider.getData(1));
+	            var typeOfSecurityData = new _TypeOfSecurityData2.default(provider.getData(1));
+	            var lengthOfSecurityData = new _SecurityDataSize2.default(provider.getData(2));
+	
+	            if (!provider.hasData(lengthOfSecurityData.dec())) {
+	                console.log(new Error("Not enough data for SecurityItems"));
 	            }
 	
-	            var optional = this.securityData.build();
-	            this.lengthOfSecurityData.setDec(optional.length);
+	            var securityData = new _SecurityData2.default(provider.getData(lengthOfSecurityData.dec()), lengthOfSecurityData.dec());
 	
-	            return this.beginningOfSecurityData.build() + this.typeOfSecurityData.build() + this.lengthOfSecurityData.build() + optional;
+	            return new _SecurityItems2.default(beginningOfSecurityData, typeOfSecurityData, lengthOfSecurityData, securityData);
 	        }
 	    }]);
 	
-	    return SecurityItems;
+	    return SecurityItemsBuilder;
 	}();
 	
-	exports.default = SecurityItems;
+	exports.default = SecurityItemsBuilder;
 
 /***/ },
-/* 477 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42892,10 +43357,10 @@
 	var BeginningOfSecurityData = function (_Item) {
 	    _inherits(BeginningOfSecurityData, _Item);
 	
-	    function BeginningOfSecurityData(provider) {
+	    function BeginningOfSecurityData(data) {
 	        _classCallCheck(this, BeginningOfSecurityData);
 	
-	        return _possibleConstructorReturn(this, (BeginningOfSecurityData.__proto__ || Object.getPrototypeOf(BeginningOfSecurityData)).call(this, 25, 'Beginning of Security Data', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (BeginningOfSecurityData.__proto__ || Object.getPrototypeOf(BeginningOfSecurityData)).call(this, 25, 'Beginning of Security Data', data, 1));
 	    }
 	
 	    return BeginningOfSecurityData;
@@ -42904,7 +43369,7 @@
 	exports.default = BeginningOfSecurityData;
 
 /***/ },
-/* 478 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42928,10 +43393,10 @@
 	var TypeOfSecurityData = function (_Item) {
 	    _inherits(TypeOfSecurityData, _Item);
 	
-	    function TypeOfSecurityData(provider) {
+	    function TypeOfSecurityData(data) {
 	        _classCallCheck(this, TypeOfSecurityData);
 	
-	        return _possibleConstructorReturn(this, (TypeOfSecurityData.__proto__ || Object.getPrototypeOf(TypeOfSecurityData)).call(this, 28, 'Type of Security Data', provider.getData(1), 1));
+	        return _possibleConstructorReturn(this, (TypeOfSecurityData.__proto__ || Object.getPrototypeOf(TypeOfSecurityData)).call(this, 28, 'Type of Security Data', data, 1));
 	    }
 	
 	    return TypeOfSecurityData;
@@ -42940,7 +43405,7 @@
 	exports.default = TypeOfSecurityData;
 
 /***/ },
-/* 479 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42949,7 +43414,7 @@
 	    value: true
 	});
 	
-	var _SizeItem2 = __webpack_require__(440);
+	var _SizeItem2 = __webpack_require__(441);
 	
 	var _SizeItem3 = _interopRequireDefault(_SizeItem2);
 	
@@ -42964,10 +43429,10 @@
 	var SecurityDataSize = function (_SizeItem) {
 	    _inherits(SecurityDataSize, _SizeItem);
 	
-	    function SecurityDataSize(provider) {
+	    function SecurityDataSize(data) {
 	        _classCallCheck(this, SecurityDataSize);
 	
-	        return _possibleConstructorReturn(this, (SecurityDataSize.__proto__ || Object.getPrototypeOf(SecurityDataSize)).call(this, 29, 'Length of Security Data', provider.getData(2)));
+	        return _possibleConstructorReturn(this, (SecurityDataSize.__proto__ || Object.getPrototypeOf(SecurityDataSize)).call(this, 29, 'Length of Security Data', data));
 	    }
 	
 	    return SecurityDataSize;
@@ -42976,7 +43441,7 @@
 	exports.default = SecurityDataSize;
 
 /***/ },
-/* 480 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42985,7 +43450,7 @@
 	    value: true
 	});
 	
-	var _VariableLengthItem2 = __webpack_require__(475);
+	var _VariableLengthItem2 = __webpack_require__(478);
 	
 	var _VariableLengthItem3 = _interopRequireDefault(_VariableLengthItem2);
 	
@@ -43000,10 +43465,10 @@
 	var SecurityData = function (_VariableLengthItem) {
 	    _inherits(SecurityData, _VariableLengthItem);
 	
-	    function SecurityData(provider, size) {
+	    function SecurityData(data, size) {
 	        _classCallCheck(this, SecurityData);
 	
-	        return _possibleConstructorReturn(this, (SecurityData.__proto__ || Object.getPrototypeOf(SecurityData)).call(this, 30, 'Security Data', provider.getData(size), size));
+	        return _possibleConstructorReturn(this, (SecurityData.__proto__ || Object.getPrototypeOf(SecurityData)).call(this, 30, 'Security Data', data, size));
 	    }
 	
 	    return SecurityData;
@@ -43012,7 +43477,168 @@
 	exports.default = SecurityData;
 
 /***/ },
-/* 481 */
+/* 486 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var SecurityItems = function () {
+	    function SecurityItems(beginningOfSecurityData, typeOfSecurityData, lengthOfSecurityData, securityData) {
+	        _classCallCheck(this, SecurityItems);
+	
+	        this._beginningOfSecurityData = beginningOfSecurityData;
+	        this._typeOfSecurityData = typeOfSecurityData;
+	        this._lengthOfSecurityData = lengthOfSecurityData;
+	        this._securityData = securityData;
+	
+	        this._enabled = this._beginningOfSecurityData.enabled();
+	
+	        this.isEnabled = this.isEnabled.bind(this);
+	        this.setEnabled = this.setEnabled.bind(this);
+	
+	        this.beginningOfSecurityData = this.beginningOfSecurityData.bind(this);
+	        this.typeOfSecurityData = this.typeOfSecurityData.bind(this);
+	        this.lengthOfSecurityData = this.lengthOfSecurityData.bind(this);
+	        this.securityData = this.securityData.bind(this);
+	
+	        this.build = this.build.bind(this);
+	    }
+	
+	    _createClass(SecurityItems, [{
+	        key: 'isEnabled',
+	        value: function isEnabled() {
+	            return this._enabled;
+	        }
+	    }, {
+	        key: 'setEnabled',
+	        value: function setEnabled(enabled) {
+	            this._enabled = enabled;
+	        }
+	    }, {
+	        key: 'beginningOfSecurityData',
+	        value: function beginningOfSecurityData() {
+	            return this._beginningOfSecurityData;
+	        }
+	    }, {
+	        key: 'typeOfSecurityData',
+	        value: function typeOfSecurityData() {
+	            return this._typeOfSecurityData;
+	        }
+	    }, {
+	        key: 'lengthOfSecurityData',
+	        value: function lengthOfSecurityData() {
+	            return this._lengthOfSecurityData;
+	        }
+	    }, {
+	        key: 'securityData',
+	        value: function securityData() {
+	            return this._securityData;
+	        }
+	    }, {
+	        key: 'build',
+	        value: function build() {
+	            if (!this._enabled) {
+	                return '';
+	            }
+	
+	            var optional = this._securityData.build();
+	            this._lengthOfSecurityData.setDec(optional.length);
+	
+	            return this._beginningOfSecurityData.build() + this._typeOfSecurityData.build() + this._lengthOfSecurityData.build() + optional;
+	        }
+	    }]);
+	
+	    return SecurityItems;
+	}();
+	
+	exports.default = SecurityItems;
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _BoardingPassBuilder = __webpack_require__(427);
+	
+	var _BoardingPassBuilder2 = _interopRequireDefault(_BoardingPassBuilder);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var BoardingPass = function () {
+	    function BoardingPass(rawData, mandatoryItems, conditionalItems, flights, securityItems) {
+	        _classCallCheck(this, BoardingPass);
+	
+	        this._rawData = rawData;
+	        this._mandatoryItems = mandatoryItems;
+	        this._conditionalItems = conditionalItems;
+	        this._flights = flights;
+	        this._securityItems = securityItems;
+	
+	        this.rawData = this.rawData.bind(this);
+	        this.mandatoryItems = this.mandatoryItems.bind(this);
+	        this.conditionalItems = this.conditionalItems.bind(this);
+	        this.flights = this.flights.bind(this);
+	        this.securityItems = this.securityItems.bind(this);
+	        this.build = this.build.bind(this);
+	    }
+	
+	    _createClass(BoardingPass, [{
+	        key: "rawData",
+	        value: function rawData() {
+	            return this._rawData;
+	        }
+	    }, {
+	        key: "mandatoryItems",
+	        value: function mandatoryItems() {
+	            return this._mandatoryItems;
+	        }
+	    }, {
+	        key: "conditionalItems",
+	        value: function conditionalItems() {
+	            return this._conditionalItems;
+	        }
+	    }, {
+	        key: "flights",
+	        value: function flights() {
+	            return this._flights;
+	        }
+	    }, {
+	        key: "securityItems",
+	        value: function securityItems() {
+	            return this._securityItems;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            console.log("BoardingPass.build()");
+	            return _BoardingPassBuilder2.default.build(this._flights[0].build() + this._securityItems.build());
+	        }
+	    }]);
+	
+	    return BoardingPass;
+	}();
+	
+	exports.default = BoardingPass;
+
+/***/ },
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43087,7 +43713,7 @@
 	exports.default = RawInput;
 
 /***/ },
-/* 482 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43104,19 +43730,19 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _QRCode = __webpack_require__(483);
+	var _QRCode = __webpack_require__(490);
 	
 	var _QRCode2 = _interopRequireDefault(_QRCode);
 	
-	var _Aztec = __webpack_require__(494);
+	var _Aztec = __webpack_require__(501);
 	
 	var _Aztec2 = _interopRequireDefault(_Aztec);
 	
-	var _Datamatrix = __webpack_require__(495);
+	var _Datamatrix = __webpack_require__(502);
 	
 	var _Datamatrix2 = _interopRequireDefault(_Datamatrix);
 	
-	var _PDF = __webpack_require__(496);
+	var _PDF = __webpack_require__(503);
 	
 	var _PDF2 = _interopRequireDefault(_PDF);
 	
@@ -43230,7 +43856,7 @@
 	exports.default = Barcodes;
 
 /***/ },
-/* 483 */
+/* 490 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43245,7 +43871,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _qrcode = __webpack_require__(484);
+	var _qrcode = __webpack_require__(491);
 	
 	var _qrcode2 = _interopRequireDefault(_qrcode);
 	
@@ -43283,7 +43909,7 @@
 	exports.default = QROutput;
 
 /***/ },
-/* 484 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43291,8 +43917,8 @@
 	var React = __webpack_require__(1);
 	// qr.js doesn't handle error level of zero (M) so we need to do it right,
 	// thus the deep require.
-	var QRCodeImpl = __webpack_require__(485);
-	var ErrorCorrectLevel = __webpack_require__(489);
+	var QRCodeImpl = __webpack_require__(492);
+	var ErrorCorrectLevel = __webpack_require__(496);
 	
 	function getBackingStorePixelRatio(ctx) {
 	  return ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1;
@@ -43395,16 +44021,16 @@
 	module.exports = QRCode;
 
 /***/ },
-/* 485 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var BitByte = __webpack_require__(486);
-	var RSBlock = __webpack_require__(488);
-	var BitBuffer = __webpack_require__(490);
-	var util = __webpack_require__(491);
-	var Polynomial = __webpack_require__(492);
+	var BitByte = __webpack_require__(493);
+	var RSBlock = __webpack_require__(495);
+	var BitBuffer = __webpack_require__(497);
+	var util = __webpack_require__(498);
+	var Polynomial = __webpack_require__(499);
 	
 	function QRCode(typeNumber, errorCorrectLevel) {
 		this.typeNumber = typeNumber;
@@ -43830,12 +44456,12 @@
 	module.exports = QRCode;
 
 /***/ },
-/* 486 */
+/* 493 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var mode = __webpack_require__(487);
+	var mode = __webpack_require__(494);
 	
 	function QR8bitByte(data) {
 		this.mode = mode.MODE_8BIT_BYTE;
@@ -43859,7 +44485,7 @@
 	module.exports = QR8bitByte;
 
 /***/ },
-/* 487 */
+/* 494 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -43872,13 +44498,13 @@
 	};
 
 /***/ },
-/* 488 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	// ErrorCorrectLevel
-	var ECL = __webpack_require__(489);
+	var ECL = __webpack_require__(496);
 	
 	function QRRSBlock(totalCount, dataCount) {
 		this.totalCount = totalCount;
@@ -44057,7 +44683,7 @@
 	module.exports = QRRSBlock;
 
 /***/ },
-/* 489 */
+/* 496 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -44070,7 +44696,7 @@
 	};
 
 /***/ },
-/* 490 */
+/* 497 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -44115,14 +44741,14 @@
 	module.exports = QRBitBuffer;
 
 /***/ },
-/* 491 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Mode = __webpack_require__(487);
-	var Polynomial = __webpack_require__(492);
-	var math = __webpack_require__(493);
+	var Mode = __webpack_require__(494);
+	var Polynomial = __webpack_require__(499);
+	var math = __webpack_require__(500);
 	
 	var QRMaskPattern = {
 		PATTERN000: 0,
@@ -44365,12 +44991,12 @@
 	module.exports = QRUtil;
 
 /***/ },
-/* 492 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var math = __webpack_require__(493);
+	var math = __webpack_require__(500);
 	
 	function QRPolynomial(num, shift) {
 	
@@ -44439,7 +45065,7 @@
 	module.exports = QRPolynomial;
 
 /***/ },
-/* 493 */
+/* 500 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -44487,7 +45113,7 @@
 	module.exports = QRMath;
 
 /***/ },
-/* 494 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44536,7 +45162,7 @@
 	exports.default = Aztec;
 
 /***/ },
-/* 495 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44585,7 +45211,7 @@
 	exports.default = Datamatrix;
 
 /***/ },
-/* 496 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44634,7 +45260,7 @@
 	exports.default = PDF417;
 
 /***/ },
-/* 497 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44651,11 +45277,11 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(498);
+	var _Item = __webpack_require__(505);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
-	var _OptionalItem = __webpack_require__(500);
+	var _OptionalItem = __webpack_require__(507);
 	
 	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
 	
@@ -44697,53 +45323,37 @@
 	                                                                      _react2.default.createElement(
 	                                                                                    _reactBootstrap.Form,
 	                                                                                    { horizontal: true, fill: true },
-	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.formatCode.itemNr,
-	                                                                                                  item: mandatory.formatCode,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: mandatory.formatCode(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.numberOfLegsEncoded.itemNr,
-	                                                                                                  item: mandatory.numberOfLegsEncoded,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: mandatory.numberOfLegsEncoded(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.passengerName.itemNr,
-	                                                                                                  item: mandatory.passengerName,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: mandatory.passengerName(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: mandatory.electronicTicketIndicator.itemNr,
-	                                                                                                  item: mandatory.electronicTicketIndicator,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: mandatory.electronicTicketIndicator(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.beginningOfVersionNumber.itemNr,
-	                                                                                                  item: conditional.beginningOfVersionNumber,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: conditional.beginningOfVersionNumber(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.versionNumber.itemNr,
-	                                                                                                  item: conditional.versionNumber,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: conditional.versionNumber(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_Item2.default, { key: conditional.generalConditionalSize.itemNr,
-	                                                                                                  item: conditional.generalConditionalSize,
+	                                                                                    _react2.default.createElement(_Item2.default, { item: conditional.generalConditionalSize(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.passengerDescription.itemNr,
-	                                                                                                  item: conditional.passengerDescription,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.passengerDescription(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.sourceOfCheckIn.itemNr,
-	                                                                                                  item: conditional.sourceOfCheckIn,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.sourceOfCheckIn(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.sourceOfBoardingPassIssuance.itemNr,
-	                                                                                                  item: conditional.sourceOfBoardingPassIssuance,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.sourceOfBoardingPassIssuance(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.dateOfIssueOfBoardingPass.itemNr,
-	                                                                                                  item: conditional.dateOfIssueOfBoardingPass,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.dateOfIssueOfBoardingPass(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.documentType.itemNr,
-	                                                                                                  item: conditional.documentType,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.documentType(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.airlineDesignatorOfBoardingPassIssuer.itemNr,
-	                                                                                                  item: conditional.airlineDesignatorOfBoardingPassIssuer,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.airlineDesignatorOfBoardingPassIssuer(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.baggageTag.itemNr,
-	                                                                                                  item: conditional.baggageTag,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.baggageTag(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.firstNonConsecutiveBaggageTag.itemNr,
-	                                                                                                  item: conditional.firstNonConsecutiveBaggageTag,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.firstNonConsecutiveBaggageTag(),
 	                                                                                                  dataChange: this.props.dataChange }),
-	                                                                                    _react2.default.createElement(_OptionalItem2.default, { key: conditional.secondNonConsecutiveBaggageTag.itemNr,
-	                                                                                                  item: conditional.secondNonConsecutiveBaggageTag,
+	                                                                                    _react2.default.createElement(_OptionalItem2.default, { item: conditional.secondNonConsecutiveBaggageTag(),
 	                                                                                                  dataChange: this.props.dataChange })
 	                                                                      )
 	                                                        )
@@ -44757,7 +45367,7 @@
 	exports.default = GeneralItems;
 
 /***/ },
-/* 498 */
+/* 505 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44774,7 +45384,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _ItemTextField = __webpack_require__(499);
+	var _ItemTextField = __webpack_require__(506);
 	
 	var _ItemTextField2 = _interopRequireDefault(_ItemTextField);
 	
@@ -44849,7 +45459,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 499 */
+/* 506 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44938,7 +45548,7 @@
 	exports.default = ItemTextField;
 
 /***/ },
-/* 500 */
+/* 507 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44955,7 +45565,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _OptionalItemTextField = __webpack_require__(501);
+	var _OptionalItemTextField = __webpack_require__(508);
 	
 	var _OptionalItemTextField2 = _interopRequireDefault(_OptionalItemTextField);
 	
@@ -45031,7 +45641,7 @@
 	exports.default = OptionalItem;
 
 /***/ },
-/* 501 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45048,7 +45658,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _ItemTextField = __webpack_require__(499);
+	var _ItemTextField = __webpack_require__(506);
 	
 	var _ItemTextField2 = _interopRequireDefault(_ItemTextField);
 	
@@ -45096,7 +45706,7 @@
 	exports.default = OptionalItemTextField;
 
 /***/ },
-/* 502 */
+/* 509 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45113,7 +45723,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Flight = __webpack_require__(503);
+	var _Flight = __webpack_require__(510);
 	
 	var _Flight2 = _interopRequireDefault(_Flight);
 	
@@ -45156,7 +45766,7 @@
 	exports.default = Flights;
 
 /***/ },
-/* 503 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45173,11 +45783,11 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(498);
+	var _Item = __webpack_require__(505);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
-	var _OptionalItem = __webpack_require__(500);
+	var _OptionalItem = __webpack_require__(507);
 	
 	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
 	
@@ -45205,11 +45815,11 @@
 	                        "h3",
 	                        null,
 	                        "Flight ",
-	                        this.props.flight.id
+	                        this.props.flight.id()
 	                  );
 	
-	                  var mandatory = this.props.flight.mandatoryItems;
-	                  var conditional = this.props.flight.conditionalItems;
+	                  var mandatory = this.props.flight.mandatoryItems();
+	                  var conditional = this.props.flight.conditionalItems();
 	
 	                  return _react2.default.createElement(
 	                        _reactBootstrap.Panel,
@@ -45217,74 +45827,51 @@
 	                        _react2.default.createElement(
 	                              _reactBootstrap.Form,
 	                              { horizontal: true, fill: true },
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.operatingCarrierPNRCode.itemNr,
-	                                    item: mandatory.operatingCarrierPNRCode,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.operatingCarrierPNRCode(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.fromCityAirportCode.itemNr,
-	                                    item: mandatory.fromCityAirportCode,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.fromCityAirportCode(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.toCityAirportCode.itemNr,
-	                                    item: mandatory.toCityAirportCode,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.toCityAirportCode(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.operatingCarrierDesignator.itemNr,
-	                                    item: mandatory.operatingCarrierDesignator,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.operatingCarrierDesignator(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.flightNumber.itemNr,
-	                                    item: mandatory.flightNumber,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.flightNumber(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.dateOfFlight.itemNr,
-	                                    item: mandatory.dateOfFlight,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.dateOfFlight(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.compartmentCode.itemNr,
-	                                    item: mandatory.compartmentCode,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.compartmentCode(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.seatNumber.itemNr,
-	                                    item: mandatory.seatNumber,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.seatNumber(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.checkInSequenceNumber.itemNr,
-	                                    item: mandatory.checkInSequenceNumber,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.checkInSequenceNumber(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.passengerStatus.itemNr,
-	                                    item: mandatory.passengerStatus,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.passengerStatus(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: mandatory.allConditionalSize.itemNr,
-	                                    item: mandatory.allConditionalSize,
+	                              _react2.default.createElement(_Item2.default, { item: mandatory.allConditionalSize(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_Item2.default, { key: conditional.flightConditionalSize.itemNr,
-	                                    item: conditional.flightConditionalSize,
+	                              _react2.default.createElement(_Item2.default, { item: conditional.flightConditionalSize(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.airlineNumericCode.itemNr,
-	                                    item: conditional.airlineNumericCode,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.airlineNumericCode(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.documentFormOrSerialNumber.itemNr,
-	                                    item: conditional.documentFormOrSerialNumber,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.documentFormOrSerialNumber(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.selecteeIndicator.itemNr,
-	                                    item: conditional.selecteeIndicator,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.selecteeIndicator(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.internationalDocumentationVerification.itemNr,
-	                                    item: conditional.internationalDocumentationVerification,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.internationalDocumentationVerification(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.marketingCarrierDesignator.itemNr,
-	                                    item: conditional.marketingCarrierDesignator,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.marketingCarrierDesignator(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.frequentFlyerAirlineDesignator.itemNr,
-	                                    item: conditional.frequentFlyerAirlineDesignator,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.frequentFlyerAirlineDesignator(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.frequentFlyerNumber.itemNr,
-	                                    item: conditional.frequentFlyerNumber,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.frequentFlyerNumber(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.idOrAdIndicator.itemNr,
-	                                    item: conditional.idOrAdIndicator,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.idOrAdIndicator(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.freeBaggageAllowance.itemNr,
-	                                    item: conditional.freeBaggageAllowance,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.freeBaggageAllowance(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.fastTrack.itemNr,
-	                                    item: conditional.fastTrack,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.fastTrack(),
 	                                    dataChange: this.props.dataChange }),
-	                              _react2.default.createElement(_OptionalItem2.default, { key: conditional.forIndividualAirlineUse.itemNr,
-	                                    item: conditional.forIndividualAirlineUse,
+	                              _react2.default.createElement(_OptionalItem2.default, { item: conditional.forIndividualAirlineUse(),
 	                                    dataChange: this.props.dataChange })
 	                        )
 	                  );
@@ -45297,7 +45884,7 @@
 	exports.default = Flight;
 
 /***/ },
-/* 504 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45314,7 +45901,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(498);
+	var _Item = __webpack_require__(505);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
@@ -45374,17 +45961,13 @@
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Form,
 	                        { horizontal: true, fill: true, hidden: !this.state.securityItems.isEnabled() },
-	                        _react2.default.createElement(_Item2.default, { key: items.beginningOfSecurityData.itemNr,
-	                            item: items.beginningOfSecurityData,
+	                        _react2.default.createElement(_Item2.default, { item: items.beginningOfSecurityData(),
 	                            dataChange: this.props.bcbpChange }),
-	                        _react2.default.createElement(_Item2.default, { key: items.typeOfSecurityData.itemNr,
-	                            item: items.typeOfSecurityData,
+	                        _react2.default.createElement(_Item2.default, { item: items.typeOfSecurityData(),
 	                            dataChange: this.props.bcbpChange }),
-	                        _react2.default.createElement(_Item2.default, { key: items.lengthOfSecurityData.itemNr,
-	                            item: items.lengthOfSecurityData,
+	                        _react2.default.createElement(_Item2.default, { item: items.lengthOfSecurityData(),
 	                            dataChange: this.props.bcbpChange }),
-	                        _react2.default.createElement(_Item2.default, { key: items.securityData.itemNr,
-	                            item: items.securityData,
+	                        _react2.default.createElement(_Item2.default, { item: items.securityData(),
 	                            dataChange: this.props.bcbpChange })
 	                    )
 	                )

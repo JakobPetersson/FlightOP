@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid, Row, Col} from "react-bootstrap";
-import BoardingPass from "../BoardingPass/BoardingPass";
+import BoardingPassBuilder from "../BoardingPass/model/BoardingPassBuilder";
 import RawInput from "./RawInput";
 import Barcodes from "./barcodes/Barcodes";
 import GeneralItems from "./GeneralItems";
@@ -11,7 +11,7 @@ class Bcbp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardingPass: new BoardingPass(this.loadInitialData())
+            boardingPass: BoardingPassBuilder.build(this.loadInitialData())
         };
         this.setData = this.setData.bind(this);
         this.dataChange = this.dataChange.bind(this);
@@ -38,7 +38,7 @@ class Bcbp extends React.Component {
     }
 
     setData(newData) {
-        this.setState({boardingPass: new BoardingPass(newData)});
+        this.setState({boardingPass: BoardingPassBuilder.build(newData)});
     }
 
     dataChange() {
@@ -54,10 +54,10 @@ class Bcbp extends React.Component {
                 </Row>
                 <Row>
                     <Col xs={12} md={6} >
-                        <RawInput rawData={this.state.boardingPass.rawData} setData={this.setData} />
+                        <RawInput rawData={this.state.boardingPass.rawData()} setData={this.setData} />
                     </Col>
                     <Col xs={12} md={6} >
-                        <Barcodes rawData={this.state.boardingPass.rawData} />
+                        <Barcodes rawData={this.state.boardingPass.rawData()} />
                     </Col>
                 </Row>
                 <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems()}

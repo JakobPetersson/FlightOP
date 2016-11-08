@@ -20,55 +20,39 @@ class GeneralItems extends React.Component {
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
-                        <Item key={mandatory.formatCode.itemNr}
-                              item={mandatory.formatCode}
+                        <Item item={mandatory.formatCode()}
                               dataChange={this.props.dataChange}/>
-                        <Item key={mandatory.numberOfLegsEncoded.itemNr}
-                              item={mandatory.numberOfLegsEncoded}
+                        <Item item={mandatory.numberOfLegsEncoded()}
                               dataChange={this.props.dataChange}/>
-                        <Item key={mandatory.passengerName.itemNr}
-                              item={mandatory.passengerName}
+                        <Item item={mandatory.passengerName()}
                               dataChange={this.props.dataChange}/>
-                        <Item key={mandatory.electronicTicketIndicator.itemNr}
-                              item={mandatory.electronicTicketIndicator}
+                        <Item item={mandatory.electronicTicketIndicator()}
                               dataChange={this.props.dataChange}/>
 
-                        <Item key={conditional.beginningOfVersionNumber.itemNr}
-                              item={conditional.beginningOfVersionNumber}
+                        <Item item={conditional.beginningOfVersionNumber()}
                               dataChange={this.props.dataChange}/>
-                        <Item key={conditional.versionNumber.itemNr}
-                              item={conditional.versionNumber}
+                        <Item item={conditional.versionNumber()}
                               dataChange={this.props.dataChange}/>
-                        <Item key={conditional.generalConditionalSize.itemNr}
-                              item={conditional.generalConditionalSize}
+                        <Item item={conditional.generalConditionalSize()}
                               dataChange={this.props.dataChange}/>
 
-                        <OptionalItem key={conditional.passengerDescription.itemNr}
-                                      item={conditional.passengerDescription}
+                        <OptionalItem item={conditional.passengerDescription()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.sourceOfCheckIn.itemNr}
-                                      item={conditional.sourceOfCheckIn}
+                        <OptionalItem item={conditional.sourceOfCheckIn()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.sourceOfBoardingPassIssuance.itemNr}
-                                      item={conditional.sourceOfBoardingPassIssuance}
+                        <OptionalItem item={conditional.sourceOfBoardingPassIssuance()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.dateOfIssueOfBoardingPass.itemNr}
-                                      item={conditional.dateOfIssueOfBoardingPass}
+                        <OptionalItem item={conditional.dateOfIssueOfBoardingPass()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.documentType.itemNr}
-                                      item={conditional.documentType}
+                        <OptionalItem item={conditional.documentType()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.airlineDesignatorOfBoardingPassIssuer.itemNr}
-                                      item={conditional.airlineDesignatorOfBoardingPassIssuer}
+                        <OptionalItem item={conditional.airlineDesignatorOfBoardingPassIssuer()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.baggageTag.itemNr}
-                                      item={conditional.baggageTag}
+                        <OptionalItem item={conditional.baggageTag()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.firstNonConsecutiveBaggageTag.itemNr}
-                                      item={conditional.firstNonConsecutiveBaggageTag}
+                        <OptionalItem item={conditional.firstNonConsecutiveBaggageTag()}
                                       dataChange={this.props.dataChange}/>
-                        <OptionalItem key={conditional.secondNonConsecutiveBaggageTag.itemNr}
-                                      item={conditional.secondNonConsecutiveBaggageTag}
+                        <OptionalItem item={conditional.secondNonConsecutiveBaggageTag()}
                                       dataChange={this.props.dataChange}/>
                     </Form>
                 </Panel>
