@@ -63,9 +63,9 @@ class Bcbp extends React.Component {
                 <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems()}
                               conditionalItems={this.state.boardingPass.conditionalItems()}
                               dataChange={this.dataChange} />
-                <Flights flights={this.state.boardingPass.flights}
+                <Flights flights={this.state.boardingPass.flights()}
                          dataChange={this.dataChange}/>
-                <SecurityItems securityItems={this.state.boardingPass.securityItems}
+                <SecurityItems securityItems={this.state.boardingPass.securityItems()}
                                bcbpChange={this.dataChange}/>
             </Grid>
         )
