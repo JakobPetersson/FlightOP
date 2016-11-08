@@ -12,7 +12,8 @@ class OptionalItemTextField extends React.Component {
             <InputGroup>
                 <InputGroup.Addon>
                     <input type="checkbox"
-                           checked={this.props.enabled}/>
+                           checked={this.props.enabled}
+                           readOnly/>
                 </InputGroup.Addon>
                 <ItemTextField value={this.props.value}
                                maxLength={this.props.maxLength}
