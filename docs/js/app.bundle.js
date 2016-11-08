@@ -40468,23 +40468,23 @@
 	
 	var _BoardingPass2 = _interopRequireDefault(_BoardingPass);
 	
-	var _RawInput = __webpack_require__(480);
+	var _RawInput = __webpack_require__(481);
 	
 	var _RawInput2 = _interopRequireDefault(_RawInput);
 	
-	var _Barcodes = __webpack_require__(481);
+	var _Barcodes = __webpack_require__(482);
 	
 	var _Barcodes2 = _interopRequireDefault(_Barcodes);
 	
-	var _GeneralItems = __webpack_require__(496);
+	var _GeneralItems = __webpack_require__(497);
 	
 	var _GeneralItems2 = _interopRequireDefault(_GeneralItems);
 	
-	var _Flights = __webpack_require__(501);
+	var _Flights = __webpack_require__(502);
 	
 	var _Flights2 = _interopRequireDefault(_Flights);
 	
-	var _SecurityItems = __webpack_require__(503);
+	var _SecurityItems = __webpack_require__(504);
 	
 	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
 	
@@ -40609,7 +40609,7 @@
 	
 	var _Flight2 = _interopRequireDefault(_Flight);
 	
-	var _SecurityItems = __webpack_require__(475);
+	var _SecurityItems = __webpack_require__(476);
 	
 	var _SecurityItems2 = _interopRequireDefault(_SecurityItems);
 	
@@ -40907,20 +40907,45 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var Item = function () {
-	    function Item(itemNr, name, data, length) {
+	    function Item(itemNr, name, data, itemLength) {
 	        _classCallCheck(this, Item);
+	
+	        this._errorDescription = undefined;
 	
 	        this.itemNr = itemNr;
 	        this.name = name;
 	        this.data = data;
-	        this.length = length;
-	        this.enabled = data.length > 0;
 	
+	        this._enabled = data.length != 0;
+	
+	        if (this._enabled && data.length != itemLength) {
+	            this._errorDescription = 'Expected ' + itemLength + ' characters, got ' + data.length + '.';
+	        }
+	        this._length = itemLength;
+	
+	        this.maxLength = this.maxLength.bind(this);
+	        this.enabled = this.enabled.bind(this);
+	        this.errorDescription = this.errorDescription.bind(this);
 	        this.updateData = this.updateData.bind(this);
 	        this.build = this.build.bind(this);
 	    }
 	
 	    _createClass(Item, [{
+	        key: 'maxLength',
+	        value: function maxLength() {
+	            return this._length;
+	        }
+	    }, {
+	        key: 'enabled',
+	        value: function enabled() {
+	            return this._enabled;
+	        }
+	    }, {
+	        key: 'errorDescription',
+	        value: function errorDescription() {
+	            return this._errorDescription;
+	        }
+	    }, {
 	        key: 'updateData',
 	        value: function updateData(newData) {
 	            this.data = newData;
@@ -40928,11 +40953,7 @@
 	    }, {
 	        key: 'build',
 	        value: function build() {
-	            if (this.length < 255) {
-	                return this.data.padEnd(this.length, ' ').substr(0, this.length);
-	            } else {
-	                return this.data;
-	            }
+	            return this.data.padEnd(this._length, ' ').substr(0, this._length);
 	        }
 	    }]);
 	
@@ -42682,9 +42703,9 @@
 	    value: true
 	});
 	
-	var _Item2 = __webpack_require__(432);
+	var _VariableLengthItem2 = __webpack_require__(475);
 	
-	var _Item3 = _interopRequireDefault(_Item2);
+	var _VariableLengthItem3 = _interopRequireDefault(_VariableLengthItem2);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -42694,17 +42715,17 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var ForIndividualAirlineUse = function (_Item) {
-	    _inherits(ForIndividualAirlineUse, _Item);
+	var ForIndividualAirlineUse = function (_VariableLengthItem) {
+	    _inherits(ForIndividualAirlineUse, _VariableLengthItem);
 	
 	    function ForIndividualAirlineUse(provider, size) {
 	        _classCallCheck(this, ForIndividualAirlineUse);
 	
-	        return _possibleConstructorReturn(this, (ForIndividualAirlineUse.__proto__ || Object.getPrototypeOf(ForIndividualAirlineUse)).call(this, 4, 'For individual airline use', provider.getData(size), 255));
+	        return _possibleConstructorReturn(this, (ForIndividualAirlineUse.__proto__ || Object.getPrototypeOf(ForIndividualAirlineUse)).call(this, 4, 'For individual airline use', provider.getData(size), size));
 	    }
 	
 	    return ForIndividualAirlineUse;
-	}(_Item3.default);
+	}(_VariableLengthItem3.default);
 	
 	exports.default = ForIndividualAirlineUse;
 
@@ -42720,19 +42741,73 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _BeginningOfSecurityData = __webpack_require__(476);
+	var _Item2 = __webpack_require__(432);
+	
+	var _Item3 = _interopRequireDefault(_Item2);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VariableLengthItem = function (_Item) {
+	    _inherits(VariableLengthItem, _Item);
+	
+	    function VariableLengthItem(itemNr, name, data, itemLength) {
+	        _classCallCheck(this, VariableLengthItem);
+	
+	        var _this = _possibleConstructorReturn(this, (VariableLengthItem.__proto__ || Object.getPrototypeOf(VariableLengthItem)).call(this, itemNr, name, data, itemLength));
+	
+	        _this.maxLength = _this.maxLength.bind(_this);
+	        _this.build = _this.build.bind(_this);
+	        return _this;
+	    }
+	
+	    _createClass(VariableLengthItem, [{
+	        key: "maxLength",
+	        value: function maxLength() {
+	            return 255;
+	        }
+	    }, {
+	        key: "build",
+	        value: function build() {
+	            return this.data;
+	        }
+	    }]);
+	
+	    return VariableLengthItem;
+	}(_Item3.default);
+	
+	exports.default = VariableLengthItem;
+
+/***/ },
+/* 476 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _BeginningOfSecurityData = __webpack_require__(477);
 	
 	var _BeginningOfSecurityData2 = _interopRequireDefault(_BeginningOfSecurityData);
 	
-	var _TypeOfSecurityData = __webpack_require__(477);
+	var _TypeOfSecurityData = __webpack_require__(478);
 	
 	var _TypeOfSecurityData2 = _interopRequireDefault(_TypeOfSecurityData);
 	
-	var _SecurityDataSize = __webpack_require__(478);
+	var _SecurityDataSize = __webpack_require__(479);
 	
 	var _SecurityDataSize2 = _interopRequireDefault(_SecurityDataSize);
 	
-	var _SecurityData = __webpack_require__(479);
+	var _SecurityData = __webpack_require__(480);
 	
 	var _SecurityData2 = _interopRequireDefault(_SecurityData);
 	
@@ -42793,7 +42868,7 @@
 	exports.default = SecurityItems;
 
 /***/ },
-/* 476 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42829,7 +42904,7 @@
 	exports.default = BeginningOfSecurityData;
 
 /***/ },
-/* 477 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42865,7 +42940,7 @@
 	exports.default = TypeOfSecurityData;
 
 /***/ },
-/* 478 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42901,7 +42976,7 @@
 	exports.default = SecurityDataSize;
 
 /***/ },
-/* 479 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -42910,9 +42985,9 @@
 	    value: true
 	});
 	
-	var _Item2 = __webpack_require__(432);
+	var _VariableLengthItem2 = __webpack_require__(475);
 	
-	var _Item3 = _interopRequireDefault(_Item2);
+	var _VariableLengthItem3 = _interopRequireDefault(_VariableLengthItem2);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -42922,22 +42997,22 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SecurityData = function (_Item) {
-	    _inherits(SecurityData, _Item);
+	var SecurityData = function (_VariableLengthItem) {
+	    _inherits(SecurityData, _VariableLengthItem);
 	
 	    function SecurityData(provider, size) {
 	        _classCallCheck(this, SecurityData);
 	
-	        return _possibleConstructorReturn(this, (SecurityData.__proto__ || Object.getPrototypeOf(SecurityData)).call(this, 30, 'Security Data', provider.getData(size), 255));
+	        return _possibleConstructorReturn(this, (SecurityData.__proto__ || Object.getPrototypeOf(SecurityData)).call(this, 30, 'Security Data', provider.getData(size), size));
 	    }
 	
 	    return SecurityData;
-	}(_Item3.default);
+	}(_VariableLengthItem3.default);
 	
 	exports.default = SecurityData;
 
 /***/ },
-/* 480 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43012,7 +43087,7 @@
 	exports.default = RawInput;
 
 /***/ },
-/* 481 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43029,19 +43104,19 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _QRCode = __webpack_require__(482);
+	var _QRCode = __webpack_require__(483);
 	
 	var _QRCode2 = _interopRequireDefault(_QRCode);
 	
-	var _Aztec = __webpack_require__(493);
+	var _Aztec = __webpack_require__(494);
 	
 	var _Aztec2 = _interopRequireDefault(_Aztec);
 	
-	var _Datamatrix = __webpack_require__(494);
+	var _Datamatrix = __webpack_require__(495);
 	
 	var _Datamatrix2 = _interopRequireDefault(_Datamatrix);
 	
-	var _PDF = __webpack_require__(495);
+	var _PDF = __webpack_require__(496);
 	
 	var _PDF2 = _interopRequireDefault(_PDF);
 	
@@ -43155,7 +43230,7 @@
 	exports.default = Barcodes;
 
 /***/ },
-/* 482 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43170,7 +43245,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _qrcode = __webpack_require__(483);
+	var _qrcode = __webpack_require__(484);
 	
 	var _qrcode2 = _interopRequireDefault(_qrcode);
 	
@@ -43208,7 +43283,7 @@
 	exports.default = QROutput;
 
 /***/ },
-/* 483 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43216,8 +43291,8 @@
 	var React = __webpack_require__(1);
 	// qr.js doesn't handle error level of zero (M) so we need to do it right,
 	// thus the deep require.
-	var QRCodeImpl = __webpack_require__(484);
-	var ErrorCorrectLevel = __webpack_require__(488);
+	var QRCodeImpl = __webpack_require__(485);
+	var ErrorCorrectLevel = __webpack_require__(489);
 	
 	function getBackingStorePixelRatio(ctx) {
 	  return ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1;
@@ -43320,16 +43395,16 @@
 	module.exports = QRCode;
 
 /***/ },
-/* 484 */
+/* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var BitByte = __webpack_require__(485);
-	var RSBlock = __webpack_require__(487);
-	var BitBuffer = __webpack_require__(489);
-	var util = __webpack_require__(490);
-	var Polynomial = __webpack_require__(491);
+	var BitByte = __webpack_require__(486);
+	var RSBlock = __webpack_require__(488);
+	var BitBuffer = __webpack_require__(490);
+	var util = __webpack_require__(491);
+	var Polynomial = __webpack_require__(492);
 	
 	function QRCode(typeNumber, errorCorrectLevel) {
 		this.typeNumber = typeNumber;
@@ -43755,12 +43830,12 @@
 	module.exports = QRCode;
 
 /***/ },
-/* 485 */
+/* 486 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var mode = __webpack_require__(486);
+	var mode = __webpack_require__(487);
 	
 	function QR8bitByte(data) {
 		this.mode = mode.MODE_8BIT_BYTE;
@@ -43784,7 +43859,7 @@
 	module.exports = QR8bitByte;
 
 /***/ },
-/* 486 */
+/* 487 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -43797,13 +43872,13 @@
 	};
 
 /***/ },
-/* 487 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	// ErrorCorrectLevel
-	var ECL = __webpack_require__(488);
+	var ECL = __webpack_require__(489);
 	
 	function QRRSBlock(totalCount, dataCount) {
 		this.totalCount = totalCount;
@@ -43982,7 +44057,7 @@
 	module.exports = QRRSBlock;
 
 /***/ },
-/* 488 */
+/* 489 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -43995,7 +44070,7 @@
 	};
 
 /***/ },
-/* 489 */
+/* 490 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -44040,14 +44115,14 @@
 	module.exports = QRBitBuffer;
 
 /***/ },
-/* 490 */
+/* 491 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Mode = __webpack_require__(486);
-	var Polynomial = __webpack_require__(491);
-	var math = __webpack_require__(492);
+	var Mode = __webpack_require__(487);
+	var Polynomial = __webpack_require__(492);
+	var math = __webpack_require__(493);
 	
 	var QRMaskPattern = {
 		PATTERN000: 0,
@@ -44290,12 +44365,12 @@
 	module.exports = QRUtil;
 
 /***/ },
-/* 491 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var math = __webpack_require__(492);
+	var math = __webpack_require__(493);
 	
 	function QRPolynomial(num, shift) {
 	
@@ -44364,7 +44439,7 @@
 	module.exports = QRPolynomial;
 
 /***/ },
-/* 492 */
+/* 493 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -44412,7 +44487,7 @@
 	module.exports = QRMath;
 
 /***/ },
-/* 493 */
+/* 494 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44461,7 +44536,7 @@
 	exports.default = Aztec;
 
 /***/ },
-/* 494 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44510,7 +44585,7 @@
 	exports.default = Datamatrix;
 
 /***/ },
-/* 495 */
+/* 496 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44559,7 +44634,7 @@
 	exports.default = PDF417;
 
 /***/ },
-/* 496 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44576,11 +44651,11 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(497);
+	var _Item = __webpack_require__(498);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
-	var _OptionalItem = __webpack_require__(499);
+	var _OptionalItem = __webpack_require__(500);
 	
 	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
 	
@@ -44682,7 +44757,7 @@
 	exports.default = GeneralItems;
 
 /***/ },
-/* 497 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44699,7 +44774,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _ItemTextField = __webpack_require__(498);
+	var _ItemTextField = __webpack_require__(499);
 	
 	var _ItemTextField2 = _interopRequireDefault(_ItemTextField);
 	
@@ -44740,12 +44815,15 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	
+	            var validationState = this.state.item.errorDescription() ? 'error' : undefined;
+	
 	            return _react2.default.createElement(
 	                _reactBootstrap.ListGroupItem,
 	                null,
 	                _react2.default.createElement(
 	                    _reactBootstrap.FormGroup,
-	                    null,
+	                    { validationState: validationState },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { componentClass: _reactBootstrap.ControlLabel, sm: 4 },
@@ -44755,9 +44833,10 @@
 	                        _reactBootstrap.Col,
 	                        { sm: 8 },
 	                        _react2.default.createElement(_ItemTextField2.default, { value: this.state.item.data,
-	                            maxLength: this.state.item.length,
+	                            maxLength: this.state.item.maxLength(),
 	                            dataChange: this.dataChange
-	                        })
+	                        }),
+	                        _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
 	                    )
 	                )
 	            );
@@ -44770,7 +44849,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 498 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44859,7 +44938,7 @@
 	exports.default = ItemTextField;
 
 /***/ },
-/* 499 */
+/* 500 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44876,7 +44955,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _OptionalItemTextField = __webpack_require__(500);
+	var _OptionalItemTextField = __webpack_require__(501);
 	
 	var _OptionalItemTextField2 = _interopRequireDefault(_OptionalItemTextField);
 	
@@ -44917,12 +44996,15 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	
+	            var validationState = this.state.item.errorDescription() ? 'error' : undefined;
+	
 	            return _react2.default.createElement(
 	                _reactBootstrap.ListGroupItem,
 	                null,
 	                _react2.default.createElement(
 	                    _reactBootstrap.FormGroup,
-	                    null,
+	                    { validationState: validationState },
 	                    _react2.default.createElement(
 	                        _reactBootstrap.Col,
 	                        { componentClass: _reactBootstrap.ControlLabel, sm: 4 },
@@ -44932,10 +45014,11 @@
 	                        _reactBootstrap.Col,
 	                        { sm: 8 },
 	                        _react2.default.createElement(_OptionalItemTextField2.default, { value: this.state.item.data,
-	                            maxLength: this.state.item.length,
-	                            dataChange: this.dataChange,
-	                            enabled: this.state.item.enabled
-	                        })
+	                            maxLength: this.state.item.maxLength(),
+	                            enabled: this.state.item.enabled(),
+	                            dataChange: this.dataChange
+	                        }),
+	                        _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
 	                    )
 	                )
 	            );
@@ -44948,7 +45031,7 @@
 	exports.default = OptionalItem;
 
 /***/ },
-/* 500 */
+/* 501 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44965,7 +45048,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _ItemTextField = __webpack_require__(498);
+	var _ItemTextField = __webpack_require__(499);
 	
 	var _ItemTextField2 = _interopRequireDefault(_ItemTextField);
 	
@@ -44996,7 +45079,8 @@
 	                    _reactBootstrap.InputGroup.Addon,
 	                    null,
 	                    _react2.default.createElement("input", { type: "checkbox",
-	                        checked: this.props.enabled })
+	                        checked: this.props.enabled,
+	                        readOnly: true })
 	                ),
 	                _react2.default.createElement(_ItemTextField2.default, { value: this.props.value,
 	                    maxLength: this.props.maxLength,
@@ -45012,7 +45096,7 @@
 	exports.default = OptionalItemTextField;
 
 /***/ },
-/* 501 */
+/* 502 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45029,7 +45113,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Flight = __webpack_require__(502);
+	var _Flight = __webpack_require__(503);
 	
 	var _Flight2 = _interopRequireDefault(_Flight);
 	
@@ -45072,7 +45156,7 @@
 	exports.default = Flights;
 
 /***/ },
-/* 502 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45089,11 +45173,11 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(497);
+	var _Item = __webpack_require__(498);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
-	var _OptionalItem = __webpack_require__(499);
+	var _OptionalItem = __webpack_require__(500);
 	
 	var _OptionalItem2 = _interopRequireDefault(_OptionalItem);
 	
@@ -45213,7 +45297,7 @@
 	exports.default = Flight;
 
 /***/ },
-/* 503 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45230,7 +45314,7 @@
 	
 	var _reactBootstrap = __webpack_require__(173);
 	
-	var _Item = __webpack_require__(497);
+	var _Item = __webpack_require__(498);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
