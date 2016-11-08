@@ -30,7 +30,7 @@ class Item extends React.Component {
                     <Col componentClass={ControlLabel} sm={4}>{this.state.item.name}</Col>
                     <Col sm={8}>
                         <ItemTextField value={this.state.item.data}
-                                       maxLength={this.state.item.length}
+                                       maxLength={this.state.item.maxLength()}
                                        dataChange={this.dataChange}
                         />
                         <FormControl.Feedback />
