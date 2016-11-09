@@ -5,7 +5,7 @@ import BoardingPass from "./BoardingPass";
 
 class BoardingPassBuilder {
     static build(rawData) {
-        let flights = [];
+        const flights = [];
 
         let provider = new DataProvider(rawData);
 
