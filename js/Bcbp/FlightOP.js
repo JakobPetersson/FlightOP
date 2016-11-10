@@ -3,7 +3,7 @@ import {Grid, Row, Col} from "react-bootstrap";
 import BoardingPassBuilder from "../BoardingPass/model/BoardingPassBuilder";
 import RawInput from "./RawInput";
 import Barcodes from "./barcodes/Barcodes";
-import Bcbp from "./Bcbp";
+import Bcbp from "./bcbp/Bcbp";
 
 class FlightOP extends React.Component {
     constructor(props) {
