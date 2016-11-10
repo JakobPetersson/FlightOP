@@ -3,7 +3,7 @@ import {Grid, Row, Col} from "react-bootstrap";
 import BoardingPassBuilder from "../BoardingPass/model/BoardingPassBuilder";
 import RawInput from "./RawInput";
 import Barcodes from "./barcodes/Barcodes";
-import GeneralItems from "./GeneralItems";
+import General from "./General";
 import Flights from "./Flights";
 import SecurityItems from "./SecurityItems";
 
@@ -11,14 +11,13 @@ class Bcbp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardingPass: BoardingPassBuilder.build(this.loadInitialData())
+            boardingPass: BoardingPassBuilder.build(Bcbp.loadInitialData())
         };
         this.setData = this.setData.bind(this);
         this.dataChange = this.dataChange.bind(this);
-        this.loadInitialData();
     }
 
-    loadInitialData() {
+    static loadInitialData() {
         let queryData = Bcbp.getParameterByName("data");
         if (queryData) {
             return queryData;
@@ -45,7 +44,6 @@ class Bcbp extends React.Component {
         this.setState({boardingPass: this.state.boardingPass.build()});
     }
 
-
     render() {
         return (
             <Grid>
@@ -60,9 +58,9 @@ class Bcbp extends React.Component {
                         <Barcodes rawData={this.state.boardingPass.rawData()} />
                     </Col>
                 </Row>
-                <GeneralItems mandatoryItems={this.state.boardingPass.mandatoryItems()}
-                              conditionalItems={this.state.boardingPass.conditionalItems()}
-                              dataChange={this.dataChange} />
+                <General mandatoryItems={this.state.boardingPass.mandatoryItems()}
+                         conditionalItems={this.state.boardingPass.conditionalItems()}
+                         dataChange={this.dataChange} />
                 <Flights flights={this.state.boardingPass.flights()}
                          dataChange={this.dataChange}/>
                 <SecurityItems securityItems={this.state.boardingPass.securityItems()}
