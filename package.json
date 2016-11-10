@@ -1,12 +1,12 @@
 {
-  "name": "FlightOP",
+  "name": "flight-op",
   "version": "1.0.0",
-  "description": "",
+  "description": "FlightOP is a tool for visualizing boardingcard data.",
   "main": "index.js",
   "scripts": {
     "webpack": "webpack"
   },
-  "author": "",
+  "author": "Jakob Petersson",
   "license": "GPL-3.0",
   "devDependencies": {
     "babel-core": "^6.17.0",
