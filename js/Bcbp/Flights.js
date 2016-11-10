@@ -11,7 +11,8 @@ class Flights extends React.Component {
         return (
             <Row className="show-grid">
                 {this.props.flights.map((flight) => (
-                    <Flight key={flight.id} flight={flight}
+                    <Flight key={flight.id}
+                            flight={flight}
                             dataChange={this.props.dataChange}/>
                 ))}
             </Row>
