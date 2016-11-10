@@ -13,7 +13,7 @@ It allows you to scan a boarding card, and then automatically open FlightOP with
 
 In `Settings/Barcode Settings/Send barcode to web server`, configure the app to point to your copy of FlightOP or the following website URL:
 ```
-https://jakobpetersson.github.io/FlightOP/?data=[data]
+https://jakobpetersson.github.io/FlightOP-web/?data=[data]
 ```
 
 ## Building
