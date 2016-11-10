@@ -1,6 +1,6 @@
 import React from "react";
 import {Panel, Form} from "react-bootstrap";
-import Item from "./item/Item";
+import Item from "./items/item";
 
 class FlightMandatory extends React.Component {
     constructor(props) {

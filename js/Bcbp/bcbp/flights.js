@@ -1,6 +1,6 @@
 import React from "react";
 import {Row} from "react-bootstrap";
-import Flight from "./Flight";
+import Flight from "./flight";
 
 class Flights extends React.Component {
     constructor(props) {

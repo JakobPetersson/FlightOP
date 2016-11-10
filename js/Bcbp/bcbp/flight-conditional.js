@@ -1,7 +1,7 @@
 import React from "react";
 import {Panel, Form} from "react-bootstrap";
-import Item from "./item/Item";
-import OptionalItem from "./item/OptionalItem";
+import Item from "./items/item";
+import OptionalItem from "./items/optional-item";
 
 class Flight extends React.Component {
     constructor(props) {

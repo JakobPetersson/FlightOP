@@ -1,7 +1,7 @@
 import React from "react";
-import GeneralMandatory from "./GeneralMandatory";
-import HeaderConditional from "./HeaderConditional";
-import GeneralConditional from "./GeneralConditional";
+import GeneralMandatory from "./general-mandatory";
+import HeaderConditional from "./header-conditional";
+import GeneralConditional from "./general-conditional";
 
 class GeneralItems extends React.Component {
     constructor(props) {

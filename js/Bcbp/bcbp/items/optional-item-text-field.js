@@ -1,6 +1,6 @@
 import React from "react";
 import {InputGroup} from "react-bootstrap";
-import ItemTextField from "./ItemTextField";
+import ItemTextField from "./item-text-field";
 
 class OptionalItemTextField extends React.Component {
     constructor(props) {

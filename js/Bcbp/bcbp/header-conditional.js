@@ -1,6 +1,6 @@
 import React from "react";
 import {Row, Panel, Form} from "react-bootstrap";
-import Item from "./item/Item";
+import Item from "./items/item";
 
 class GeneralItems extends React.Component {
     constructor(props) {
@@ -9,22 +9,18 @@ class GeneralItems extends React.Component {
 
     render() {
         const title = (
-            <h3>General Information Mandatory</h3>
+            <h3>Conditionals header</h3>
         );
 
-        let mandatory = this.props.mandatoryItems;
+        let conditional = this.props.conditionalItems;
 
         return (
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
-                        <Item item={mandatory.formatCode()}
+                        <Item item={conditional.beginningOfVersionNumber()}
                               dataChange={this.props.dataChange}/>
-                        <Item item={mandatory.numberOfLegsEncoded()}
-                              dataChange={this.props.dataChange}/>
-                        <Item item={mandatory.passengerName()}
-                              dataChange={this.props.dataChange}/>
-                        <Item item={mandatory.electronicTicketIndicator()}
+                        <Item item={conditional.versionNumber()}
                               dataChange={this.props.dataChange}/>
                     </Form>
                 </Panel>

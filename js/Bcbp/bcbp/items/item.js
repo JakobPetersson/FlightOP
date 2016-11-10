@@ -1,6 +1,6 @@
 import React from "react";
 import {ListGroupItem, FormGroup, ControlLabel, Col, FormControl} from "react-bootstrap";
-import ItemTextField from "./ItemTextField";
+import ItemTextField from "./item-text-field";
 
 class Item extends React.Component {
     constructor(props) {

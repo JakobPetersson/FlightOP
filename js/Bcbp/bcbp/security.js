@@ -1,6 +1,6 @@
 import React from "react";
 import {Row, Panel, Form, Checkbox} from "react-bootstrap";
-import Item from "./item/Item";
+import Item from "./items/item";
 
 class SecurityItems extends React.Component {
     constructor(props) {

@@ -1,7 +1,7 @@
 import React from "react";
-import General from "../General";
-import Flights from "../Flights";
-import SecurityItems from "../SecurityItems";
+import General from "./general";
+import Flights from "./flights";
+import SecurityItems from "./security";
 
 class Bcbp extends React.Component {
     constructor(props) {

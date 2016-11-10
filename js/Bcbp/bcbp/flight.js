@@ -1,6 +1,6 @@
 import React from "react";
-import FlightMandatory from "./FlightMandatory";
-import FlightConditional from "./FlightConditional";
+import FlightMandatory from "./flight-mandatory";
+import FlightConditional from "./flight-conditional";
 
 class Flight extends React.Component {
     constructor(props) {

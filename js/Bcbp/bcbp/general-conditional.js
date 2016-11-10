@@ -1,7 +1,7 @@
 import React from "react";
 import {Row, Panel, Form} from "react-bootstrap";
-import Item from "./item/Item";
-import OptionalItem from "./item/OptionalItem";
+import Item from "./items/item";
+import OptionalItem from "./items/optional-item";
 
 class GeneralItems extends React.Component {
     constructor(props) {
