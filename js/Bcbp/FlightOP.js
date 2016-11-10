@@ -3,9 +3,7 @@ import {Grid, Row, Col} from "react-bootstrap";
 import BoardingPassBuilder from "../BoardingPass/model/BoardingPassBuilder";
 import RawInput from "./RawInput";
 import Barcodes from "./barcodes/Barcodes";
-import General from "./General";
-import Flights from "./Flights";
-import SecurityItems from "./SecurityItems";
+import Bcbp from "./Bcbp";
 
 class FlightOP extends React.Component {
     constructor(props) {
@@ -14,7 +12,7 @@ class FlightOP extends React.Component {
             boardingPass: BoardingPassBuilder.build(FlightOP.loadInitialData())
         };
         this.setData = this.setData.bind(this);
-        this.dataChange = this.dataChange.bind(this);
+        this.bcbpChange = this.bcbpChange.bind(this);
     }
 
     static loadInitialData() {
@@ -40,7 +38,7 @@ class FlightOP extends React.Component {
         this.setState({boardingPass: BoardingPassBuilder.build(newData)});
     }
 
-    dataChange() {
+    bcbpChange() {
         this.setState({boardingPass: this.state.boardingPass.build()});
     }
 
@@ -51,20 +49,15 @@ class FlightOP extends React.Component {
                     <h1>Boarding pass</h1>
                 </Row>
                 <Row>
-                    <Col xs={12} md={6} >
-                        <RawInput rawData={this.state.boardingPass.rawData()} setData={this.setData} />
+                    <Col xs={12} md={6}>
+                        <RawInput rawData={this.state.boardingPass.rawData()} setData={this.setData}/>
                     </Col>
-                    <Col xs={12} md={6} >
-                        <Barcodes rawData={this.state.boardingPass.rawData()} />
+                    <Col xs={12} md={6}>
+                        <Barcodes rawData={this.state.boardingPass.rawData()}/>
                     </Col>
                 </Row>
-                <General mandatoryItems={this.state.boardingPass.mandatoryItems()}
-                         conditionalItems={this.state.boardingPass.conditionalItems()}
-                         dataChange={this.dataChange} />
-                <Flights flights={this.state.boardingPass.flights()}
-                         dataChange={this.dataChange}/>
-                <SecurityItems securityItems={this.state.boardingPass.securityItems()}
-                               bcbpChange={this.dataChange}/>
+                <Bcbp boardingPass={this.state.boardingPass}
+                      bcbpChange={this.props.bcbpChange}/>
             </Grid>
         )
     }
