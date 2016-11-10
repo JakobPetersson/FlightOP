@@ -7,18 +7,18 @@ import General from "./General";
 import Flights from "./Flights";
 import SecurityItems from "./SecurityItems";
 
-class Bcbp extends React.Component {
+class FlightOP extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardingPass: BoardingPassBuilder.build(Bcbp.loadInitialData())
+            boardingPass: BoardingPassBuilder.build(FlightOP.loadInitialData())
         };
         this.setData = this.setData.bind(this);
         this.dataChange = this.dataChange.bind(this);
     }
 
     static loadInitialData() {
-        let queryData = Bcbp.getParameterByName("data");
+        let queryData = FlightOP.getParameterByName("data");
         if (queryData) {
             return queryData;
         } else {
@@ -70,4 +70,4 @@ class Bcbp extends React.Component {
     }
 }
 
-export default Bcbp;
+export default FlightOP;
