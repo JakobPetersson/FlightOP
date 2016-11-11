@@ -19,13 +19,13 @@ class MandatoryGeneral extends React.Component {
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
                         <Item item={mandatory.formatCode()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                         <Item item={mandatory.numberOfLegsEncoded()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                         <Item item={mandatory.passengerName()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                         <Item item={mandatory.electronicTicketIndicator()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                     </Form>
                 </Panel>
             </Row>

@@ -9,19 +9,19 @@ class GeneralItems extends React.Component {
 
     render() {
         const title = (
-            <h3>Conditionals header</h3>
+            <h3>Conditional header</h3>
         );
 
-        let conditional = this.props.conditionalItems;
+        let conditional = this.props.conditionalGeneralItems;
 
         return (
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
                         <Item item={conditional.beginningOfVersionNumber()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                         <Item item={conditional.versionNumber()}
-                              dataChange={this.props.dataChange}/>
+                              dataChange={this.props.bcbpChange}/>
                     </Form>
                 </Panel>
             </Row>
