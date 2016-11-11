@@ -2,7 +2,7 @@ import React from "react";
 import {Row, Panel, Form} from "react-bootstrap";
 import Item from "./items/item";
 
-class GeneralItems extends React.Component {
+class MandatoryGeneral extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -12,7 +12,7 @@ class GeneralItems extends React.Component {
             <h3>General Information Mandatory</h3>
         );
 
-        let mandatory = this.props.mandatoryItems;
+        let mandatory = this.props.mandatoryGeneralItems;
 
         return (
             <Row className="show-grid">
@@ -33,4 +33,4 @@ class GeneralItems extends React.Component {
     }
 }
 
-export default GeneralItems;
+export default MandatoryGeneral;
