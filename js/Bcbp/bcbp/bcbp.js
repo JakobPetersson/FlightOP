@@ -15,18 +15,18 @@ class Bcbp extends React.Component {
 
         const conditionalHeader = (
             <ConditionalHeader conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
-                               bcbpChange={this.bcbpChange}/>
+                               bcbpChange={this.props.bcbpChange}/>
         );
 
         const conditionalGeneral = (
             <ConditionalGeneral conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
-                                bcbpChange={this.bcbpChange}/>
+                                bcbpChange={this.props.bcbpChange}/>
         );
 
         return (
             <div>
                 <MandatoryGeneral mandatoryGeneralItems={this.props.boardingPass.mandatoryItems()}
-                                  bcbpChange={this.bcbpChange}/>
+                                  bcbpChange={this.props.bcbpChange}/>
                 {this.props.boardingPass.flights().map((flight) => (
                     <div key={flight.id()}>
                         <MandatoryFlight flightId={flight.id()}

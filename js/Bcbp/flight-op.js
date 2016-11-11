@@ -57,7 +57,7 @@ class FlightOP extends React.Component {
                     </Col>
                 </Row>
                 <Bcbp boardingPass={this.state.boardingPass}
-                      bcbpChange={this.props.bcbpChange}/>
+                      bcbpChange={this.bcbpChange}/>
             </Grid>
         )
     }
