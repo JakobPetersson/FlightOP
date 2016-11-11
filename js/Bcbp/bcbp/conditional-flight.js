@@ -1,5 +1,5 @@
 import React from "react";
-import {Panel, Form} from "react-bootstrap";
+import {Row, Panel, Form} from "react-bootstrap";
 import Item from "./items/item";
 import OptionalItem from "./items/optional-item";
 
@@ -16,36 +16,38 @@ class ConditionalFlight extends React.Component {
         const items = this.props.conditionalFlightItems;
 
         return (
-            <Panel header={title} bsStyle="primary">
-                <Form horizontal fill>
-                    <Item item={items.flightConditionalSize()}
-                          dataChange={this.props.bcbpChange}/>
+            <Row className="show-grid">
+                <Panel header={title} bsStyle="primary">
+                    <Form horizontal fill>
+                        <Item item={items.flightConditionalSize()}
+                              dataChange={this.props.bcbpChange}/>
 
-                    <OptionalItem item={items.airlineNumericCode()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.documentFormOrSerialNumber()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.selecteeIndicator()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.internationalDocumentationVerification()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.marketingCarrierDesignator()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.frequentFlyerAirlineDesignator()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.frequentFlyerNumber()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.idOrAdIndicator()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.freeBaggageAllowance()}
-                                  dataChange={this.props.bcbpChange}/>
-                    <OptionalItem item={items.fastTrack()}
-                                  dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.airlineNumericCode()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.documentFormOrSerialNumber()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.selecteeIndicator()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.internationalDocumentationVerification()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.marketingCarrierDesignator()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.frequentFlyerAirlineDesignator()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.frequentFlyerNumber()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.idOrAdIndicator()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.freeBaggageAllowance()}
+                                      dataChange={this.props.bcbpChange}/>
+                        <OptionalItem item={items.fastTrack()}
+                                      dataChange={this.props.bcbpChange}/>
 
-                    <OptionalItem item={items.forIndividualAirlineUse()}
-                                  dataChange={this.props.bcbpChange}/>
-                </Form>
-            </Panel>
+                        <OptionalItem item={items.forIndividualAirlineUse()}
+                                      dataChange={this.props.bcbpChange}/>
+                    </Form>
+                </Panel>
+            </Row>
         )
     }
 }

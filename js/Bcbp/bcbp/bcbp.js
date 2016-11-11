@@ -12,22 +12,31 @@ class Bcbp extends React.Component {
     }
 
     render() {
+
+        const conditionalHeader = (
+            <ConditionalHeader conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
+                               bcbpChange={this.bcbpChange}/>
+        );
+
+        const conditionalGeneral = (
+            <ConditionalGeneral conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
+                                bcbpChange={this.bcbpChange}/>
+        );
+
         return (
             <div>
                 <MandatoryGeneral mandatoryGeneralItems={this.props.boardingPass.mandatoryItems()}
                                   bcbpChange={this.bcbpChange}/>
-                <ConditionalHeader conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
-                                   bcbpChange={this.bcbpChange}/>
-                <ConditionalGeneral conditionalGeneralItems={this.props.boardingPass.conditionalItems()}
-                                    bcbpChange={this.bcbpChange}/>
                 {this.props.boardingPass.flights().map((flight) => (
                     <div key={flight.id()}>
                         <MandatoryFlight flightId={flight.id()}
                                          mandatoryFlightItems={flight.mandatoryItems()}
                                          bcbpChange={this.props.bcbpChange}/>
+                        {flight.id() == 1? conditionalHeader : undefined}
                         <ConditionalFlight flightId={flight.id()}
                                            conditionalFlightItems={flight.conditionalItems()}
                                            bcbpChange={this.props.bcbpChange}/>
+                        {flight.id() == 1? conditionalGeneral : undefined}
                     </div>
                 ))}
                 <Security securityItems={this.props.boardingPass.securityItems()}
