@@ -9,22 +9,22 @@ class MandatoryGeneral extends React.Component {
 
     render() {
         const title = (
-            <h3>General Information Mandatory</h3>
+            <h3>General Mandatory Information</h3>
         );
 
-        let mandatory = this.props.mandatoryGeneralItems;
+        const items = this.props.mandatoryGeneralItems;
 
         return (
             <Row className="show-grid">
                 <Panel header={title} bsStyle="primary">
                     <Form horizontal fill>
-                        <Item item={mandatory.formatCode()}
+                        <Item item={items.formatCode()}
                               dataChange={this.props.bcbpChange}/>
-                        <Item item={mandatory.numberOfLegsEncoded()}
+                        <Item item={items.numberOfLegsEncoded()}
                               dataChange={this.props.bcbpChange}/>
-                        <Item item={mandatory.passengerName()}
+                        <Item item={items.passengerName()}
                               dataChange={this.props.bcbpChange}/>
-                        <Item item={mandatory.electronicTicketIndicator()}
+                        <Item item={items.electronicTicketIndicator()}
                               dataChange={this.props.bcbpChange}/>
                     </Form>
                 </Panel>

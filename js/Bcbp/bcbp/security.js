@@ -2,7 +2,7 @@ import React from "react";
 import {Row, Panel, Form, Checkbox} from "react-bootstrap";
 import Item from "./items/item";
 
-class SecurityItems extends React.Component {
+class Security extends React.Component {
     constructor(props) {
         super(props);
         this.state = {securityItems: this.props.securityItems};
@@ -50,4 +50,4 @@ class SecurityItems extends React.Component {
     }
 }
 
-export default SecurityItems;
+export default Security;
